@@ -1,20 +1,21 @@
 package model;
-
 import java.util.ArrayList;
 
 public class Album {
 	private ArrayList<Song> songs;
 	private String title;
 	private String artist;
+	private int year;
 	public enum Genre {POP, ALTERNATIVE, TRADITIONAL_COUNTRY, 
 						LATIN, ROCK, SINGER_SONGWRITER }
 	private Genre genre;
 	
-	public Album(String title, String artist, String strGenre) {
+	public Album(String title, String artist, String strGenre, String year) {
 		songs = new ArrayList<Song>();
 		this.title = title;
 		this.artist = artist;
 		setGenre(strGenre);
+		this.year = Integer.valueOf(year);
 	}
 	
 	private void setGenre(String strGenre) {
@@ -45,13 +46,13 @@ public class Album {
 		songs.add(song);
 	}
 	
-	public String getSongs() {
-		String songsStr = "";
+	public ArrayList<String> getSongs() {
+		ArrayList<String> songList = new ArrayList<>();
 		for (Song s : songs) {
-			songsStr += s.getTitle() + "\n";
+			songList.add(s.getTitle());
 		}
 		
-		return songsStr;
+		return songList;
 	}
 	
 	public String getTitle() {
@@ -64,5 +65,9 @@ public class Album {
 	
 	public Genre getGenre() {
 		return genre;
+	}
+	
+	public int getYear() {
+		return year;
 	}
 	}
