@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Optional;
-
 public class Song {
 	private Album album;
 	private String title;
@@ -22,19 +20,28 @@ public class Song {
 		switch(userRating) {
 		case 1:
 			rating = Rating.ONE;
+			break;
 		case 2:
 			rating = Rating.TWO;
+			break;
 		case 3: 
 			rating = Rating.THREE;
+			break;
 		case 4:
 			rating = Rating.FOUR;
-		case 5:
+			break;
+		default:
 			rating = Rating.FAVORITE;
 		}
 	}
 	
-	public Optional<Rating> getRating() {
-		return Optional.ofNullable(this.rating);
+	public void favorite() {
+		rating = Rating.FAVORITE;
+	}
+	
+	// how to make optional?
+	public Rating getRating() {
+		return rating;
 	}
 	
 	public String getTitle() {
