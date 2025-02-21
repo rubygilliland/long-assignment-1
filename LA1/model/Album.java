@@ -70,4 +70,20 @@ public class Album {
 	public int getYear() {
 		return year;
 	}
+	
+	@Override
+	public boolean equals(Object otherAlbum) {
+		if (this.getClass() != otherAlbum.getClass()) {
+			return false;
+		}
+		else {
+			return (this.title.equals(((Album) otherAlbum).title) && this.genre == ((Album) otherAlbum).genre &&
+				this.year == ((Album) otherAlbum).year && this.artist.equals(((Album) otherAlbum).artist));
+		}
 	}
+	
+	@Override
+	public String toString() {
+		return this.title + " " + this.artist + " " + this.genre + " " + this.year;
+	}
+}
