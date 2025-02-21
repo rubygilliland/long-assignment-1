@@ -7,8 +7,13 @@ public class MusicStore {
 	private ArrayList<Album> albums;
 	
 	public MusicStore() {
+		albums = Parser.makeAlbumList("C:\\Users\\colin\\eclipse-workspace\\long-assignment-1\\LA1\\test\\albums\\albums.txt");
 		songs = new ArrayList<Song>();
-		albums = new ArrayList<Album>();
+		for (Album a : albums) {
+			for (Song s : a.getSongs()) {
+				songs.add(s);
+			}
+		}
 	}
 	
 	public String getSongByTitle(String songTitle) {
@@ -63,6 +68,24 @@ public class MusicStore {
 	
 	public ArrayList<Album> getAlbums(){
 		return new ArrayList<Album>(albums);
+	}
+	
+	@Override
+	public String toString() {
+		String message = "Music Store:\n";
+		message += "\tAlbums:\n";
+		for (int i = 0; i < albums.size(); i++){
+			int j = i+1;
+			message += "\t\t" + j + ". " + albums.get(i).toString() + "\n";
+		}
+		message += "\tSongs:\n";
+		for (int i = 0; i < songs.size(); i++) {
+			int j = i+1;
+			message += "\t\t" + j + ". " + songs.get(i).toString() + "\n";
+		}
+		
+		return message;
+		
 	}
 
 	}
