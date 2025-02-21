@@ -46,13 +46,8 @@ public class Album {
 		songs.add(song);
 	}
 	
-	public ArrayList<String> getSongs() {
-		ArrayList<String> songList = new ArrayList<>();
-		for (Song s : songs) {
-			songList.add(s.getTitle());
-		}
-		
-		return songList;
+	public ArrayList<Song> getSongs() {
+		return new ArrayList<Song>(songs);
 	}
 	
 	public String getTitle() {
