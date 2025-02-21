@@ -55,4 +55,10 @@ public class Song {
 	public String getAlbum() {
 		return album.getTitle();
 	}
+	
+	@Override
+	public String toString() {
+		String message = this.title + " - by: " + this.artist;
+		return message;
+	}
 }

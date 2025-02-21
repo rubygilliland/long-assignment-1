@@ -1,12 +1,13 @@
 package view;
-import model.Parser;
-import model.Album;
+import model.*;
 
 public class Main {
 	
 	public static void main(String[] args) {
-		Album myAlbum = Parser.makeAlbum("test2.txt");
+		MusicStore musicStore = new MusicStore();
+		UserLibrary userLibrary = new UserLibrary(musicStore);
 		
+		System.out.print(musicStore);
 		
 	}
 }
