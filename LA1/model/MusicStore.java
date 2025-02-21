@@ -57,6 +57,13 @@ public class MusicStore {
 		return albumStr;
 	}
 	
+	public ArrayList<Song> getSongs(){
+		return new ArrayList<Song>(songs);
+	}
+	
+	public ArrayList<Album> getAlbums(){
+		return new ArrayList<Album>(albums);
+	}
 
 	}
 
