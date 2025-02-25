@@ -9,8 +9,8 @@ public class Main {
 			"Whether you're in the mood for chill beats, \nhigh-energy anthems, or fresh new sounds, " + 
 			"VibeStream brings the best music straight to you!\n";
 	
-	public static final String LIST_OF_COMMANDS = "List of Commands:\n1. Search\n2. Browse \n3. Create Playlist" + 
-	"\n4. View Playlists\n5. Add Songs\n6. Add Alubms\n7. Rate Song";
+	public static final String LIST_OF_COMMANDS = "List of Commands:\n1. Search Songs\n2. Search Albums\n3. Browse \n4. Create Playlist" + 
+	"\n5. View Playlists\n6. Add Songs\n7. Add Alubms\n8. Rate Song";
 	
 	
 	public static void main(String[] args) {
@@ -25,16 +25,33 @@ public class Main {
 			String inputString = userInput.nextLine().strip().toLowerCase();
 			
 			switch(inputString) {
-				case "search":
+				case "search song":
 					System.out.println("\n" + searchSongs(musicStore) + "\n");
 					break;
 				case "1":
 					System.out.println("\n" + searchSongs(musicStore) + "\n");
 					break;
+				case "search album":
+					System.out.println("\n" + searchAlbum(musicStore) + "\n");
+					break;
+				case "2":
+					System.out.println("\n" + searchAlbum(musicStore) + "\n");
+					break;
+				case "browse":
+					System.out.println("\n" + musicStore + "\n");
+					break;
+				case "3":
+					System.out.println("\n" + musicStore + "\n");
+					break;
 				default:
 					System.out.println("Sorry command not found. Please try again!\n");	
 					break;
 			}
+			
+			
+			Scanner responseWait = new Scanner(System.in);
+			System.out.println("Hit Enter to Return to the List of Commands: ");
+			String wait = responseWait.nextLine();
 				
 			
 		}
@@ -54,6 +71,18 @@ public class Main {
 		String songFound = musicStore.getSongByTitle(songSearch);
 		if (songFound.equals("This song cannot be found.")) {
 			songFound = musicStore.getSongByArtist(songSearch);
+		}
+		
+		return songFound;
+	}
+	
+	public static String searchAlbum(MusicStore musicStore) {
+		System.out.print("Search for a album by title or artist: ");
+		Scanner searchInput = new Scanner(System.in);
+		String albumSearch = searchInput.nextLine().strip();
+		String songFound = musicStore.getAlbumByTitle(albumSearch);
+		if (songFound.equals("This album cannot be found.")) {
+			songFound = musicStore.getAlbumByArtist(albumSearch);
 		}
 		
 		return songFound;
