@@ -1,8 +1,10 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import model.Song;
 import model.Album;
 import model.Parser;
 
@@ -10,7 +12,7 @@ public class ParserTest {
 	
 	@Test
 	public void testMakeAlbumList() {
-		ArrayList<Album> myAlbumList = Parser.makeAlbumList("C:\\Users\\rubys\\OneDrive\\Desktop\\School\\CSC 335\\albums\\albums.txt");
+		ArrayList<Album> myAlbumList = Parser.makeAlbumList("C:\\Users\\colin\\eclipse-workspace\\long-assignment-1\\LA1\\test\\albums\\albums.txt");
 		ArrayList<Album> testAlbumList = new ArrayList<>();
 		testAlbumList.add(new Album("19", "Adele", "Pop", "2008"));
 		testAlbumList.add(new Album("21", "Adele", "Pop", "2011"));
@@ -36,17 +38,18 @@ public class ParserTest {
 	
 	@Test
 	public void testMakeAlbum() {
-		Album myAlbum = Parser.makeAlbum("C:\\Users\\rubys\\OneDrive\\Desktop\\School\\CSC 335\\albums\\19_Adele.txt");
+
+		Album myAlbum = Parser.makeAlbum("C:\\Users\\colin\\eclipse-workspace\\long-assignment-1\\LA1\\test\\albums\\19_Adele.txt");
 		assertEquals(myAlbum.getTitle(), "19");
 		assertEquals(myAlbum.getArtist(), "Adele");
 		assertEquals(myAlbum.getYear(), 2008);
-		String[] albumSongs = myAlbum.getSongs().toArray(new String[12]);
+		Song[] albumSongs = myAlbum.getSongs().toArray(new Song[12]);
 		String[] testSongs = {"Daydreamer", "Best for Last", "Chasing Pavements", "Cold Shoulder",
 		                         "Crazy for You", "Melt My Heart to Stone", "First Love", "Right as Rain",
 		                         "Make You Feel My Love", "My Same", "Tired", "Hometown Glory"};
 		
 		for (int i =0; i < albumSongs.length; i++) {
-			assertEquals(albumSongs[i], testSongs[i]);
+			assertEquals(albumSongs[i].getTitle(), testSongs[i]);
 		}
 		
 		
