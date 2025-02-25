@@ -12,7 +12,7 @@ public class Parser {
 		try (Scanner fileScanner = new Scanner(myFile)){
 			while (fileScanner.hasNextLine()) {
 				String line = fileScanner.nextLine();
-				String albumFileName  = "C:\\Users\\colin\\eclipse-workspace\\long-assignment-1\\LA1\\test\\albums\\";
+				String albumFileName  = "";
 				albumFileName += line.strip().replace(",", "_");
 				albumFileName += ".txt";
 				Album myAlbum = makeAlbum(albumFileName);
@@ -48,6 +48,13 @@ public class Parser {
 		}
 		
 		
+	}
+	
+	public static void main(String[] args) {
+		ArrayList<Album> myAlbumList = Parser.makeAlbumList("albums.txt");
+		for (Album a : myAlbumList) {
+			System.out.println(a.toString());
+		}
 	}
 
 }

@@ -7,7 +7,7 @@ public class MusicStore {
 	private ArrayList<Album> albums;
 	
 	public MusicStore() {
-		albums = Parser.makeAlbumList("C:\\Users\\colin\\eclipse-workspace\\long-assignment-1\\LA1\\test\\albums\\albums.txt");
+		albums = Parser.makeAlbumList("albums.txt");
 		songs = new ArrayList<Song>();
 		for (Album a : albums) {
 			for (Song s : a.getSongs()) {

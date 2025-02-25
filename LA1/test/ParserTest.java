@@ -10,7 +10,7 @@ public class ParserTest {
 	
 	@Test
 	public void testMakeAlbumList() {
-		ArrayList<Album> myAlbumList = Parser.makeAlbumList("C:\\Users\\colin\\eclipse-workspace\\long-assignment-1\\LA1\\test\\albums\\albums.txt");
+		ArrayList<Album> myAlbumList = Parser.makeAlbumList("C:\\Users\\rubys\\OneDrive\\Desktop\\School\\CSC 335\\albums\\albums.txt");
 		ArrayList<Album> testAlbumList = new ArrayList<>();
 		testAlbumList.add(new Album("19", "Adele", "Pop", "2008"));
 		testAlbumList.add(new Album("21", "Adele", "Pop", "2011"));
@@ -32,12 +32,11 @@ public class ParserTest {
 			assertTrue(myAlbumList.get(i).equals(testAlbumList.get(i)));
 		}
 		
-		
 	}
 	
 	@Test
 	public void testMakeAlbum() {
-		Album myAlbum = Parser.makeAlbum("C:\\Users\\colin\\eclipse-workspace\\long-assignment-1\\LA1\\model\\19_Adele.txt");
+		Album myAlbum = Parser.makeAlbum("C:\\Users\\rubys\\OneDrive\\Desktop\\School\\CSC 335\\albums\\19_Adele.txt");
 		assertEquals(myAlbum.getTitle(), "19");
 		assertEquals(myAlbum.getArtist(), "Adele");
 		assertEquals(myAlbum.getYear(), 2008);
