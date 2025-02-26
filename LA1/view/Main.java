@@ -25,13 +25,13 @@ public class Main {
 			String inputString = userInput.nextLine().strip().toLowerCase();
 			
 			switch(inputString) {
-				case "search song":
+				case "search songs":
 					System.out.println("\n" + searchSongs(musicStore) + "\n");
 					break;
 				case "1":
 					System.out.println("\n" + searchSongs(musicStore) + "\n");
 					break;
-				case "search album":
+				case "search albums":
 					System.out.println("\n" + searchAlbum(musicStore) + "\n");
 					break;
 				case "2":

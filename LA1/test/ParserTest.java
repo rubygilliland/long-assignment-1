@@ -50,8 +50,21 @@ public class ParserTest {
 		for (int i =0; i < albumSongs.length; i++) {
 			assertEquals(albumSongs[i].getTitle(), testSongs[i]);
 		}
+	}
 		
+	@Test
+	public void testMakeAlbumFileNotFound() {
+		Album myAlbum = Parser.makeAlbum("LA1/Not_Real.txt");
+		assertNull(myAlbum);
 		
 	}
 	
+	@Test
+	public void testMakeAlbumListFileNotFound() {
+		ArrayList<Album> myAlbums = Parser.makeAlbumList("LA1/Not_Real.txt");
+		assertNull(myAlbums);
+		
+	}
+		
+
 }

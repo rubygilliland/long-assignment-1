@@ -50,11 +50,5 @@ public class Parser {
 		
 	}
 	
-	public static void main(String[] args) {
-		ArrayList<Album> myAlbumList = Parser.makeAlbumList("albums.txt");
-		for (Album a : myAlbumList) {
-			System.out.println(a.toString());
-		}
-	}
 
 }
