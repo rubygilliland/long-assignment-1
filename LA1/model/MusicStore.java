@@ -7,7 +7,7 @@ public class MusicStore {
 	private ArrayList<Album> albums;
 	
 	public MusicStore() {
-		albums = Parser.makeAlbumList("albums.txt");
+		albums = Parser.makeAlbumList("LA1/albums.txt");
 		songs = new ArrayList<Song>();
 		for (Album a : albums) {
 			for (Song s : a.getSongs()) {
@@ -21,7 +21,7 @@ public class MusicStore {
 		String songStr = "";
 		for (Song s : songs) {
 			if (s.getTitle().toLowerCase().equals(songTitle)) {
-				songStr += s.getTitle() + " by " + s.getArtist() + " (" + s.getAlbum() + ")\n";
+				songStr += s.toString();
 			}
 		}
 		if (songStr.equals("")) songStr = "This song cannot be found.";
@@ -33,7 +33,7 @@ public class MusicStore {
 		String songStr = "";
 		for (Song s : songs) {
 			if (s.getArtist().toLowerCase().equals(artist)) {
-				songStr += s.getTitle() + " - by: " + s.getArtist() + " (" + s.getAlbum() + ")\n";
+				songStr += s.toString();
 			}
 		}
 		if (songStr.equals("")) songStr = "Songs by this artist cannot be found.";
@@ -71,11 +71,20 @@ public class MusicStore {
 	}
 	
 	public ArrayList<Song> getSongs(){
-		return new ArrayList<Song>(songs);
+		ArrayList<Song> copySongs = new ArrayList<>();
+		for (Song s : songs) {
+			copySongs.add(new Song(s));
+		}
+		
+		return copySongs;
 	}
 	
 	public ArrayList<Album> getAlbums(){
-		return new ArrayList<Album>(albums);
+		ArrayList<Album> copyAlbums = new ArrayList<>();
+		for (Album a : albums) {
+			copyAlbums.add(new Album(a));
+		}
+		return copyAlbums;
 	}
 	
 	@Override

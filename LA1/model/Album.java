@@ -18,6 +18,20 @@ public class Album {
 		this.year = Integer.valueOf(year);
 	}
 	
+	// copy constructor
+	public Album(Album album) {
+		songs = new ArrayList<Song>();
+		this.title = album.title;
+		this.artist = album.artist;
+		setGenre(album.genre);
+		this.year = album.year;
+		
+	}
+	
+	private void setGenre(Genre genre) {
+		this.genre = genre;
+	}
+	
 	private void setGenre(String strGenre) {
 		strGenre = strGenre.toLowerCase();
 		switch (strGenre){

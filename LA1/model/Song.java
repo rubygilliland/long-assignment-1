@@ -12,8 +12,23 @@ public class Song {
 		this.artist = artist;
 	}
 	
+	// copy constructor
+	public Song(Song song) {
+		this(song.title, song.artist);
+		if (this.album != null) {
+			this.setAlbum(song.album);
+		}
+		if (this.rating != null) {
+			this.rate(song.rating);
+		}
+	}
+	
 	public void setAlbum(Album album) {
 		this.album = album;
+	}
+	
+	public void rate(Rating rating) {
+		this.rating = rating;
 	}
 	
 	public void rate(int userRating) {
@@ -54,6 +69,17 @@ public class Song {
 	
 	public String getAlbum() {
 		return album.getTitle();
+	}
+	
+	@Override
+	public boolean equals(Object otherSong) {
+		if (this.getClass() != otherSong.getClass()) {
+			return false;
+		}
+		else {
+			return (this.title.equals(((Song) otherSong).title) && this.artist.equals(((Song) otherSong).artist));
+		}
+		
 	}
 	
 	@Override
