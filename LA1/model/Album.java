@@ -61,7 +61,7 @@ public class Album {
 	}
 	
 	public ArrayList<Song> getSongs() {
-		ArrayList<Song> songsCopy = new ArrayList<Song>(songs);
+		ArrayList<Song> songsCopy = new ArrayList<Song>();
 		for (Song s : songs) {
 			songsCopy.add(new Song(s));
 		}

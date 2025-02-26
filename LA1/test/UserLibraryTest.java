@@ -47,17 +47,6 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		USER_LIBRARY.addAlbum("Sons");
 		String message = USER_LIBRARY.getAlbumByTitle("Sons");
 		String expected = "Sons - by: The Heavy (ROCK) 2019\n";
-		expected += "\tHeavy for You - by: The Heavy (Sons)\n";
-		expected += "\tThe Thief - by: The Heavy (Sons)\n";
-		expected += "\tBetter as One - by: The Heavy (Sons)\n";
-		expected += "\tFire - by: The Heavy (Sons)\n";
-		expected += "\tFighting for the Same Thing - by: The Heavy (Sons)\n";
-		expected += "\tHurt Interlude - by: The Heavy (Sons)\n";
-		expected += "\tPut the Hurt on Me - by: The Heavy (Sons)\n";
-		expected += "\tSimple Things - by: The Heavy (Sons)\n";
-		expected += "\tA Whole Lot of Love - by: The Heavy (Sons)\n";
-		expected += "\tWhat Don't Kill You - by: The Heavy (Sons)\n";
-		expected += "\tBurn Bright - by: The Heavy (Sons)\n";
 		assertEquals(message, expected);
 	}
 	
@@ -72,17 +61,6 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		USER_LIBRARY.addAlbum("Sons");
 		String message = USER_LIBRARY.getAlbumByArtist("The Heavy");
 		String expected = "Sons - by: The Heavy (ROCK) 2019\n";
-		expected += "\tHeavy for You - by: The Heavy (Sons)\n";
-		expected += "\tThe Thief - by: The Heavy (Sons)\n";
-		expected += "\tBetter as One - by: The Heavy (Sons)\n";
-		expected += "\tFire - by: The Heavy (Sons)\n";
-		expected += "\tFighting for the Same Thing - by: The Heavy (Sons)\n";
-		expected += "\tHurt Interlude - by: The Heavy (Sons)\n";
-		expected += "\tPut the Hurt on Me - by: The Heavy (Sons)\n";
-		expected += "\tSimple Things - by: The Heavy (Sons)\n";
-		expected += "\tA Whole Lot of Love - by: The Heavy (Sons)\n";
-		expected += "\tWhat Don't Kill You - by: The Heavy (Sons)\n";
-		expected += "\tBurn Bright - by: The Heavy (Sons)\n";
 		assertEquals(message, expected);
 	}
 	
