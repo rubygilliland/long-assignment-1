@@ -21,7 +21,7 @@ public class UserLibrary {
 		String songStr = "";
 		for (Song s : songs) {
 			if (s.getTitle().equals(songTitle)) {
-				songStr += s.getTitle() + " by " + s.getArtist() + " (" + s.getAlbum() + ")\n";
+				songStr += s.toString();
 			}
 		}
 		if (songStr.equals("")) songStr = "This song cannot be found.";
@@ -32,7 +32,7 @@ public class UserLibrary {
 		String songStr = "";
 		for (Song s : songs) {
 			if (s.getArtist().equals(artist)) {
-				songStr += s.getTitle() + " by " + s.getArtist() + " (" + s.getAlbum() + ")\n";
+				songStr += s.toString();
 			}
 		}
 		if (songStr.equals("")) songStr = "Songs by this artist cannot be found.";
@@ -43,11 +43,13 @@ public class UserLibrary {
 		String albumStr = "";
 		for (Album a : albums) {
 			if (a.getTitle().equals(albumTitle)) {
-				albumStr += a.getTitle() + " by " + a.getArtist() + "\n";
-				albumStr += a.getSongs();
+				albumStr += a.toString();
+				for (Song s : a.getSongs()) {
+					albumStr += "\t" + s.toString();
+				}
 			}
 		}
-		if (albumStr.equals("")) albumStr = "This album cannot be found";
+		if (albumStr.equals("")) albumStr = "This album cannot be found.";
 		return albumStr;
 	}
 	
@@ -55,11 +57,13 @@ public class UserLibrary {
 		String albumStr = "";
 		for (Album a : albums) {
 			if (a.getArtist().equals(artist)) {
-				albumStr += a.getTitle() + " by " + a.getArtist() + "\n";
-				albumStr += a.getSongs();
+				albumStr += a.toString();
+				for (Song s : a.getSongs()) {
+					albumStr += "\t" + s.toString();
+				}
 			}
 		}
-		if (albumStr.equals("")) albumStr = "Albums by this artist cannot be found";
+		if (albumStr.equals("")) albumStr = "Albums by this artist cannot be found.";
 		return albumStr;
 	}
 	
@@ -67,10 +71,10 @@ public class UserLibrary {
 		String playlistStr = "";
 		for (Playlist p : playlists) {
 			if (p.getName().equals(name)) {
-					playlistStr += p.getSongs();
+					playlistStr += p.toString();
 				}
 			}
-		if (playlistStr.equals("")) playlistStr = "Playlist by this name cannot be found";
+		if (playlistStr.equals("")) playlistStr = "Playlist by this name cannot be found.";
 		return playlistStr;
 		}
 	
@@ -95,9 +99,24 @@ public class UserLibrary {
 		Playlist myPlaylist = new Playlist(name);
 		playlists.add(myPlaylist);
 	}
+
+	public void addSongToPlaylist(String songName, String playlistName) {
+		if (getSongByTitle(songName).equals("This song cannot be found.")) {
+			addSong(songName);
+		}
+		for (Song s : songs) {
+			if (s.getTitle().equals(songName)) {
+				for (Playlist p : playlists) {
+					if (p.getName().equals(playlistName)) {
+						p.addSong(s);
+					}
+			}
+		}
+		}
+	}
 	
 	public String getSongTitles() {
-		String songsStr = "";
+		String songsStr = "Songs in Your Library:\n";
 		for (Song s : songs) {
 			songsStr += s.getTitle() + "\n";
 		}
@@ -112,7 +131,7 @@ public class UserLibrary {
 		
 		ArrayList<String> artistsList = new ArrayList<String>(artists);
 		Collections.sort(artistsList);
-		String artistsStr = "";
+		String artistsStr = "Artists in Your Library:\n";
 		for (String a : artistsList) {
 			artistsStr += a + "\n";
 		}
@@ -120,15 +139,15 @@ public class UserLibrary {
 	}
 	
 	public String getAlbumTitles() {
-		String albumsStr = "";
+		String albumsStr = "Albums in Your Library:\n";
 		for (Album a : albums) {
-			albumsStr += a.getTitle() + "\n";
+			albumsStr += a.getTitle() + " - by: "+ a.getArtist() + "\n";
 		}
 		return albumsStr;
 	}
 	
 	public String getPlaylists() {
-		String playlistsStr = "";
+		String playlistsStr = "Playlists in Your Library:\n";
 		for (Playlist p : playlists) {
 			playlistsStr += p.getName() + "\n";
 		}

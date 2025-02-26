@@ -28,7 +28,7 @@ public class Playlist {
 	public String getSongs() {
 		String songsStr = "";
 		for (Song s : songs) {
-			songsStr += s.getTitle() + "\n";
+			songsStr += s.toString();
 		}
 		return songsStr;
 	}
@@ -36,4 +36,13 @@ public class Playlist {
 	public String getName() {
 		return name;
 	}
+	
+	@Override
+	public String toString() {
+		String pString = this.name + ":\n";
+		pString += getSongs();
+		return pString;
+	}
+	
+
 }
