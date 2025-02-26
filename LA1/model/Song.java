@@ -58,7 +58,7 @@ public class Song {
 	
 	@Override
 	public String toString() {
-		String message = this.title + " - by: " + this.artist;
+		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
 		return message;
 	}
 }

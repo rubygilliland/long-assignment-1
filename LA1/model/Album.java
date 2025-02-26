@@ -79,6 +79,6 @@ public class Album {
 	
 	@Override
 	public String toString() {
-		return this.title + " " + this.artist + " " + this.genre + " " + this.year;
+		return this.title + " - by: " + this.artist + " (" + this.genre + ") " + this.year + "\n";
 	}
 }
