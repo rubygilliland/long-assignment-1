@@ -1,5 +1,7 @@
 package view;
 import model.*;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -20,7 +22,7 @@ public class Main {
 		
 		while (true) {
 			System.out.println(LIST_OF_COMMANDS);
-			System.out.print("Enter a command: ");
+			System.out.print("Enter a command (1-8): ");
 			Scanner userInput = new Scanner(System.in);
 			String inputString = userInput.nextLine().strip().toLowerCase();
 			
@@ -38,10 +40,22 @@ public class Main {
 					System.out.println("\n" + searchAlbum(musicStore) + "\n");
 					break;
 				case "browse":
-					System.out.println("\n" + musicStore + "\n");
+					System.out.println("\n" + browseMenu(userLibrary, musicStore) + "\n");
 					break;
 				case "3":
-					System.out.println("\n" + musicStore + "\n");
+					System.out.println("\n" + browseMenu(userLibrary, musicStore) + "\n");
+					break;
+				case "create playlist":
+					createPlaylist(userLibrary);
+					break;
+				case "4":
+					createPlaylist(userLibrary);
+					break;
+				case "view playlists":
+					System.out.println("\n" + userLibrary.getPlaylists() + "\n");
+					break;
+				case "5":
+					System.out.println("\n" + userLibrary.getPlaylists() + "\n");
 					break;
 				default:
 					System.out.println("Sorry command not found. Please try again!\n");	
@@ -73,6 +87,7 @@ public class Main {
 			songFound = musicStore.getSongByArtist(songSearch);
 		}
 		
+		songFound = songFound.replace("artist", "title/artist");
 		return songFound;
 	}
 	
@@ -85,6 +100,44 @@ public class Main {
 			songFound = musicStore.getAlbumByArtist(albumSearch);
 		}
 		
+		songFound = songFound.replace("artist", "title/artist");
 		return songFound;
 	}
+	
+	public static String browseMenu(UserLibrary userLibrary, MusicStore musicStore) {
+		Scanner responseWait = new Scanner(System.in);
+		System.out.print("Browse My Library or Music Store? (1-2): ");
+		String wait = responseWait.nextLine().toLowerCase();
+		
+		switch (wait) {
+			case "my library":
+				return userLibrary.toString();	
+			case "1":
+				return userLibrary.toString();
+			case "music store":
+				return musicStore.toString();
+			case "2":
+				return musicStore.toString();
+			default:
+				return "Can not reach this library. Please try again!";
+		}
+	}
+	
+	public static void createPlaylist(UserLibrary userLibrary) {
+		Scanner response = new Scanner(System.in);
+		System.out.print("What do you want to call this playlist? (Enter cancel to cancel): ");
+		String playlistName = response.nextLine().toLowerCase();
+		
+		if (!playlistName.equals("cancel")) {
+			userLibrary.createPlaylist(playlistName);
+			System.out.println("\nPlaylist: " + playlistName + " created!");
+			System.out.println("Go to the Add Songs command to add to this playlist!\n");
+		}
+		else {
+			System.out.println("\nCreate playlist canceled\n");
+		}
+		
+	}
+	
+	
 }

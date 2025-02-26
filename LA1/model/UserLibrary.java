@@ -180,4 +180,27 @@ public class UserLibrary {
 		return favorites;
 	}
 	
+	@Override
+	public String toString() {
+		String message = "My Library:\n";
+		message += "\tAlbums:\n";
+		for (int i = 0; i < albums.size(); i++){
+			int j = i+1;
+			message += "\t\t" + j + ". " + albums.get(i).toString();
+		}
+		message += "\tSongs:\n";
+		for (int i = 0; i < songs.size(); i++) {
+			int j = i+1;
+			message += "\t\t" + j + ". " + songs.get(i).toString();
+		}
+		message += "\tPlaylists:\n";
+		for (int i = 0; i < playlists.size(); i++) {
+			int j = i + 1;
+			message += "\t\t" + j +  ". " + playlists.get(i).toString();
+		}
+		
+		return message;
+		
+	}
+	
 	}
