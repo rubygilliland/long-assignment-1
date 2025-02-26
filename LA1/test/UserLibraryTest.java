@@ -58,8 +58,8 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		expected += "\tA Whole Lot of Love - by: The Heavy (Sons)\n";
 		expected += "\tWhat Don't Kill You - by: The Heavy (Sons)\n";
 		expected += "\tBurn Bright - by: The Heavy (Sons)\n";
-		assertEquals(message, expected);
-	}
+		assertEquals(expected, message);
+	}  
 	
 	@Test
 	void testGetAlbumByTitleFalse() {
@@ -83,7 +83,7 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		expected += "\tA Whole Lot of Love - by: The Heavy (Sons)\n";
 		expected += "\tWhat Don't Kill You - by: The Heavy (Sons)\n";
 		expected += "\tBurn Bright - by: The Heavy (Sons)\n";
-		assertEquals(expected, message);
+		assertEquals(message, expected);
 	}
 	
 	@Test

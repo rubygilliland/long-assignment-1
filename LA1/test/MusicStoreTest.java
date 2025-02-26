@@ -280,7 +280,7 @@ public class MusicStoreTest {
 			assertEquals(result.get(i), otherResult.get(i));
 		}
 		
-	}
+	} 
 	
 	@Test
 	public void testToString(){

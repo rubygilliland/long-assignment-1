@@ -55,7 +55,7 @@ public class UserLibrary {
 	
 	public String getAlbumByArtist(String artist) {
 		String albumStr = "";
-		for (Album a : albums) {
+		for (Album a : albums) { 
 			if (a.getArtist().equals(artist)) {
 				albumStr += a.toString();
 				for (Song s : a.getSongs()) {
