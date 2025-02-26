@@ -106,4 +106,21 @@ public class AlbumTest {
 		
 	}
 	
+	@Test
+	public void testCopyConstructor() {
+		Album myAlbum1 = new Album("Coat of Many Colors", "Dolly Parton", "Traditional Country", "1971");
+		Album myAlbum2 = new Album(myAlbum1);
+		assertEquals(myAlbum1, myAlbum2);
+		
+	}
+	
+	@Test
+	public void testCopyConstructorSongs() {
+		Album myAlbum1 = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
+		Song songOne = new Song("Going Home", "Leonard Cohen");
+		myAlbum1.addSong(songOne);
+		Album myAlbum2 = new Album(myAlbum1);
+		assertEquals(myAlbum1.getSongs().get(0), myAlbum2.getSongs().get(0));
+	}
+	
 }
