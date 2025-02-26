@@ -15,10 +15,10 @@ public class Playlist {
 		songs.add(song);
 	}
 	
-	public void removeSong(String songName) {
+	public void removeSong(String songName, String artist) {
 		Song toRemove = new Song("", "");
 		for (Song s : songs) {
-			if (s.getTitle().equals(songName)) toRemove = s;
+			if (s.getTitle().equals(songName) && s.getArtist().equals(artist)) toRemove = s;
 		}
 		if (toRemove.getTitle() != "" && toRemove.getArtist() != "") {
 		songs.remove(toRemove);

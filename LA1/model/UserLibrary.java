@@ -78,9 +78,11 @@ public class UserLibrary {
 		return playlistStr;
 		}
 	
-	public void addSong(String songName) {
+	public void addSong(String songName, String artist) {
 		for (Song s : musicStore.getSongs()) {
-			if (s.getTitle().equals(songName) && songs.contains(s) == false) songs.add(s);
+			if (s.getTitle().equals(songName) && songs.contains(s) == false && s.getArtist().equals(artist)){ 
+				songs.add(s);
+			}
 		}
 	}
 	
@@ -100,12 +102,12 @@ public class UserLibrary {
 		playlists.add(myPlaylist);
 	}
 
-	public void addSongToPlaylist(String songName, String playlistName) {
+	public void addSongToPlaylist(String songName, String artist, String playlistName) {
 		if (getSongByTitle(songName).equals("This song cannot be found.")) {
-			addSong(songName);
+			addSong(songName, artist);
 		}
 		for (Song s : songs) {
-			if (s.getTitle().equals(songName)) {
+			if (s.getTitle().equals(songName) && s.getArtist().equals(artist)) {
 				for (Playlist p : playlists) {
 					if (p.getName().equals(playlistName)) {
 						p.addSong(s);
@@ -115,10 +117,10 @@ public class UserLibrary {
 		}
 	}
 	
-	public void removeSongFromPlaylist(String songName, String playlistName) {
+	public void removeSongFromPlaylist(String songName, String artist, String playlistName) {
 		for (Playlist p : playlists) {
 			if (p.getName().equals(playlistName)) {
-				p.removeSong(songName);
+				p.removeSong(songName, artist);
 			}
 		}
 	}
@@ -162,10 +164,18 @@ public class UserLibrary {
 		return playlistsStr;
 	}
 	
-	public String getFavoriteSongs() {
-		String favorites = "";
+	public void rateSong(String songName, String artist, int rating) {
 		for (Song s : songs) {
-			if(s.getRating().equals(Song.Rating.FAVORITE)) favorites += s.getTitle() + "\n";
+			if (s.getTitle().equals(songName) && s.getArtist().equals(artist)) {
+				s.rate(rating);
+			}
+		}
+	}
+	
+	public String getFavoriteSongs() {
+		String favorites = "Your Favorited Songs:\n";
+		for (Song s : songs) {
+			if(s.getRating().equals(Song.Rating.FAVORITE)) favorites += s.toString();
 		}
 		return favorites;
 	}

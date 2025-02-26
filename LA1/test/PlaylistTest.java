@@ -17,10 +17,10 @@ class PlaylistTest {
 	@Test
 	void testAddSongs() {
 		USER_LIBRARY.createPlaylist("Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Begin Again", "Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep", "Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Lovesong", "Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Chasing Pavements", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Begin Again", "Norah Jones", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep","Adele", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Lovesong", "Adele", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Chasing Pavements", "Adele", "Pop Hits");
 		String expected = "Pop Hits:\n";
 		expected += "Begin Again - by: Norah Jones (Begin Again)\n";
 		expected += "Rolling in the Deep - by: Adele (21)\n";
@@ -32,12 +32,12 @@ class PlaylistTest {
 	@Test
 	void testRemoveSongs() {
 		USER_LIBRARY.createPlaylist("Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Begin Again", "Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep", "Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Lovesong", "Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Chasing Pavements", "Pop Hits");
-		USER_LIBRARY.removeSongFromPlaylist("Rolling in the Deep", "Pop Hits");
-		USER_LIBRARY.removeSongFromPlaylist("Lovesong", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Begin Again", "Norah Jones", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep","Adele", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Lovesong", "Adele", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Chasing Pavements", "Adele", "Pop Hits");
+		USER_LIBRARY.removeSongFromPlaylist("Rolling in the Deep", "Adele", "Pop Hits");
+		USER_LIBRARY.removeSongFromPlaylist("Lovesong", "Adele","Pop Hits");
 		String songStr = "Pop Hits:\nBegin Again - by: Norah Jones (Begin Again)\n";
 		songStr += "Chasing Pavements - by: Adele (19)\n";
 		assertEquals(songStr, USER_LIBRARY.getPlaylist("Pop Hits"));

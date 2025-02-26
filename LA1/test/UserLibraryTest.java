@@ -13,7 +13,7 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 
 	@Test
 	void testGetSongsByTitleTrue() {
-		USER_LIBRARY.addSong("Cup of Sorrow");
+		USER_LIBRARY.addSong("Cup of Sorrow", "Amos Lee");
 		String message = USER_LIBRARY.getSongByTitle("Cup of Sorrow");
 		assertEquals(message, "Cup of Sorrow - by: Amos Lee (Mission Bell)\n");
 	} 
@@ -26,9 +26,9 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 	
 	@Test
 	void testGetSongByArtistTrue() {
-		USER_LIBRARY.addSong("Cup of Sorrow");
-		USER_LIBRARY.addSong("Hello Again");
-		USER_LIBRARY.addSong("Jesus");
+		USER_LIBRARY.addSong("Cup of Sorrow", "Amos Lee");
+		USER_LIBRARY.addSong("Hello Again", "Amos Lee");
+		USER_LIBRARY.addSong("Jesus", "Amos Lee");
 		String message = USER_LIBRARY.getSongByArtist("Amos Lee");
 		String expected = "Cup of Sorrow - by: Amos Lee (Mission Bell)\n";
 		expected += "Hello Again - by: Amos Lee (Mission Bell)\n";
@@ -95,10 +95,10 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 	@Test
 	void testGetPlayListTrue() {
 		USER_LIBRARY.createPlaylist("Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Begin Again", "Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep", "Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Lovesong", "Pop Hits");
-		USER_LIBRARY.addSongToPlaylist("Chasing Pavements", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Begin Again","Norah Jones", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep", "Adele","Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Lovesong","Adele", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Chasing Pavements","Adele", "Pop Hits");
 		String message = USER_LIBRARY.getPlaylist("Pop Hits");
 		String expected = "Pop Hits:\n";
 		expected += "Begin Again - by: Norah Jones (Begin Again)\n";
@@ -116,10 +116,10 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 	
 	@Test
 	void testGetSongTitles() {
-		USER_LIBRARY.addSong("Begin Again");
-		USER_LIBRARY.addSong("Rolling in the Deep");
-		USER_LIBRARY.addSong("Lovesong");
-		USER_LIBRARY.addSong("Chasing Pavements");
+		USER_LIBRARY.addSong("Begin Again", "Norah Jones");
+		USER_LIBRARY.addSong("Rolling in the Deep", "Adele");
+		USER_LIBRARY.addSong("Lovesong", "Adele");
+		USER_LIBRARY.addSong("Chasing Pavements", "Adele");
 		String message = USER_LIBRARY.getSongTitles();
 		String expected = "Songs in Your Library:\n";
 		expected += "Begin Again\nRolling in the Deep\nLovesong\nChasing Pavements\n";
@@ -128,10 +128,10 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 	
 	@Test
 	void testGetArtists() {
-		USER_LIBRARY.addSong("Begin Again");
-		USER_LIBRARY.addSong("Rolling in the Deep");
-		USER_LIBRARY.addSong("Cup of Sorrow");
-		USER_LIBRARY.addSong("The Thief");
+		USER_LIBRARY.addSong("Begin Again", "Norah Jones");
+		USER_LIBRARY.addSong("Rolling in the Deep", "Adele");
+		USER_LIBRARY.addSong("Cup of Sorrow", "Amos Lee");
+		USER_LIBRARY.addSong("The Thief", "The Heavy");
 		String message = USER_LIBRARY.getArtists();
 		String expected = "Artists in Your Library:\n";
 		expected += "Adele\nAmos Lee\nNorah Jones\nThe Heavy\n";
@@ -159,5 +159,22 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		expected += "Pop Hits\nRock Jams\nSing-Alongs\n";
 		assertEquals(message, expected);
 		}
+	
+	@Test
+	void testRateSongs() {
+		USER_LIBRARY.addSong("Begin Again", "Norah Jones");
+		USER_LIBRARY.addSong("Rolling in the Deep", "Adele");
+		USER_LIBRARY.addSong("Cup of Sorrow", "Amos Lee");
+		USER_LIBRARY.rateSong("Begin Again", "Norah Jones", 3);
+		USER_LIBRARY.rateSong("Rolling in the Deep", "Adele", 5);
+		USER_LIBRARY.rateSong("Cup of Sorrow", "Amos Lee", 5);
+		String message = USER_LIBRARY.getFavoriteSongs();
+		String favorites = "Your Favorited Songs:\n";
+		favorites += "Rolling in the Deep - by: Adele (21)\n";
+		favorites += "Cup of Sorrow - by: Amos Lee (Mission Bell)\n";
+		assertEquals(favorites, message);
+
+		
+	}
 	
 }
