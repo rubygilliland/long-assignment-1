@@ -15,10 +15,10 @@ public class Song {
 	// copy constructor
 	public Song(Song song) {
 		this(song.title, song.artist);
-		if (this.album != null) {
+		if (song.album != null) {
 			this.setAlbum(song.album);
 		}
-		if (this.rating != null) {
+		if (song.rating != null) {
 			this.rate(song.rating);
 		}
 	}
