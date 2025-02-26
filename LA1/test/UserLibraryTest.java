@@ -14,7 +14,7 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 	@Test
 	void testGetSongsByTitleTrue() {
 		USER_LIBRARY.addSong("Cup of Sorrow", "Amos Lee");
-		String message = USER_LIBRARY.getSongByTitle("Cup of Sorrow");
+		String message = USER_LIBRARY.getSongByTitle("cup of sorrow");
 		assertEquals(message, "Cup of Sorrow - by: Amos Lee (Mission Bell)\n");
 	} 
 	
@@ -101,10 +101,10 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		USER_LIBRARY.addSongToPlaylist("Chasing Pavements","Adele", "Pop Hits");
 		String message = USER_LIBRARY.getPlaylist("Pop Hits");
 		String expected = "Pop Hits:\n";
-		expected += "Begin Again - by: Norah Jones (Begin Again)\n";
-		expected += "Rolling in the Deep - by: Adele (21)\n";
-		expected += "Lovesong - by: Adele (21)\n";
-		expected += "Chasing Pavements - by: Adele (19)\n";
+		expected += "\tBegin Again - by: Norah Jones (Begin Again)\n";
+		expected += "\tRolling in the Deep - by: Adele (21)\n";
+		expected += "\tLovesong - by: Adele (21)\n";
+		expected += "\tChasing Pavements - by: Adele (19)\n";
 		assertEquals(message, expected);
 	}
 	
@@ -173,8 +173,39 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		favorites += "Rolling in the Deep - by: Adele (21)\n";
 		favorites += "Cup of Sorrow - by: Amos Lee (Mission Bell)\n";
 		assertEquals(favorites, message);
-
-		
+	}
+	
+	@Test
+	void testToString() {
+		USER_LIBRARY.addSong("Begin Again", "Norah Jones");
+		USER_LIBRARY.addSong("Rolling in the Deep", "Adele");
+		USER_LIBRARY.addSong("Cup of Sorrow", "Amos Lee");
+		USER_LIBRARY.createPlaylist("Sing-Alongs");
+		USER_LIBRARY.addSongToPlaylist("Begin Again","Norah Jones", "Sing-Alongs");
+		USER_LIBRARY.addAlbum("Waking Up");
+		String message = USER_LIBRARY.toString();
+		String expected = "My Library:\n";
+		expected += "\tAlbums:\n";
+		expected += "\t\t1. Waking Up - by: OneRepublic (ROCK) 2009\n";
+		expected += "\tSongs:\n";
+		expected += "\t\t1. Begin Again - by: Norah Jones (Begin Again)\n";
+		expected += "\t\t2. Rolling in the Deep - by: Adele (21)\n";
+		expected += "\t\t3. Cup of Sorrow - by: Amos Lee (Mission Bell)\n";
+		expected += "\t\t4. Made for You - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t5. All the Right Moves - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t6. Secrets - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t7. Everybody Loves Me - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t8. Missing Persons 1 & 2 - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t9. Good Life - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t10. All This Time - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t11. Fear - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t12. Waking Up - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t13. Marchin On - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t14. Lullaby - by: OneRepublic (Waking Up)\n";
+		expected += "\tPlaylists:\n";
+		expected += "\t\t1. Sing-Alongs:\n";
+		expected += "\t\t\t\tBegin Again - by: Norah Jones (Begin Again)\n\n";
+		assertEquals(expected, message);
 	}
 	
 }

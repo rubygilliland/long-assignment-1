@@ -22,10 +22,10 @@ class PlaylistTest {
 		USER_LIBRARY.addSongToPlaylist("Lovesong", "Adele", "Pop Hits");
 		USER_LIBRARY.addSongToPlaylist("Chasing Pavements", "Adele", "Pop Hits");
 		String expected = "Pop Hits:\n";
-		expected += "Begin Again - by: Norah Jones (Begin Again)\n";
-		expected += "Rolling in the Deep - by: Adele (21)\n";
-		expected += "Lovesong - by: Adele (21)\n";
-		expected += "Chasing Pavements - by: Adele (19)\n";
+		expected += "\tBegin Again - by: Norah Jones (Begin Again)\n";
+		expected += "\tRolling in the Deep - by: Adele (21)\n";
+		expected += "\tLovesong - by: Adele (21)\n";
+		expected += "\tChasing Pavements - by: Adele (19)\n";
 		assertEquals(expected, USER_LIBRARY.getPlaylist("Pop Hits"));
 	}
 	
@@ -38,8 +38,8 @@ class PlaylistTest {
 		USER_LIBRARY.addSongToPlaylist("Chasing Pavements", "Adele", "Pop Hits");
 		USER_LIBRARY.removeSongFromPlaylist("Rolling in the Deep", "Adele", "Pop Hits");
 		USER_LIBRARY.removeSongFromPlaylist("Lovesong", "Adele","Pop Hits");
-		String songStr = "Pop Hits:\nBegin Again - by: Norah Jones (Begin Again)\n";
-		songStr += "Chasing Pavements - by: Adele (19)\n";
+		String songStr = "Pop Hits:\n\tBegin Again - by: Norah Jones (Begin Again)\n";
+		songStr += "\tChasing Pavements - by: Adele (19)\n";
 		assertEquals(songStr, USER_LIBRARY.getPlaylist("Pop Hits"));
 	}
 	

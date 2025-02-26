@@ -20,7 +20,7 @@ public class UserLibrary {
 	public String getSongByTitle(String songTitle) {
 		String songStr = "";
 		for (Song s : songs) {
-			if (s.getTitle().equals(songTitle)) {
+			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase())) {
 				songStr += s.toString();
 			}
 		}
@@ -31,7 +31,7 @@ public class UserLibrary {
 	public String getSongByArtist(String artist) {
 		String songStr = "";
 		for (Song s : songs) {
-			if (s.getArtist().equals(artist)) {
+			if (s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
 				songStr += s.toString();
 			}
 		}
@@ -80,7 +80,7 @@ public class UserLibrary {
 	
 	public void addSong(String songName, String artist) {
 		for (Song s : musicStore.getSongs()) {
-			if (s.getTitle().equals(songName) && songs.contains(s) == false && s.getArtist().equals(artist)){ 
+			if (s.getTitle().toLowerCase().equals(songName.toLowerCase()) && songs.contains(s) == false && s.getArtist().toLowerCase().equals(artist.toLowerCase())){ 
 				songs.add(s);
 			}
 		}
@@ -194,13 +194,17 @@ public class UserLibrary {
 			message += "\t\t" + j + ". " + songs.get(i).toString();
 		}
 		message += "\tPlaylists:\n";
-		for (int i = 0; i < playlists.size(); i++) {
-			int j = i + 1;
-			message += "\t\t" + j +  ". " + playlists.get(i).toString();
-		}
-		
-		return message;
-		
+	    for (int i = 0; i < playlists.size(); i++) {
+	        message += "\t\t" + (i + 1) + ". "+ (playlists.get(i).getName()) + ":\n";
+	        message += formatPlaylistSongs(playlists.get(i).getSongs()) + "\n";
+	    }
+
+	    return message; 
+	}
+
+	// Helper method to properly indent playlist songs
+	private String formatPlaylistSongs(String playlistSongs) {
+	    return playlistSongs.replaceAll("(?m)^", "\t\t\t"); // Adds an extra tab for proper indentation
 	}
 	
 	}

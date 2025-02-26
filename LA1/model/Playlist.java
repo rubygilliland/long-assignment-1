@@ -28,7 +28,7 @@ public class Playlist {
 	public String getSongs() {
 		String songsStr = "";
 		for (Song s : songs) {
-			songsStr += s.toString();
+			songsStr += "\t" + s.toString();
 		}
 		return songsStr;
 	}
