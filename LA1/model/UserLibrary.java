@@ -115,6 +115,14 @@ public class UserLibrary {
 		}
 	}
 	
+	public void removeSongFromPlaylist(String songName, String playlistName) {
+		for (Playlist p : playlists) {
+			if (p.getName().equals(playlistName)) {
+				p.removeSong(songName);
+			}
+		}
+	}
+	
 	public String getSongTitles() {
 		String songsStr = "Songs in Your Library:\n";
 		for (Song s : songs) {

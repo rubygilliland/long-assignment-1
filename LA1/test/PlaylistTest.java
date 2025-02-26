@@ -4,37 +4,49 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import model.Album;
+import model.MusicStore;
 import model.Playlist;
 import model.Song;
+import model.UserLibrary;
 
 class PlaylistTest {
-	private static final Song BEGIN_AGAIN = new Song("Begin Again", "Norah Jones");
-	private static final Song ROLLING_DEEP = new Song("Rolling in the Deep", "Adele");
-	private static final Song LOVE_SONG = new Song("Lovesong", "Adele");
-	private static final Song CHASING_PAVEMENTS = new Song("Chasing Pavements", "Adele");
+	private MusicStore MUSIC_STORE = new MusicStore();
+	private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 
 	@Test
 	void testAddSongs() {
-		Playlist myPlaylist = new Playlist("Pop Hits");
-		myPlaylist.addSong(BEGIN_AGAIN);
-		myPlaylist.addSong(ROLLING_DEEP);
-		myPlaylist.addSong(LOVE_SONG);
-		myPlaylist.addSong(CHASING_PAVEMENTS);
-		String songStr = "Begin Again\nRolling in the Deep\nLovesong\nChasing Pavements\n";
-		assertEquals(songStr, myPlaylist.getSongs());
+		USER_LIBRARY.createPlaylist("Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Begin Again", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Lovesong", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Chasing Pavements", "Pop Hits");
+		String expected = "Pop Hits:\n";
+		expected += "Begin Again - by: Norah Jones (Begin Again)\n";
+		expected += "Rolling in the Deep - by: Adele (21)\n";
+		expected += "Lovesong - by: Adele (21)\n";
+		expected += "Chasing Pavements - by: Adele (19)\n";
+		assertEquals(expected, USER_LIBRARY.getPlaylist("Pop Hits"));
 	}
 	
 	@Test
 	void testRemoveSongs() {
+		USER_LIBRARY.createPlaylist("Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Begin Again", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Lovesong", "Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Chasing Pavements", "Pop Hits");
+		USER_LIBRARY.removeSongFromPlaylist("Rolling in the Deep", "Pop Hits");
+		USER_LIBRARY.removeSongFromPlaylist("Lovesong", "Pop Hits");
+		String songStr = "Pop Hits:\nBegin Again - by: Norah Jones (Begin Again)\n";
+		songStr += "Chasing Pavements - by: Adele (19)\n";
+		assertEquals(songStr, USER_LIBRARY.getPlaylist("Pop Hits"));
+	}
+	
+	@Test
+	void testGetName() {
 		Playlist myPlaylist = new Playlist("Pop Hits");
-		myPlaylist.addSong(BEGIN_AGAIN);
-		myPlaylist.addSong(ROLLING_DEEP);
-		myPlaylist.addSong(LOVE_SONG);
-		myPlaylist.addSong(CHASING_PAVEMENTS);
-		myPlaylist.removeSong("Rolling in the Deep");
-		myPlaylist.removeSong("Lovesong");
-		String songStr = "Begin Again\nChasing Pavements\n";
-		assertEquals(songStr, myPlaylist.getSongs());
+		assertEquals(myPlaylist.getName(), "Pop Hits");
 	}
 
 }
