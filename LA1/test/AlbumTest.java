@@ -105,4 +105,5 @@ public class AlbumTest {
 		assertEquals(myAlbum.toString(), albumString);
 		
 	}
+	
 }
