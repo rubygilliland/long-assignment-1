@@ -12,7 +12,7 @@ public class Parser {
 		try (Scanner fileScanner = new Scanner(myFile)){
 			while (fileScanner.hasNextLine()) {
 				String line = fileScanner.nextLine();
-				String albumFileName  = "";
+				String albumFileName  = "LA1/";
 				albumFileName += line.strip().replace(",", "_");
 				albumFileName += ".txt";
 				Album myAlbum = makeAlbum(albumFileName);
