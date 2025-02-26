@@ -56,5 +56,13 @@ class SongTest {
 		Song mySong = new Song("Crazy for You", "Adele");
 		assertEquals("Adele", mySong.getArtist());
 	}
+	
+	@Test
+	void testToString() {
+		Song mySong = new Song("In My Place", "Coldplay");
+		Album myAlbum = new Album("A Rush of Blood to the Head", "Coldplay", "Alternative", "2002");
+		mySong.setAlbum(myAlbum);
+		assertEquals(mySong.toString(), "In My Place - by: Coldplay (A Rush of Blood to the Head)\n");
+	}
 
 }
