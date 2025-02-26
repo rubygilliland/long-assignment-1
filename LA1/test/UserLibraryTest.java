@@ -16,7 +16,7 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		USER_LIBRARY.addSong("Cup of Sorrow");
 		String message = USER_LIBRARY.getSongByTitle("Cup of Sorrow");
 		assertEquals(message, "Cup of Sorrow - by: Amos Lee (Mission Bell)\n");
-	}
+	} 
 	
 	@Test
 	void testGetSongsbyTitleFalse() {
@@ -83,7 +83,7 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		expected += "\tA Whole Lot of Love - by: The Heavy (Sons)\n";
 		expected += "\tWhat Don't Kill You - by: The Heavy (Sons)\n";
 		expected += "\tBurn Bright - by: The Heavy (Sons)\n";
-		assertEquals(message, expected);
+		assertEquals(expected, message);
 	}
 	
 	@Test

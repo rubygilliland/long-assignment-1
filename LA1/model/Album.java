@@ -18,15 +18,15 @@ public class Album {
 		this.year = Integer.valueOf(year);
 	}
 	
-	// copy constructor
-	public Album(Album album) {
-		songs = new ArrayList<Song>();
-		this.title = album.title;
-		this.artist = album.artist;
-		setGenre(album.genre);
-		this.year = album.year;
-		
-	}
+//	// copy constructor
+//	public Album(Album album) {
+//		songs = new ArrayList<Song>();
+//		this.title = album.title;
+//		this.artist = album.artist;
+//		setGenre(album.genre);
+//		this.year = album.year;
+//		
+//	}
 	
 	private void setGenre(Genre genre) {
 		this.genre = genre;
@@ -61,11 +61,7 @@ public class Album {
 	}
 	
 	public ArrayList<Song> getSongs() {
-		ArrayList<Song> songsCopy = new ArrayList<Song>(songs);
-		for (Song s : songs) {
-			songsCopy.add(new Song(s));
-		}
-		return songsCopy;
+		return new ArrayList<Song>(songs);
 	}
 	
 	public String getTitle() {

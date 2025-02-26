@@ -12,16 +12,16 @@ public class Song {
 		this.artist = artist;
 	}
 	
-	// copy constructor
-	public Song(Song song) {
-		this(song.title, song.artist);
-		if (this.album != null) {
-			this.setAlbum(song.album);
-		}
-		if (this.rating != null) {
-			this.rate(song.rating);
-		}
-	}
+//	// copy constructor
+//	public Song(Song song) {
+//		this(song.title, song.artist);
+//		if (this.album != null) {
+//			this.setAlbum(song.album);
+//		}
+//		if (this.rating != null) {
+//			this.rate(song.rating);
+//		}
+//	}
 	
 	public void setAlbum(Album album) {
 		this.album = album;
@@ -86,5 +86,5 @@ public class Song {
 	public String toString() {
 		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
 		return message;
-	}
+	} 
 }
