@@ -18,6 +18,20 @@ public class Album {
 		this.year = Integer.valueOf(year);
 	}
 	
+	// copy constructor
+	public Album(Album album) {
+		songs = new ArrayList<Song>();
+		this.title = album.title;
+		this.artist = album.artist;
+		setGenre(album.genre);
+		this.year = album.year;
+		
+	}
+	
+	private void setGenre(Genre genre) {
+		this.genre = genre;
+	}
+	
 	private void setGenre(String strGenre) {
 		strGenre = strGenre.toLowerCase();
 		switch (strGenre){
@@ -46,13 +60,12 @@ public class Album {
 		songs.add(song);
 	}
 	
-	public ArrayList<String> getSongs() {
-		ArrayList<String> songList = new ArrayList<>();
+	public ArrayList<Song> getSongs() {
+		ArrayList<Song> songsCopy = new ArrayList<Song>();
 		for (Song s : songs) {
-			songList.add(s.getTitle());
+			songsCopy.add(new Song(s));
 		}
-		
-		return songList;
+		return songsCopy;
 	}
 	
 	public String getTitle() {
@@ -70,4 +83,20 @@ public class Album {
 	public int getYear() {
 		return year;
 	}
+	
+	@Override
+	public boolean equals(Object otherAlbum) {
+		if (this.getClass() != otherAlbum.getClass()) {
+			return false;
+		}
+		else {
+			return (this.title.equals(((Album) otherAlbum).title) && this.genre == ((Album) otherAlbum).genre &&
+				this.year == ((Album) otherAlbum).year && this.artist.equals(((Album) otherAlbum).artist));
+		}
 	}
+	
+	@Override
+	public String toString() {
+		return this.title + " - by: " + this.artist + " (" + this.genre + ") " + this.year + "\n";
+	}
+}

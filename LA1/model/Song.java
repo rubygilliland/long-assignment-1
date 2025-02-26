@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Optional;
-
 public class Song {
 	private Album album;
 	private String title;
@@ -14,27 +12,51 @@ public class Song {
 		this.artist = artist;
 	}
 	
+	// copy constructor
+	public Song(Song song) {
+		this(song.title, song.artist);
+		if (song.album != null) {
+			this.setAlbum(song.album);
+		}
+		if (song.rating != null) {
+			this.rate(song.rating);
+		}
+	}
+	
 	public void setAlbum(Album album) {
 		this.album = album;
+	}
+	
+	public void rate(Rating rating) {
+		this.rating = rating;
 	}
 	
 	public void rate(int userRating) {
 		switch(userRating) {
 		case 1:
 			rating = Rating.ONE;
+			break;
 		case 2:
 			rating = Rating.TWO;
+			break;
 		case 3: 
 			rating = Rating.THREE;
+			break;
 		case 4:
 			rating = Rating.FOUR;
-		case 5:
+			break;
+		default:
 			rating = Rating.FAVORITE;
 		}
 	}
 	
-	public Optional<Rating> getRating() {
-		return Optional.ofNullable(this.rating);
+	public void favorite() {
+		rating = Rating.FAVORITE;
+	}
+	
+	// how to make optional?
+	public Rating getRating() {
+		return rating;
 	}
 	
 	public String getTitle() {
@@ -47,5 +69,22 @@ public class Song {
 	
 	public String getAlbum() {
 		return album.getTitle();
+	}
+	
+	@Override
+	public boolean equals(Object otherSong) {
+		if (this.getClass() != otherSong.getClass()) {
+			return false;
+		}
+		else {
+			return (this.title.equals(((Song) otherSong).title) && this.artist.equals(((Song) otherSong).artist));
+		}
+		
+	}
+	
+	@Override
+	public String toString() {
+		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
+		return message;
 	}
 }
