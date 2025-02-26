@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import model.Album;
+import model.Album.Genre;
 import model.Song;
 
 public class AlbumTest {
@@ -56,44 +57,52 @@ public class AlbumTest {
 	}
 	
 	@Test 
-	public void equalsDifferentClass() {
+	public void testEqualsDifferentClass() {
 		Album myAlbum = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
 		Song songOne = new Song("Going Home", "Leonard Cohen");
 		assertFalse(myAlbum.equals(songOne));
 	}
 	
 	@Test
-	public void equalsDifferentTitle() {
+	public void testEqualsDifferentTitle() {
 		Album myAlbum1 = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
 		Album myAlbum2 = new Album("New Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
 		assertFalse(myAlbum1.equals(myAlbum2));
 	}
 	
 	@Test
-	public void equalsDifferentArtist() {
+	public void testEqualsDifferentArtist() {
 		Album myAlbum1 = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
 		Album myAlbum2 = new Album("Old Ideas", "Beonard Cohen", "Singer/Songwriter", "2012");
 		assertFalse(myAlbum1.equals(myAlbum2));
 	}
 	
 	@Test
-	public void equalsDifferentGenre() {
+	public void testEqualsDifferentGenre() {
 		Album myAlbum1 = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
 		Album myAlbum2 = new Album("Old Ideas", "Leonard Cohen", "Pop", "2012");
 		assertFalse(myAlbum1.equals(myAlbum2));
 	}
 	
 	@Test
-	public void equalsDifferentYear() {
+	public void testEqualsDifferentYear() {
 		Album myAlbum1 = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
 		Album myAlbum2 = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2009");
 		assertFalse(myAlbum1.equals(myAlbum2));
 	}
 	
 	@Test
-	public void equalsSame(){
+	public void testEqualsSame(){
 		Album myAlbum1 = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
 		Album myAlbum2 = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
 		assertTrue(myAlbum1.equals(myAlbum2));
+	}
+	
+	@Test
+	public void testToString() {
+		Album myAlbum = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
+		String albumString = "Old Ideas - by: Leonard Cohen (" + Genre.SINGER_SONGWRITER + ") 2012\n";
+		assertEquals(myAlbum.toString(), albumString);
+		
 	}
 }
