@@ -76,10 +76,10 @@ public class Main {
 					editPlaylist(userLibrary, musicStore);
 					break;
 				case "9":
-					rateSong(userLibrary, musicStore);
+					rateSong(userLibrary);
 					break;
 				case "rate songs":
-					rateSong(userLibrary, musicStore);
+					rateSong(userLibrary);
 					break;
 				case "10":
 					System.out.print("\n" + userLibrary.getFavoriteSongs() + "\n");
@@ -159,7 +159,7 @@ public class Main {
 		if (!playlistName.equals("cancel")) {
 			userLibrary.createPlaylist(playlistName);
 			System.out.println("\nPlaylist: " + playlistName + " created!");
-			System.out.println("Go to the Add Songs command to add to this playlist!\n");
+			System.out.println("Go to the Edit Playlist command to add to this playlist!\n");
 		}
 		else {
 			System.out.println("\nCreate playlist canceled\n");
@@ -286,6 +286,12 @@ public class Main {
 		System.out.print("\nWhat playlist would you like to edit? ");
 		String playlistName = response.nextLine();
 		String playlist = userLibrary.getPlaylist(playlistName);
+		if (playlist.equals("Playlist by this name cannot be found.")) {
+			System.out.print(playlist + ", would you like to create it? (Y/N) ");
+			if (response.nextLine().trim().equalsIgnoreCase("Y")) {
+				createPlaylist(userLibrary);
+			}
+		} else {
 		System.out.print("\n" + playlist);
 		System.out.print("Would you like to ADD (1) or REMOVE (2) from this playlist? ");
 		String choice = response.nextLine().toLowerCase();
@@ -296,6 +302,7 @@ public class Main {
 			removeFromPlaylist(userLibrary, musicStore, playlistName, response);
 		} else {
 			System.out.println("Invalid selection. Please try again\n");
+		}
 		}
 	}
 
@@ -340,7 +347,7 @@ public class Main {
 	            String title = selectedSong.split(" - by: ")[0];
 	            
 	            userLibrary.addSongToPlaylist(title, artist, playlistName);
-	            System.out.println("\n" + title + " by " + artist + " has been added to" + playlistName + "!\n");
+	            System.out.println("\n" + title + " by " + artist + " has been added to " + playlistName + "!\n");
 	        }
 
 	        System.out.print("Would you like to add another song? (Y/N): ");
@@ -388,7 +395,7 @@ public class Main {
 	            String title = selectedSong.split(" - by: ")[0];
 	            
 	            userLibrary.removeSongFromPlaylist(title, artist, playlistName);
-	            System.out.println("\n" + title + " by " + artist + " has been removed from" + playlistName + "!\n");
+	            System.out.println("\n" + title + " by " + artist + " has been removed from " + playlistName + "!\n");
 	        }
 
 	        System.out.print("Would you like to remove another song? (Y/N): ");
@@ -396,18 +403,18 @@ public class Main {
 	    }
 	}
 	
-	public static void rateSong(UserLibrary userLibrary, MusicStore musicStore) {
+	public static void rateSong(UserLibrary userLibrary) {
 		Scanner response = new Scanner(System.in);
 		while (true) {
 		System.out.print("\nSearch for a song by title or artist to rate: ");
 		String input = response.nextLine();
-		String songSearch = musicStore.getSongByTitle(input);
+		String songSearch = userLibrary.getSongByTitle(input);
 
         if (songSearch.equals("This song cannot be found.")) {
-        	songSearch = musicStore.getSongByArtist(input);
+        	songSearch = userLibrary.getSongByArtist(input);
         }
         if (songSearch.equals("Songs by this artist cannot be found.")) {
-            System.out.println("\nThis song cannot be found.\n");
+            System.out.println("\nSong by this title/artist cannot be found in your library, go to the Add Song command to add it!\n");
         } else {
             String[] songs = songSearch.strip().split("\n"); // Splitting multiple results
 
@@ -435,12 +442,12 @@ public class Main {
             // Extract artist from "Title - by: Artist (Album)" format
             String artist = selectedSong.split(" - by: ")[1].split(" \\(")[0];
             String title = selectedSong.split(" - by: ")[0];
-            System.out.print("\n Enter your rating for " + title + " by " + artist + ": ");
+            System.out.print("\nEnter your rating for " + title + " by " + artist + ": ");
             
             int rating = Integer.parseInt(response.nextLine().strip());
             userLibrary.rateSong(title, artist, rating);
             if (rating == 5) {
-            	System.out.print("\n" + title + " by " + artist + "has been favorited!\n");
+            	System.out.print("\n" + title + " by " + artist + " has been favorited!\n");
             }
         }
 
