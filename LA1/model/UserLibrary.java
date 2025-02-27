@@ -70,7 +70,7 @@ public class UserLibrary {
 	public String getPlaylist(String name) {
 		String playlistStr = "";
 		for (Playlist p : playlists) {
-			if (p.getName().equals(name)) {
+			if (p.getName().toLowerCase().equals(name.toLowerCase())) {
 					playlistStr += p.toString();
 				}
 			}
