@@ -78,6 +78,21 @@ public class UserLibrary {
 		return playlistStr;
 		}
 	
+	public boolean songInPlaylist(String playListName, String songTitle, String songArtist) {
+		for (Playlist p : playlists) {
+			if (p.getName().toLowerCase().equals(playListName.toLowerCase())) {
+				for (Song s : p.getSongsList()) {
+					if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase()) 
+							&& s.getArtist().toLowerCase().equals(songArtist.toLowerCase())) {
+						return true;
+					}
+				}
+				return false;
+			}
+		}
+		return false;
+	}
+	
 	public void addSong(String songName, String artist) {
 		for (Song s : musicStore.getSongs()) {
 			if (s.getTitle().toLowerCase().equals(songName.toLowerCase()) && songs.contains(s) == false && s.getArtist().toLowerCase().equals(artist.toLowerCase())){ 

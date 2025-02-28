@@ -25,6 +25,15 @@ public class Playlist {
 		}
 	}
 	
+	public ArrayList<Song> getSongsList(){
+		ArrayList<Song> newSongList = new ArrayList<>();
+		for (Song s : songs) {
+			newSongList.add(new Song(s));
+		}
+		return newSongList;
+	}
+	
+	
 	public String getSongs() {
 		String songsStr = "";
 		for (Song s : songs) {

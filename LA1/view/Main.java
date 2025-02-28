@@ -6,10 +6,10 @@ import java.util.Scanner;
 
 public class Main {
 	
-	public static final String WELCOME_MESSAGE = "Welcome to VibeStream, the number one fake music app!\n\n"
+	public static final String WELCOME_MESSAGE = "Welcome to Jammify, the number one fake music app!\n\n"
 			+ "Get ready to discover, stream, and vibe to your favorite music like never before! " +
 			"Whether you're in the mood for chill beats, \nhigh-energy anthems, or fresh new sounds, " + 
-			"VibeStream brings the best music straight to you!\n";
+			"Jammify brings the best music straight to you!\n";
 	
 	public static final String LIST_OF_COMMANDS = "List of Commands:\n1. Search Songs\n2. Search Albums\n3. Browse \n4. Create Playlist" + 
 	"\n5. View Playlists\n6. Add Songs\n7. Add Albums\n8. Edit Playlist\n9. Rate Songs\n10. Get Favorites";
@@ -359,10 +359,10 @@ public class Main {
 		while (true) {
 	        System.out.print("\nSearch for a song by title or artist: ");
 	        String input = response.nextLine().strip().toLowerCase();
-	        String songSearch = musicStore.getSongByTitle(input);
+	        String songSearch = userLibrary.getSongByTitle(input);
 
 	        if (songSearch.equals("This song cannot be found.")) {
-	        	songSearch = musicStore.getSongByArtist(input);
+	        	songSearch = userLibrary.getSongByArtist(input);
 	        }
 	        if (songSearch.equals("Songs by this artist cannot be found.")) {
 	            System.out.println("\nThis song cannot be found.\n");
@@ -394,8 +394,13 @@ public class Main {
 	            String artist = selectedSong.split(" - by: ")[1].split(" \\(")[0];
 	            String title = selectedSong.split(" - by: ")[0];
 	            
-	            userLibrary.removeSongFromPlaylist(title, artist, playlistName);
-	            System.out.println("\n" + title + " by " + artist + " has been removed from " + playlistName + "!\n");
+	            if (userLibrary.songInPlaylist(playlistName, title, artist)) {
+	            	userLibrary.removeSongFromPlaylist(title, artist, playlistName);
+		            System.out.println("\n" + title + " by " + artist + " has been removed from " + playlistName + "!\n");
+	            }
+	            else {
+	            	System.out.println("\n" + title + " by " + artist + " is not in " + playlistName + "\n");
+	            }
 	        }
 
 	        System.out.print("Would you like to remove another song? (Y/N): ");
