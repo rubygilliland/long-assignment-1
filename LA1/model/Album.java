@@ -1,3 +1,7 @@
+/*
+ * Description: This class models an album, storing a list of songs, a title, artist, year, and genre of music.
+ */
+
 package model;
 import java.util.ArrayList;
 
@@ -10,6 +14,7 @@ public class Album {
 						LATIN, ROCK, SINGER_SONGWRITER }
 	private Genre genre;
 	
+	// default constructor
 	public Album(String title, String artist, String strGenre, String year) {
 		songs = new ArrayList<Song>();
 		this.title = title;
@@ -31,10 +36,17 @@ public class Album {
 		}
 	
 	private void setGenre(Genre genre) {
+		/*
+		 * This method helps the copy constructor set the new album's Genre
+		 * to match the original album's Genre.
+		 */
 		this.genre = genre;
 	}
 	
 	private void setGenre(String strGenre) {
+		/*
+		 * This method helps the default constructor set the album's Genre.
+		 */
 		strGenre = strGenre.toLowerCase();
 		switch (strGenre){
 		case "pop":
@@ -63,6 +75,10 @@ public class Album {
 	}
 	
 	public ArrayList<Song> getSongs() {
+		/*
+		 * This method returns a deep copy of an ArrayList
+		 * containing all songs in the album
+		 */
 		ArrayList<Song> songsCopy = new ArrayList<Song>();
 		for (Song s : songs) {
 			songsCopy.add(new Song(s));
@@ -88,6 +104,9 @@ public class Album {
 	
 	@Override
 	public boolean equals(Object otherAlbum) {
+		/*
+		 * This method helps with testing
+		 */
 		if (this.getClass() != otherAlbum.getClass()) {
 			return false;
 		}
