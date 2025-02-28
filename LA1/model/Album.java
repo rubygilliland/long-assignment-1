@@ -22,7 +22,7 @@ public class Album {
 		public Album(Album album) {
 			songs = new ArrayList<Song>();
 			for (Song s : album.songs) {
-				songs.add(s);
+				songs.add(new Song(s));
 			}
 			this.title = album.title;
 			this.artist = album.artist;
