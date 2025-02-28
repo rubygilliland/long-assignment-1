@@ -83,8 +83,10 @@ public class Main {
 					break;
 				case "10":
 					System.out.print("\n" + userLibrary.getFavoriteSongs() + "\n");
+					break;
 				case "get favorites":
 					System.out.print("\n" + userLibrary.getFavoriteSongs() + "\n");
+					break;
 				case "11":
 					System.out.print("\n" + userLibrary.getSongTitles() + "\n");
 					break;
@@ -248,6 +250,7 @@ public class Main {
 	                int choice;
 	                try {
 	                    choice = Integer.parseInt(response.nextLine().strip());
+	                    
 	                    if (choice < 1 || choice > songs.length) throw new NumberFormatException();
 	                } catch (NumberFormatException e) {
 	                    System.out.println("Invalid selection. Please try again.\n");
@@ -291,7 +294,8 @@ public class Main {
 			
 			// if Album by title or artist not found in music store, print message
 			if (albumSearch.equals("Albums by this artist cannot be found.")){
-				System.out.println("Album by this title/artist cannot be found.\n");
+				System.out.println("\nAlbum by this title/artist cannot be found.\n");
+				break;
 			} else {
 				
 				// Splitting multiple results of Album search and organizing Strings of Albums into ArrayLists
