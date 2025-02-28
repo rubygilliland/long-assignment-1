@@ -289,7 +289,9 @@ public class UserLibrary {
 	public String getFavoriteSongs() {
 		String favorites = "Your Favorited Songs:\n";
 		for (Song s : songs) {
+			if (s.getRating() != null) {
 			if(s.getRating().equals(Song.Rating.FAVORITE)) favorites += s.toString();
+		}
 		}
 		return favorites;
 	}

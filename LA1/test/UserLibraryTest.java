@@ -208,4 +208,11 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		assertEquals(expected, message);
 	}
 	
+	@Test
+	void testSongInPlaylist() {
+		USER_LIBRARY.createPlaylist("Pop Hits");
+		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep", "Adele", "Pop Hits");
+		assertTrue(USER_LIBRARY.songInPlaylist("Pop Hits","Rolling in the Deep", "Adele"));
+	}
+	
 }
