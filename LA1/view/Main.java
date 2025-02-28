@@ -12,7 +12,7 @@ public class Main {
 			"Jammify brings the best music straight to you!\n";
 	
 	public static final String LIST_OF_COMMANDS = "List of Commands:\n1. Search Songs\n2. Search Albums\n3. Browse \n4. Create Playlist" + 
-	"\n5. View Playlists\n6. Add Songs\n7. Add Albums\n8. Edit Playlist\n9. Rate Songs\n10. Get Favorites";
+	"\n5. View Playlists\n6. Add Songs\n7. Add Albums\n8. Edit Playlist\n9. Rate Songs\n10. Get Favorites\n11. Get Songs\n 12. Get Albums\n13 Get Artists";
 	
 	
 	public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class Main {
 		
 		while (true) {
 			System.out.println(LIST_OF_COMMANDS);
-			System.out.print("Enter a command (1-10): ");
+			System.out.print("Enter a command (1-13): ");
 			Scanner userInput = new Scanner(System.in);
 			String inputString = userInput.nextLine().strip().toLowerCase();
 			
@@ -85,6 +85,24 @@ public class Main {
 					System.out.print("\n" + userLibrary.getFavoriteSongs() + "\n");
 				case "get favorites":
 					System.out.print("\n" + userLibrary.getFavoriteSongs() + "\n");
+				case "11":
+					System.out.print("\n" + userLibrary.getSongTitles() + "\n");
+					break;
+				case "get songs":
+					System.out.print("\n" + userLibrary.getSongTitles() + "\n");
+					break;
+				case "12":
+					System.out.print("\n" + userLibrary.getAlbumTitles() + "\n");
+					break;
+				case "get albums":
+					System.out.print("\n" + userLibrary.getAlbumTitles() + "\n");
+					break;
+				case "13":
+					System.out.print("\n" + userLibrary.getArtists() + "\n");
+					break;
+				case "get artists":
+					System.out.print("\n" + userLibrary.getArtists() + "\n");
+					break;
 				default:
 					System.out.println("Sorry command not found. Please try again!\n");	
 					break;
