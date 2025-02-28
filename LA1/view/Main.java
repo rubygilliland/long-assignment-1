@@ -108,7 +108,7 @@ public class Main {
 					break;
 			}
 			
-			
+			// added buffer to see results of the command before listing commands again
 			Scanner responseWait = new Scanner(System.in);
 			System.out.println("Hit Enter to Return to the List of Commands: ");
 			String wait = responseWait.nextLine();
@@ -116,19 +116,23 @@ public class Main {
 			
 		}
 		
-		//System.out.print(musicStore);
-		
-		/*
-		 * Search music, browse, create playlist, view playlist, liked songs library, add albums, rate songs
-		 */
-		
 	}
 	
 	public static String searchSongs(MusicStore musicStore) {
+		/*
+		 * This method searches the music store for a song by either title or
+		 * artist depending on the user's input. The method returns a string to be
+		 * printed in main so the user can view the song or songs that were
+		 * found in the music store. If no song is found, the method will
+		 * return a string that tells the user.
+		 */
+		
 		System.out.print("Search for a song by title or artist: ");
 		Scanner searchInput = new Scanner(System.in);
 		String songSearch = searchInput.nextLine().strip();
 		String songFound = musicStore.getSongByTitle(songSearch);
+		
+		// check song by title, then check song by artist
 		if (songFound.equals("This song cannot be found.")) {
 			songFound = musicStore.getSongByArtist(songSearch);
 		}
@@ -138,6 +142,13 @@ public class Main {
 	}
 	
 	public static String searchAlbum(MusicStore musicStore) {
+		/*
+		 * This method searches the music store for an album by either
+		 * title or artist depending on the user's input. The method returns
+		 * a string to be printed in main so the user can view the album or
+		 * albums that were found in the music store. If no album is found,
+		 * the method will return a string that tells the user
+		 */
 		System.out.print("Search for a album by title or artist: ");
 		Scanner searchInput = new Scanner(System.in);
 		String albumSearch = searchInput.nextLine().strip();
@@ -151,6 +162,12 @@ public class Main {
 	}
 	
 	public static String browseMenu(UserLibrary userLibrary, MusicStore musicStore) {
+		/*
+		 * This method first prompts the user to browse either the user library or the music
+		 * store and returns a string representation of the albums, songs, and playlists in
+		 * the chosen library. If the user enters in a library that does not exist, the method will
+		 * return a string telling the user that the command was unsuccessful.
+		 */
 		Scanner responseWait = new Scanner(System.in);
 		System.out.print("Browse My Library or Music Store? (1-2): ");
 		String wait = responseWait.nextLine().toLowerCase();
@@ -170,6 +187,14 @@ public class Main {
 	}
 	
 	public static void createPlaylist(UserLibrary userLibrary) {
+		/*
+		 * This method creates a playlist in the user library based on the user's input. The
+		 * method prompts the user for a name and then creates a playlist in user library with that
+		 * same name. The method then prints out to the user that the command was successful, and recommends
+		 * further commands to fill the playlist with songs. If the user does not want to create a playlist,
+		 * they can cancel the command by writing 'cancel' and then a message will be printed showing the
+		 * cancellation.
+		 */
 		Scanner response = new Scanner(System.in);
 		System.out.print("What do you want to call this playlist? (Enter cancel to cancel): ");
 		String playlistName = response.nextLine().toLowerCase();
