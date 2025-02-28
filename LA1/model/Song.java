@@ -1,5 +1,13 @@
 package model;
-
+/*
+ * This class defines methods and instance variables for a Song object.
+ * Song objects have a String artist and title, an assigned Album object,
+ * and a Rating.
+ * 
+ * Songs can be copied (with the copy constructor), have an Album object assigned
+ * to them, rated, rated as a favorite, and can be compared to other Song objects
+ * (equals method). 
+ */
 public class Song {
 	private Album album;
 	private String title;
@@ -22,10 +30,13 @@ public class Song {
 				this.rate(song.rating);
 			}
 		}
+	
+	// assigns an Album object to a Song
 	public void setAlbum(Album album) {
 		this.album = album;
 	}
 	
+	// helper method for Song copy constructor
 	private void rate(Rating rating) {
 		this.rating = rating;
 	}
@@ -47,6 +58,8 @@ public class Song {
 			rating = Rating.FOUR;
 			break;
 		default:
+			
+			// if the user rating is 5, song is automatically marked as favorite
 			rating = Rating.FAVORITE;
 		}
 	}
@@ -55,7 +68,6 @@ public class Song {
 		rating = Rating.FAVORITE;
 	}
 	
-	// how to make optional?
 	public Rating getRating() {
 		return rating;
 	}
@@ -78,6 +90,7 @@ public class Song {
 			return false;
 		}
 		else {
+			// compares Song objects based on their title and artist
 			return (this.title.equals(((Song) otherSong).title) && this.artist.equals(((Song) otherSong).artist));
 		}
 		
