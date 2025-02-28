@@ -22,7 +22,7 @@ public class Main {
 		
 		while (true) {
 			System.out.println(LIST_OF_COMMANDS);
-			System.out.print("Enter a command (1-8): ");
+			System.out.print("Enter a command (1-10): ");
 			Scanner userInput = new Scanner(System.in);
 			String inputString = userInput.nextLine().strip().toLowerCase();
 			
