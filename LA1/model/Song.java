@@ -26,10 +26,12 @@ public class Song {
 		this.album = album;
 	}
 	
-	public void rate(Rating rating) {
+	private void rate(Rating rating) {
 		this.rating = rating;
 	}
 	
+	
+	// @pre int userRating must be a rating from 1-5
 	public void rate(int userRating) {
 		switch(userRating) {
 		case 1:

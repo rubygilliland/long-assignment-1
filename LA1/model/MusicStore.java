@@ -71,19 +71,19 @@ public class MusicStore {
 	}
 	
 	public ArrayList<Song> getSongs(){
-		ArrayList<Song> copySongs = new ArrayList<>(songs);
-//		for (Song s : songs) {
-//			copySongs.add(new Song(s));
-//		}
+		ArrayList<Song> copySongs = new ArrayList<>();
+		for (Song s : songs) {
+			copySongs.add(new Song(s));
+		}
 		
 		return copySongs;
 	}
 	
 	public ArrayList<Album> getAlbums(){
-		ArrayList<Album> copyAlbums = new ArrayList<>(albums);
-//		for (Album a : albums) {
-//			copyAlbums.add(new Album(a));
-//		}
+		ArrayList<Album> copyAlbums = new ArrayList<>();
+		for (Album a : albums) {
+			copyAlbums.add(new Album(a));
+		}
 		return copyAlbums;
 	}
 	

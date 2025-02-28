@@ -78,9 +78,9 @@ public class UserLibrary {
 		return playlistStr;
 		}
 	
-	public boolean songInPlaylist(String playListName, String songTitle, String songArtist) {
+	public boolean songInPlaylist(String playlistName, String songTitle, String songArtist) {
 		for (Playlist p : playlists) {
-			if (p.getName().toLowerCase().equals(playListName.toLowerCase())) {
+			if (p.getName().toLowerCase().equals(playlistName.toLowerCase())) {
 				for (Song s : p.getSongsList()) {
 					if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase()) 
 							&& s.getArtist().toLowerCase().equals(songArtist.toLowerCase())) {
@@ -179,6 +179,7 @@ public class UserLibrary {
 		return playlistsStr;
 	}
 	
+	// @pre int rating must be a rating from 1-5
 	public void rateSong(String songName, String artist, int rating) {
 		for (Song s : songs) {
 			if (s.getTitle().equals(songName) && s.getArtist().equals(artist)) {
