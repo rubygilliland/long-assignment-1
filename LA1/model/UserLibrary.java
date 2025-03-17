@@ -28,6 +28,116 @@ public class UserLibrary {
 		this.musicStore = musicStore;
 	}
 	
+	// returns a list of songs in the users library sorted by title
+	public String getSortedTitles() {
+		
+		// HashSet ensures every song title is only counted once
+		HashSet<String> songTitles = new HashSet<String>();
+		for (Song s : songs) {
+			songTitles.add(s.getTitle());
+		}
+		
+		ArrayList<String> titles = new ArrayList<String>(songTitles);
+		Collections.sort(titles);
+		String songsByTitle = "";
+		for (String songTitle : titles) {
+			
+			// calls method that returns string of all songs of given title
+			songsByTitle += getSongByTitle(songTitle);
+		}
+		
+		if (titles.size() == 0) return "There are no songs in this library.";
+		else return songsByTitle;
+	}
+	
+	// returns a list of songs in the users library sorted by artist
+	public String getSortedArtist() {
+		
+		// HashSet ensures every artist is only counted once
+		HashSet<String> artists = new HashSet<String>();
+		for (Song s : songs) {
+			artists.add(s.getArtist());
+		}
+		
+		ArrayList<String> libraryArtists = new ArrayList<String>(artists);
+		Collections.sort(libraryArtists);
+		String songsByArtist = "";
+		for (String artist : libraryArtists) {
+			
+			// calls method that returns string of all songs by given artist
+			songsByArtist += getSongByArtist(artist);
+		}
+		
+		if (libraryArtists.size() == 0) return "There are no songs in this library.";
+		else return songsByArtist;
+	}
+	
+	// returns a string list of all the songs sorted by rating
+	public String getSortedRating() {
+		String nonRated = "";
+		String one = "";
+		String two = "";
+		String three = "";
+		String four = "";
+		String favorite = "";
+		
+		// adds the string of a song to a specific string based on its rating
+		for (Song s : songs) {
+			if (s.getRating() == Song.Rating.ONE) one += s.toString();
+			else if (s.getRating() == Song.Rating.TWO) two += s.toString();
+			else if (s.getRating() == Song.Rating.THREE) three += s.toString();
+			else if (s.getRating() == Song.Rating.FOUR) four += s.toString();
+			else if (s.getRating() == Song.Rating.FAVORITE) favorite += s.toString();
+			else nonRated += s.toString();
+		}
+		
+		return nonRated + one + two + three + four + favorite;
+	}
+	
+	// removes a song from the users library given a song title and artist
+	public void removeSongFromLibrary(String songName, String artist) {
+		Song toRemove = new Song("", "");
+		for (Song s : songs) {
+			
+			// finds the Song object in songs that matches the given title and artist
+			if (s.getTitle().toLowerCase().equals(songName.toLowerCase()) 
+					&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) toRemove = s;
+		}
+		// only removes an item from the songs list if a valid Song object is found
+		if (toRemove.getTitle() != "" && toRemove.getArtist() != "") {
+		songs.remove(toRemove);
+		removeSongsFromPlaylists(songName, artist);
+		}
+	}
+	
+	// removes an album from a users library given an album title and artist
+	public void removeAlbumFromLibrary(String albumName, String artist) {
+		Album toRemove = new Album("", "", "", "");
+		for (Album a : albums) {
+			
+			// finds the Album object in songs that matches the given title and artist
+			if (a.getTitle().toLowerCase().equals(albumName.toLowerCase()) 
+					&& a.getArtist().toLowerCase().equals(artist.toLowerCase())) toRemove = a;
+		}
+		
+		// only removes an item from the albums list if a valid Song object is found
+		if (toRemove.getTitle() != "" && toRemove.getArtist() != "") {
+			albums.remove(toRemove);
+			
+			// removes all the songs from an album
+			for (Song s : toRemove.getSongs()) {
+				removeSongFromLibrary(s.getTitle(), s.getArtist());
+				removeSongsFromPlaylists(s.getTitle(), s.getArtist());
+			}
+		}
+	}
+	
+	// helper method to remove songs from all playlists when they are removed from library
+	private void removeSongsFromPlaylists(String songName, String artist) {
+		for (Playlist p : playlists) {
+			p.removeSong(songName, artist);
+		}
+	}
 	// searches for songs in the user library by title
 	public String getSongByTitle(String songTitle) {
 		String songStr = "";
@@ -61,6 +171,23 @@ public class UserLibrary {
 		
 		// if no songs of given artist are found, return message
 		if (songStr.equals("")) songStr = "Songs by this artist cannot be found.";
+		return songStr;
+	}
+	
+	// searches for songs in user library by genre
+	public String getSongsByGenre(String genre) {
+		String songStr = "";
+		for (Song s : songs) {
+			
+			// checks if given genre matches genre of Song in songs, ignoring capitalization
+			if (s.getGenre().toLowerCase().equals(genre.toLowerCase())) {
+				
+				// adds String of every Song of given genre to songStr
+				songStr += s.toString();
+			}
+		}
+		
+		if (songStr.equals("")) songStr = "Songs of this genre cannot be found.";
 		return songStr;
 	}
 	
@@ -162,6 +289,7 @@ public class UserLibrary {
 			if (s.getTitle().toLowerCase().equals(songName.toLowerCase()) && songs.contains(s) == false && 
 					s.getArtist().toLowerCase().equals(artist.toLowerCase())){ 
 				songs.add(s);
+				addPartAlbum(s.getAlbum());
 			}
 		}
 	}
@@ -183,6 +311,18 @@ public class UserLibrary {
 				}
 			}
 		}
+	
+	// helper method to add album to user library without adding all songs
+	private void addPartAlbum(String albumName) {
+		// only searches for Albums in music store 
+				for (Album a : musicStore.getAlbums()) {
+					
+					// adds an Album with given title to albums, if it is not already in albums
+					if (a.getTitle().equals(albumName) && albums.contains(a) == false) {
+						albums.add(a);
+					}
+				}
+	}
 	
 	// creates a Playlist object and adds it to playlists list
 	public void createPlaylist(String name) {

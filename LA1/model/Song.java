@@ -84,6 +84,10 @@ public class Song {
 		return album.getTitle();
 	}
 	
+	public String getGenre() {
+		return album.getGenreStr();
+			
+	}
 	@Override
 	public boolean equals(Object otherSong) {
 		if (this.getClass() != otherSong.getClass()) {

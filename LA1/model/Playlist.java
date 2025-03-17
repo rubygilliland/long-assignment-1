@@ -30,7 +30,8 @@ public class Playlist {
 		for (Song s : songs) {
 			
 			// finds the Song object in songs that matches the given title and artist
-			if (s.getTitle().equals(songName) && s.getArtist().equals(artist)) toRemove = s;
+			if (s.getTitle().toLowerCase().equals(songName.toLowerCase()) &&
+					s.getArtist().toLowerCase().equals(artist.toLowerCase())) toRemove = s;
 		}
 		// only removes an item from the songs list if a valid Song object is found
 		if (toRemove.getTitle() != "" && toRemove.getArtist() != "") {
