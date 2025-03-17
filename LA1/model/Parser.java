@@ -29,7 +29,7 @@ public class Parser {
 				String line = fileScanner.nextLine();
 				
 				// file path to all the individual album text files
-				String albumFileName  = "LA1/";
+				String albumFileName  = "long-assignment-1/LA1/";
 				albumFileName += line.strip().replace(",", "_");
 				albumFileName += ".txt";
 				
