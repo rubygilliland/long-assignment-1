@@ -1,0 +1,24 @@
+colin gale
+My Library:
+	Albums:
+		1. 21 - by: Adele (POP) 2011
+	Songs:
+		1. Rolling in the Deep - by: Adele (21)
+	Playlists:
+//
+gilliland ruby
+My Library:
+	Albums:
+		1. A Rush of Blood to the Head - by: Coldplay (ALTERNATIVE) 2002
+	Songs:
+		1. Clocks - by: Coldplay (A Rush of Blood to the Head)
+	Playlists:
+//
+colin gale
+My Library:
+	Albums:
+		1. 21 - by: Adele (POP) 2011
+	Songs:
+		1. Rolling in the Deep - by: Adele (21)
+	Playlists:
+//
