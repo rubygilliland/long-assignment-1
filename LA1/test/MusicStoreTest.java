@@ -42,7 +42,7 @@ public class MusicStoreTest {
 	
 	
 	@Test
-	public void testGetAlbumByTitle() {
+	public void testGetAlbumByTitle() { 
 		MusicStore myStore = new MusicStore();
 		String result = myStore.getAlbumByTitle("21");
 		String otherResult = "21 - by: Adele (POP) 2011\n" +

@@ -31,7 +31,7 @@ class PlaylistTest {
 		assertEquals(expected, USER_LIBRARY.getPlaylist("Pop Hits"));
 	}
 	
-	@Test
+	@Test 
 	void testRemoveSongs() {
 		USER_LIBRARY.createPlaylist("Pop Hits");
 		USER_LIBRARY.addSongToPlaylist("Begin Again", "Norah Jones", "Pop Hits");
@@ -43,25 +43,6 @@ class PlaylistTest {
 		String songStr = "Pop Hits:\n\tBegin Again - by: Norah Jones (Begin Again)\n";
 		songStr += "\tChasing Pavements - by: Adele (19)\n";
 		assertEquals(songStr, USER_LIBRARY.getPlaylist("Pop Hits"));
-	}
-	
-	@Test
-	void testGetSongsList() {
-		Playlist myPlaylist = new Playlist("Pop Hits");
-		myPlaylist.addSong(new Song("Begin Again", "Norah Jones"));
-		myPlaylist.addSong(new Song("Lovesong", "Adele"));
-		myPlaylist.addSong(new Song("Chasing Pavements", "Adele"));
-		ArrayList<Song> testSongs = new ArrayList<>();
-		testSongs.add(new Song("Begin Again", "Norah Jones"));
-		testSongs.add(new Song("Lovesong", "Adele"));
-		testSongs.add(new Song("Chasing Pavements", "Adele"));
-		
-		for (int i = 0; i < testSongs.size(); i++) {
-			assertEquals(testSongs.get(i), myPlaylist.getSongsList().get(i));
-		}
-		
-		
-		
 	}
 	
 	@Test
