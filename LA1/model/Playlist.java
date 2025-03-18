@@ -9,14 +9,23 @@ package model;
  * of the songs list.
  */
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Playlist {
 	private String name;
 	private ArrayList<Song> songs;
+	private ArrayList<Song> shuffled;
+	private int shufflePointer;
 	
 	public Playlist(String name) {
-		songs = new ArrayList<Song>();
+		songs = new ArrayList<Song>(); 
 		this.name = name;
+	}
+	
+	// copy constructor
+	public Playlist(Playlist p) {
+		this.name = p.getName();
+		this.songs = p.getSongsList();
 	}
 	
 	// adds the given Song object to the songs list
@@ -24,9 +33,17 @@ public class Playlist {
 		songs.add(song);
 	}
 	
+	public void insertSong(Song song) {
+		songs.addFirst(song); 
+	}
+	 
+	public void popSong() {
+		songs.remove(songs.size() -1);
+	}
+	
 	// removes a Song object from the songs list
 	public void removeSong(String songName, String artist) {
-		Song toRemove = new Song("", "");
+		Song toRemove = new Song("", "", null);
 		for (Song s : songs) {
 			
 			// finds the Song object in songs that matches the given title and artist
@@ -38,6 +55,29 @@ public class Playlist {
 		songs.remove(toRemove);
 		}
 	}
+	
+
+	public void shufflePlaylist(String playlistName) {
+		shufflePointer = 0;
+			ArrayList<Song> shuffle = new ArrayList<Song>();
+			for (Song s : this.getSongsList()) {
+				Song copyS = new Song(s);
+				
+				// avoids any escaping references
+				shuffled.add(copyS);
+			}
+			
+			// shuffles all the songs in that playlist
+			Collections.shuffle(shuffle);
+			shuffled = shuffle;
+		}
+	
+	public Song getRandomSong() {
+		Song random = shuffled.get(shufflePointer);
+		shufflePointer += 1;
+		return new Song(random);
+	}
+	
 	
 	// gets a deep copy of the Songs list
 	public ArrayList<Song> getSongsList(){

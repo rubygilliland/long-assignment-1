@@ -10,7 +10,7 @@ import model.UserLibrary;
 class UserLibraryTest {
 private MusicStore MUSIC_STORE = new MusicStore();
 private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
-
+ 
 	@Test
 	void testGetSongsByTitleTrue() {
 		USER_LIBRARY.addSong("Cup of Sorrow", "Amos Lee");

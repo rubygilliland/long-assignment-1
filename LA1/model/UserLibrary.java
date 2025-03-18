@@ -28,8 +28,12 @@ public class UserLibrary {
 	private Playlist latin;
 	private Playlist rock;
 	private Playlist singerSongwriter;
+	private Plays plays;
+	private ArrayList<Song> shuffled;
+	private int shufflePointer;
 	
 	public UserLibrary(MusicStore musicStore) {
+		plays = new Plays();
 		songs = new ArrayList<Song>();
 		albums = new ArrayList<Album>();
 		playlists = new ArrayList<Playlist>();
@@ -281,7 +285,7 @@ public class UserLibrary {
 	
 	// removes a song from the users library given a song title and artist
 	public void removeSongFromLibrary(String songName, String artist) {
-		Song toRemove = new Song("", "");
+		Song toRemove = new Song("", "", null);
 		for (Song s : songs) {
 			
 			// finds the Song object in songs that matches the given title and artist
@@ -406,7 +410,7 @@ public class UserLibrary {
 				}
 			}
 		}
-	
+	 
 	// helper method to add album to user library without adding all songs
 	private void addPartAlbum(String albumName) {
 		// only searches for Albums in music store 
@@ -488,8 +492,9 @@ public class UserLibrary {
 	}
 	
 	// creates a shuffled list of all the songs
-	public ArrayList<Song> shuffleLibrary() {
-		ArrayList<Song> shuffled = new ArrayList<Song>();
+	public void shuffleLibrary() {
+		shufflePointer = 0;
+		ArrayList<Song> shuffle = new ArrayList<Song>();
 		for (Song s : songs) {
 			Song copyS = new Song(s);
 			
@@ -497,36 +502,38 @@ public class UserLibrary {
 			shuffled.add(copyS);
 		}
 		
-		Collections.shuffle(shuffled);
-		return shuffled;
+		Collections.shuffle(shuffle);
+		this.shuffled = shuffle;
 	}
 	
-	// gets the first song in the queue of the shuffled songs
-	public Song getRandomSong() {
-		ArrayList<Song> shuffled = shuffleLibrary();
-		return shuffled.get(0);
+	// gets a random song in the list of shuffled songs
+	public Song getRandomSongLibrary() {
+		Song random = shuffled.get(shufflePointer);
+		shufflePointer += 1;
+		return random;
 	}
 	
-	// creates a shuffled list of all the songs in a given playlist
-	public ArrayList<Song> shufflePlaylist(String playlistName) {
-		ArrayList<Song> shuffled = new ArrayList<Song>();
-		Playlist playlist = new Playlist("");
-		
-		// finds the playlist with given name
+	// gets a random song from a playlist shuffle
+	public Song getRandomSongPlaylist(String playlistName) {
+		Song random = new Song("", "", null);
 		for (Playlist p : playlists) {
-			if (p.getName().toLowerCase().equals(playlistName.toLowerCase()));
-			playlist = p;
+			if (p.getName().toLowerCase().equals(playlistName.toLowerCase())) {
+				random = p.getRandomSong();
+			}
 		}
-		for (Song s : playlist.getSongsList()) {
-			Song copyS = new Song(s);
-			
-			// avoids any escaping references
-			shuffled.add(copyS);
-		}
-		
-		// shuffles all the songs in that playlist
-		Collections.shuffle(shuffled);
-		return shuffled;
+		return random;
+	}
+	
+	// plays a random song from a playlist shuffle
+	public void playRandomSong(String playlistName) {
+		Song random = getRandomSongPlaylist(playlistName);
+		play(random.getTitle(), random.getArtist());
+	}
+	
+	// plays a random song from the users library
+	public void playRandomSong() {
+		Song random = getRandomSongLibrary();
+		play(random.getTitle(), random.getArtist());
 	}
 	
 	public void updateGenrePlaylists() {
@@ -549,7 +556,7 @@ public class UserLibrary {
 		else if (singerSongwriter.getSongsList().size() < 10 && playlists.contains(singerSongwriter)) playlists.remove(singerSongwriter);
 	}
 	public void addToGenrePlaylists(String songTitle, String artist) {
-		Song toAdd = new Song("", "");
+		Song toAdd = new Song("", "", null);
 		for (Song s : songs) {
 			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase()) 
 				&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
@@ -582,6 +589,23 @@ public class UserLibrary {
 			singerSongwriter.addSong(toAdd);
 			break;
 		}
+	}
+	
+	public void play(String songTitle, String artist) {
+		for (Song s : songs) {
+			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase()) 
+					&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
+				plays.playSong(new Song(s));
+			}
+		}
+	}
+	
+	public Playlist getRecentlyPlayed() {
+		return new Playlist(plays.getRecentlyPlayed());
+	}
+	
+	public Playlist getFrequentlyPlayed() {
+		return new Playlist(plays.getRecentlyPlayed());
 	}
 	
 	@Override

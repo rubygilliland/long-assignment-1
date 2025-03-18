@@ -4,6 +4,7 @@
 
 package model;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Album {
 	private ArrayList<Song> songs;
@@ -21,19 +22,20 @@ public class Album {
 		this.title = title;
 		this.artist = artist;
 		this.genreStr = strGenre;
-		setGenre(strGenre);
+		this.genre = setGenre(strGenre);
 		this.year = Integer.valueOf(year);
-	}
+	} 
 	
 	// copy constructor
-		public Album(Album album) {
+		public Album(Album album) { 
 			songs = new ArrayList<Song>();
 			for (Song s : album.songs) {
 				songs.add(new Song(s));
 			}
 			this.title = album.title;
 			this.artist = album.artist;
-			setGenre(album.genre);
+			this.genreStr = album.genreStr;
+			this.genre = album.genre;
 			this.year = album.year;		
 		}
 	
@@ -45,34 +47,27 @@ public class Album {
 		this.genre = genre;
 	}
 	
-	private void setGenre(String strGenre) {
+	private Genre setGenre(String strGenre) {
 		/*
 		 * This method helps the default constructor set the album's Genre.
 		 */
-		strGenre = strGenre.toLowerCase();
-		switch (strGenre){
+		switch (strGenre.toLowerCase()){
 		case "pop":
-			genre = Genre.POP;
-			break;
+			return Genre.POP;
 		case "alternative":
-			genre = Genre.ALTERNATIVE;
-			break;
+			return Genre.ALTERNATIVE;
 		case "traditional country":
-			genre = Genre.TRADITIONAL_COUNTRY;
-			break;
+			return Genre.TRADITIONAL_COUNTRY;
 		case "latin":
-			genre = Genre.LATIN;
-			break;
+			return Genre.LATIN;
 		case "rock":
-			genre = Genre.ROCK;
-			break;
+			return Genre.ROCK;
 		default:
-			genre = Genre.SINGER_SONGWRITER;
+			return Genre.SINGER_SONGWRITER;
 		}
 	}
 	
 	public void addSong(Song song) {
-		song.setAlbum(this);
 		songs.add(song);
 	}
 	

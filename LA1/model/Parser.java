@@ -41,7 +41,7 @@ public class Parser {
 		}
 		catch (FileNotFoundException exception) {
 			System.out.println("File not found.");
-			return null;
+			return null; 
 		}
 	}
 	
@@ -64,7 +64,7 @@ public class Parser {
 				String line = fileScanner.nextLine();
 				line = line.strip();
 				
-				Song newSong = new Song(line, albumDetails[1]);
+				Song newSong = new Song(line, albumDetails[1], myAlbum);
 				myAlbum.addSong(newSong);
 			}
 			return myAlbum;
