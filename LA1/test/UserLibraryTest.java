@@ -10,7 +10,7 @@ import model.UserLibrary;
 class UserLibraryTest {
 private MusicStore MUSIC_STORE = new MusicStore();
 private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
-
+ 
 	@Test
 	void testGetSongsByTitleTrue() {
 		USER_LIBRARY.addSong("Cup of Sorrow", "Amos Lee");
@@ -156,7 +156,7 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		USER_LIBRARY.createPlaylist("Sing-Alongs");
 		String message = USER_LIBRARY.getPlaylists();
 		String expected = "Playlists in Your Library:\n";
-		expected += "Pop Hits\nRock Jams\nSing-Alongs\n";
+		expected += "Favorites\nTop Rated\nPop Hits\nRock Jams\nSing-Alongs\n";
 		assertEquals(message, expected);
 		}
 	
@@ -186,7 +186,10 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		String message = USER_LIBRARY.toString();
 		String expected = "My Library:\n";
 		expected += "\tAlbums:\n";
-		expected += "\t\t1. Waking Up - by: OneRepublic (ROCK) 2009\n";
+		expected += "\t\t1. Begin Again - by: Norah Jones (POP) 2018\n";
+		expected += "\t\t2. 21 - by: Adele (POP) 2011\n";
+		expected += "\t\t3. Mission Bell - by: Amos Lee (SINGER_SONGWRITER) 2010\n";
+		expected += "\t\t4. Waking Up - by: OneRepublic (ROCK) 2009\n";
 		expected += "\tSongs:\n";
 		expected += "\t\t1. Begin Again - by: Norah Jones (Begin Again)\n";
 		expected += "\t\t2. Rolling in the Deep - by: Adele (21)\n";
@@ -203,8 +206,23 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		expected += "\t\t13. Marchin On - by: OneRepublic (Waking Up)\n";
 		expected += "\t\t14. Lullaby - by: OneRepublic (Waking Up)\n";
 		expected += "\tPlaylists:\n";
-		expected += "\t\t1. Sing-Alongs:\n";
+		expected += "\t\t1. Favorites:\n\n";
+		expected += "\t\t2. Top Rated:\n\n";
+		expected += "\t\t3. Sing-Alongs:\n";
 		expected += "\t\t\t\tBegin Again - by: Norah Jones (Begin Again)\n\n";
+		expected += "\t\t4. Rock:\n";
+		expected += "\t\t\t\tMade for You - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tAll the Right Moves - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tSecrets - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tEverybody Loves Me - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tMissing Persons 1 & 2 - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tGood Life - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tAll This Time - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tFear - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tWaking Up - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tMarchin On - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tLullaby - by: OneRepublic (Waking Up)\n\n";
+		
 		assertEquals(expected, message);
 	}
 	
@@ -215,4 +233,137 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		assertTrue(USER_LIBRARY.songInPlaylist("Pop Hits","Rolling in the Deep", "Adele"));
 	}
 	
+	@Test 
+	void testGetSortedTitles() {
+		USER_LIBRARY.addSong("Rolling in the Deep", "Adele");
+		USER_LIBRARY.addSong("Begin Again", "Norah Jones");
+		String expected = "Begin Again - by: Norah Jones (Begin Again)\nRolling in the Deep - by: Adele (21)\n";
+		String actual = USER_LIBRARY.getSortedTitles();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testGetSortedRating() {
+		USER_LIBRARY.addSong("Rolling in the Deep", "Adele");
+		USER_LIBRARY.addSong("Begin Again", "Norah Jones");
+		USER_LIBRARY.addSong("Cup of Sorrow", "Amos Lee");
+		USER_LIBRARY.rateSong("Rolling in the Deep", "Adele", 5);
+		USER_LIBRARY.rateSong("Begin Again", "Norah Jones", 3);
+		USER_LIBRARY.rateSong("Cup of Sorrow", "Amos Lee", 1);
+		String expected = "Cup of Sorrow - by: Amos Lee (Mission Bell)\n";
+		expected += "Begin Again - by: Norah Jones (Begin Again)\nRolling in the Deep - by: Adele (21)\n";
+		String actual = USER_LIBRARY.getSortedRating();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testGetSongsByGenre() {
+		USER_LIBRARY.addSong("Begin Again", "Norah Jones");
+		USER_LIBRARY.addSong("Rolling in the Deep", "Adele");
+		USER_LIBRARY.addSong("Lovesong", "Adele");
+		USER_LIBRARY.addSong("Chasing Pavements", "Adele");
+		String expected = "Begin Again - by: Norah Jones (Begin Again)\nRolling in the Deep - by: Adele (21)\n";
+		expected += "Lovesong - by: Adele (21)\nChasing Pavements - by: Adele (19)\n";
+		String actual = USER_LIBRARY.getSongsByGenre("pop");
+		assertEquals(expected, actual);;
+	}
+	
+	@Test
+	void testGetSortedArtist() {
+		USER_LIBRARY.addSong("Begin Again", "Norah Jones");
+		USER_LIBRARY.addSong("Rolling in the Deep", "Adele");
+		USER_LIBRARY.addSong("Cup of Sorrow", "Amos Lee");
+		String expected = "Rolling in the Deep - by: Adele (21)\nCup of Sorrow - by: Amos Lee (Mission Bell)\n";
+		expected += "Begin Again - by: Norah Jones (Begin Again)\n";
+		String actual = USER_LIBRARY.getSortedArtist();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testRemoveSongFromLibrary() {
+		USER_LIBRARY.createPlaylist("Sing-Alongs");
+		USER_LIBRARY.addSongToPlaylist("Begin Again", "Norah Jones", "Sing-Alongs");
+		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep", "Adele", "Sing-Alongs");
+		USER_LIBRARY.addSongToPlaylist("Cup of Sorrow", "Amos Lee", "Sing-Alongs");
+		USER_LIBRARY.removeSongFromLibrary("Cup of Sorrow", "Amos Lee");
+		String actual = USER_LIBRARY.toString();
+		String expected = "My Library:\n";
+		expected += "\tAlbums:\n";
+		expected += "\t\t1. Begin Again - by: Norah Jones (POP) 2018\n";
+		expected += "\t\t2. 21 - by: Adele (POP) 2011\n";
+		expected += "\tSongs:\n";
+		expected += "\t\t1. Begin Again - by: Norah Jones (Begin Again)\n";
+		expected += "\t\t2. Rolling in the Deep - by: Adele (21)\n";
+		expected += "\tPlaylists:\n";
+		expected += "\t\t1. Favorites:\n\n";
+		expected += "\t\t2. Top Rated:\n\n";
+		expected += "\t\t3. Sing-Alongs:\n";
+		expected += "\t\t\t\tBegin Again - by: Norah Jones (Begin Again)\n";
+		expected += "\t\t\t\tRolling in the Deep - by: Adele (21)\n\n";
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testRemoveAlbumFromLibrary() {
+		USER_LIBRARY.addAlbum("21");
+		USER_LIBRARY.addAlbum("Waking Up");
+		USER_LIBRARY.removeAlbumFromLibrary("21", "Adele");
+		String actual = USER_LIBRARY.toString();
+		String expected = "My Library:\n";
+		expected += "\tAlbums:\n";
+		expected += "\t\t1. Waking Up - by: OneRepublic (ROCK) 2009\n";
+		expected += "\tSongs:\n";
+		expected += "\t\t1. Made for You - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t2. All the Right Moves - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t3. Secrets - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t4. Everybody Loves Me - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t5. Missing Persons 1 & 2 - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t6. Good Life - by: OneRepublic (Waking Up)\n"; 
+		expected += "\t\t7. All This Time - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t8. Fear - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t9. Waking Up - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t10. Marchin On - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t11. Lullaby - by: OneRepublic (Waking Up)\n";
+		expected += "\tPlaylists:\n";
+		expected += "\t\t1. Favorites:\n\n";
+		expected += "\t\t2. Top Rated:\n\n";
+		expected += "\t\t3. Rock:\n";
+		expected += "\t\t\t\tMade for You - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tAll the Right Moves - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tSecrets - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tEverybody Loves Me - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tMissing Persons 1 & 2 - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tGood Life - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tAll This Time - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tFear - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tWaking Up - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tMarchin On - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tLullaby - by: OneRepublic (Waking Up)\n\n";
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testFavoritesPlaylist() {
+		USER_LIBRARY.addAlbum("Coat of Many Colors");
+		USER_LIBRARY.rateSong("Traveling Man", "Dolly Parton", 5);
+		USER_LIBRARY.rateSong("Here I Am", "Dolly Parton", 5);
+		USER_LIBRARY.rateSong("My Blue Tears", "Dolly Parton", 5);
+		String actual = USER_LIBRARY.getPlaylist("Favorites");
+		String expected = "Favorites:\n\tTraveling Man - by: Dolly Parton (Coat of Many Colors)\n";
+		expected += "\tHere I Am - by: Dolly Parton (Coat of Many Colors)\n\tMy Blue Tears - by: Dolly Parton (Coat of Many Colors)\n";
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testRemoveSongFromPlaylist() {
+		USER_LIBRARY.createPlaylist("Driving Around");
+		USER_LIBRARY.addSongToPlaylist("Here I Am", "Dolly Parton", "Driving Around");
+		USER_LIBRARY.addSongToPlaylist("Begin Again", "Norah Jones", "Driving Around");
+		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep", "Adele", "Driving Around");
+		USER_LIBRARY.removeSongFromPlaylist("Here I Am", "Dolly Parton", "Driving Around");
+		String actual = USER_LIBRARY.getPlaylist("Driving Around");
+		String expected = "Driving Around:\n\tBegin Again - by: Norah Jones (Begin Again)\n\tRolling in the Deep - by: Adele (21)\n";
+		assertEquals(expected, actual);
+	}
 }

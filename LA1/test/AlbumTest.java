@@ -27,7 +27,7 @@ public class AlbumTest {
 		Album myAlbum = new Album("Coat of Many Colors", "Dolly Parton", "Traditional Country", "1971");
 		assertEquals(Album.Genre.TRADITIONAL_COUNTRY, myAlbum.getGenre());
 	}
-	
+	 
 	@Test
 	public void testGenreLatin() {
 		Album myAlbum = new Album("Cuando Los Angeles Lloran", "Mana", "Latin", "1995");
@@ -49,8 +49,8 @@ public class AlbumTest {
 	@Test
 	public void testAddSong() {
 		Album myAlbum = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
-		Song songOne = new Song("Going Home", "Leonard Cohen");
-		Song songTwo = new Song("Amen", "Leonard Cohen");
+		Song songOne = new Song("Going Home", "Leonard Cohen", myAlbum);
+		Song songTwo = new Song("Amen", "Leonard Cohen", myAlbum);
 		myAlbum.addSong(songOne);
 		myAlbum.addSong(songTwo);
 		assertEquals(2, myAlbum.getSongs().size());
@@ -59,7 +59,7 @@ public class AlbumTest {
 	@Test 
 	public void testEqualsDifferentClass() {
 		Album myAlbum = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
-		Song songOne = new Song("Going Home", "Leonard Cohen");
+		Song songOne = new Song("Going Home", "Leonard Cohen", myAlbum);
 		assertFalse(myAlbum.equals(songOne));
 	}
 	
@@ -101,7 +101,7 @@ public class AlbumTest {
 	@Test
 	public void testToString() {
 		Album myAlbum = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
-		String albumString = "Old Ideas - by: Leonard Cohen (" + Genre.SINGER_SONGWRITER + ") 2012\n";
+		String albumString = "Old Ideas - by: Leonard Cohen (SINGER_SONGWRITER) 2012\n";
 		assertEquals(myAlbum.toString(), albumString);
 		
 	}
@@ -117,7 +117,7 @@ public class AlbumTest {
 	@Test
 	public void testCopyConstructorSongs() {
 		Album myAlbum1 = new Album("Old Ideas", "Leonard Cohen", "Singer/Songwriter", "2012");
-		Song songOne = new Song("Going Home", "Leonard Cohen");
+		Song songOne = new Song("Going Home", "Leonard Cohen", myAlbum1);
 		myAlbum1.addSong(songOne);
 		Album myAlbum2 = new Album(myAlbum1);
 		assertEquals(myAlbum1.getSongs().get(0), myAlbum2.getSongs().get(0));

@@ -19,7 +19,7 @@ public class Parser {
 		 * is found by the name of the album and the name of the artist. The method finally returns
 		 * an ArrayList of all the albums.
 		 */
-		
+		 
 		ArrayList<Album> myAlbumList = new ArrayList<>();
 		File myFile = new File(fileName);
 		
@@ -29,7 +29,7 @@ public class Parser {
 				String line = fileScanner.nextLine();
 				
 				// file path to all the individual album text files
-				String albumFileName  = "C:\\Users\\colin\\eclipse-workspace\\long-assignment-1\\LA1\\";
+				String albumFileName  = "LA1/";
 				albumFileName += line.strip().replace(",", "_");
 				albumFileName += ".txt";
 				
@@ -41,7 +41,7 @@ public class Parser {
 		}
 		catch (FileNotFoundException exception) {
 			System.out.println("File not found.");
-			return null;
+			return null; 
 		}
 	}
 	
@@ -64,7 +64,7 @@ public class Parser {
 				String line = fileScanner.nextLine();
 				line = line.strip();
 				
-				Song newSong = new Song(line, albumDetails[1]);
+				Song newSong = new Song(line, albumDetails[1], myAlbum);
 				myAlbum.addSong(newSong);
 			}
 			return myAlbum;

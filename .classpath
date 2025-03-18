@@ -6,7 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="src" path="Long Assignment 1/src"/>
 	<classpathentry kind="src" path="LA1"/>
-	<classpathentry kind="output" path="Long Assignment 1/bin"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
