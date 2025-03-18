@@ -16,12 +16,13 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
-		User myUser = LoginMenu.loginSignUpMenu();
+		//User myUser = LoginMenu.loginSignUpMenu();
 		
 		
 		System.out.println(WELCOME_MESSAGE);
 		MusicStore musicStore = new MusicStore();
-		UserLibrary userLibrary = myUser.getUserLibrary();
+		//UserLibrary userLibrary = myUser.getUserLibrary();
+		UserLibrary userLibrary = new UserLibrary(musicStore);
 		
 		while (true) {
 			System.out.println(LIST_OF_COMMANDS);
@@ -113,7 +114,7 @@ public class Main {
 					break;
 			}
 			
-			UserData.saveUser(myUser);
+			//UserData.saveUser(myUser);
 			
 			// added buffer to see results of the command before listing commands again
 			Scanner responseWait = new Scanner(System.in);

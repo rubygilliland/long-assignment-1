@@ -342,4 +342,28 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	void testFavoritesPlaylist() {
+		USER_LIBRARY.addAlbum("Coat of Many Colors");
+		USER_LIBRARY.rateSong("Traveling Man", "Dolly Parton", 5);
+		USER_LIBRARY.rateSong("Here I Am", "Dolly Parton", 5);
+		USER_LIBRARY.rateSong("My Blue Tears", "Dolly Parton", 5);
+		String actual = USER_LIBRARY.getPlaylist("Favorites");
+		String expected = "Favorites:\n\tTraveling Man - by: Dolly Parton (Coat of Many Colors)\n";
+		expected += "\tHere I Am - by: Dolly Parton (Coat of Many Colors)\n\tMy Blue Tears - by: Dolly Parton (Coat of Many Colors)\n";
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testRemoveSongFromPlaylist() {
+		USER_LIBRARY.createPlaylist("Driving Around");
+		USER_LIBRARY.addSongToPlaylist("Here I Am", "Dolly Parton", "Driving Around");
+		USER_LIBRARY.addSongToPlaylist("Begin Again", "Norah Jones", "Driving Around");
+		USER_LIBRARY.addSongToPlaylist("Rolling in the Deep", "Adele", "Driving Around");
+		USER_LIBRARY.removeSongFromPlaylist("Here I Am", "Dolly Parton", "Driving Around");
+		String actual = USER_LIBRARY.getPlaylist("Driving Around");
+		String expected = "Driving Around:\n\tBegin Again - by: Norah Jones (Begin Again)\n\tRolling in the Deep - by: Adele (21)\n";
+		assertEquals(expected, actual);
+	}
 }

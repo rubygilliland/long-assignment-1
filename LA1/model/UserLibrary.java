@@ -468,6 +468,10 @@ public class UserLibrary {
 			if (s.getTitle().toLowerCase().equals(songName.toLowerCase()) 
 					&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
 				s.rate(rating);
+				if (rating == 5) {
+					favorites.addSong(s);
+					topRated.addSong(s);
+				} else if (rating == 4) topRated.addSong(s);
 			}
 		}
 	}
@@ -525,28 +529,6 @@ public class UserLibrary {
 		return shuffled;
 	}
 	
-	// updates playlist of all the users favorite songs
-	public void favoritesPlaylist() {
-		for (Song s : songs) {
-			if (s.getRating() != null) {
-			if(s.getRating().equals(Song.Rating.FAVORITE) && 
-				songInPlaylist("Favorites", s.getTitle(), s.getArtist()) == false) favorites.addSong(s);
-			}
-		}
-	}
-	
-	// updates playlist of the users top rated songs
-	public void topRatedPlaylist() {
-		for (Song s : songs) {
-			if (s.getRating() != null) {
-				if ((s.getRating().equals(Song.Rating.FAVORITE) || s.getRating().equals(Song.Rating.FOUR)) 
-						&& songInPlaylist("Top Rated", s.getTitle(), s.getArtist()) == false) {
-					favorites.addSong(s);
-				}
-			}
-		}
-	}
-
 	public void updateGenrePlaylists() {
 		if (pop.getSongsList().size() == 10) playlists.add(pop);
 		else if (pop.getSongsList().size() < 10 && playlists.contains(pop)) playlists.remove(pop);
