@@ -608,6 +608,27 @@ public class UserLibrary {
 		return new Playlist(plays.getRecentlyPlayed());
 	}
 	
+	public String toStringFile() {
+		String message = "My Library:\n";
+		message += "\tAlbums:\n";
+		for (int i = 0; i < albums.size(); i++){
+			int j = i+1;
+			message += "\t\t" + j + ". " + albums.get(i).toString();
+		}
+		message += "\tSongs:\n";
+		for (int i = 0; i < songs.size(); i++) {
+			int j = i+1;
+			message += "\t\t" + j + ". " + songs.get(i).toStringFile();
+		}
+		message += "\tPlaylists:\n";
+	    for (int i = 0; i < playlists.size(); i++) {
+	        message += "\t\t" + (i + 1) + ". "+ (playlists.get(i).getName()) + ":\n";
+	        message += formatPlaylistSongs(playlists.get(i).getSongs()) + "\n";
+	    }
+
+	    return message;
+	}
+	
 	@Override
 	public String toString() {
 		String message = "My Library:\n";

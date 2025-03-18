@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class UserData {
@@ -20,6 +22,7 @@ public class UserData {
 				userFile.write(line + "\n");
 			}
 			userFile.write(user.getUsername() + " " + user.getPassword() + "\n");
+			userFile.write("//\n");
 			userFile.close();
 			System.out.println("Successfully Created User.\n");
 		}
@@ -85,23 +88,118 @@ public class UserData {
 		return fileContents;
 	}
 	
-	
-	
-	/*
-	public static User getUser(String username, String password) {
-		File userFile = new File(FILE_PATH);
-		try (Scanner userScanner = new Scanner(userFile)){
-			while (userScanner.hasNextLine()) {
-				String line = userScanner.nextLine();
-				String[] userInfo = line.strip().split(" ");
-				if (userInfo[0].equals(username) && userInfo[1].equals(password)) {
-					return
+	public static HashSet<String> getUsernames(){
+		try {
+			ArrayList<String>fileContents = getFileContents();
+			HashSet<String> usernames = new HashSet<>();
+			boolean ignoreNext = false;
+			for (String line : fileContents) {
+				if (ignoreNext) {
+					if (line.equals("//")){
+						ignoreNext = false;
+					}
+				}
+				else {
+					String[] fileLine = line.split(" ");
+					usernames.add(fileLine[0]);
+					ignoreNext = true;
 				}
 			}
+			
+			return usernames;
 		}
 		catch (FileNotFoundException e) {
-			
+			System.out.println("File not found.");
+			return null;
 		}
 	}
-	*/
+	
+	public static HashMap<String, String> getData(){
+		try {
+			ArrayList<String>fileContents = getFileContents();
+			HashMap<String, String> usernames = new HashMap<>();
+			boolean ignoreNext = false;
+			for (String line : fileContents) {
+				if (ignoreNext) {
+					if (line.equals("//")){
+						ignoreNext = false;
+					}
+				}
+				else {
+					String[] fileLine = line.split(" ");
+					usernames.put(fileLine[0].strip(), fileLine[1].strip());
+					ignoreNext = true;
+				}
+			}
+			
+			return usernames;
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("File not found.");
+			return null;
+		}
+	}
+	
+	
+	public static HashSet<String> getPasswords(){
+		try {
+			ArrayList<String>fileContents = getFileContents();
+			HashSet<String> passwords = new HashSet<>();
+			boolean ignoreNext = false;
+			for (String line : fileContents) {
+				if (ignoreNext) {
+					if (line.equals("//")){
+						ignoreNext = false;
+					}
+				}
+				else {
+					String[] fileLine = line.split(" ");
+					passwords.add(fileLine[1]);
+					ignoreNext = true;
+				}
+			}
+			
+			return passwords;
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("File not found.");
+			return null;
+		}
+	}
+	
+	public static User getUser(String username, String password) {
+		try {
+			ArrayList<String> fileContents = getFileContents();
+			boolean ignoreNext = false;
+			for (int i = 0; i < fileContents.size(); i++) {
+				String line = fileContents.get(i);
+				if (ignoreNext) {
+					if (line.equals("//")){
+						ignoreNext = false;
+					}
+				}
+				else {
+					String[] fileLine = line.split(" ");
+					if (fileLine[0].equals(username) && fileLine[1].equals(password)) {
+						String userLibraryString = "";
+						for (int j = i; j < fileContents.size(); j++) {
+							line = fileContents.get(j);
+							if (line.equals("//")) {
+								UserLibrary userLibrary = Parser.loadUserLibrary(userLibraryString);
+								return new User(fileLine[0], fileLine[1], userLibrary);
+							}
+							userLibraryString += line + "\n";
+						}
+					}
+					ignoreNext = true;
+				}
+			}
+			System.out.println("Sorry, User not Found.");
+			return null;
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("File Not Found.");
+			return null;
+		}
+	}
 }

@@ -73,9 +73,60 @@ public class Parser {
 			System.out.println("File not found.");
 			return null;
 		}
+	}
 		
 		
+		public static UserLibrary loadUserLibrary(String userLibraryString) {
+			UserLibrary userLibrary = new UserLibrary(new MusicStore());
+			String[] userLibraryArray = userLibraryString.split("\n");
+			int addAttribute = 0;
+			String currPlaylist = "";
+			
+			for (String line : userLibraryArray) {
+				if (line.strip().equals("Albums:")) {
+					addAttribute = 1;
+					continue;
+				}
+				else if (line.strip().equals("Songs:")){
+					addAttribute = 2;
+					continue;
+				}
+				else if (line.strip().equals("Playlists:")) {
+					addAttribute = 3;
+					continue;
+				}
+				
+				currPlaylist = changeUserLibrary(addAttribute, line, userLibrary, currPlaylist);
+		}
+		
+			return userLibrary;
 	}
 	
+		private static String changeUserLibrary(int addAttribute, String line, UserLibrary userLibrary, String currPlaylist) {
+			line = line.strip();
+			line = line.replace(".", ":").replace("-", ":").replace("(", ":");
+			String[] lineArray = line.split(":");
+			switch (addAttribute) {
+				case 1:
+					userLibrary.addAlbum(lineArray[1].strip());
+					return currPlaylist;
+				case 2:
+					userLibrary.addSong(lineArray[1].strip(), lineArray[3].strip());
+					return currPlaylist;
+				case 3:
+					// checks if first element consists of only digits
+				    if (lineArray[0].strip().matches("\\d+")) {
+				      userLibrary.createPlaylist(lineArray[1].strip());
+				      currPlaylist = lineArray[1].strip();
+				      return currPlaylist;
+				    } else {
+				        userLibrary.addSongToPlaylist(lineArray[0].strip(), lineArray[2].strip(), currPlaylist);
+				        return currPlaylist;
+				    }
+				default:
+					return currPlaylist;
+			}
+			
+		}
 
 }

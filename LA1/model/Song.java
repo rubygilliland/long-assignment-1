@@ -96,15 +96,17 @@ public boolean equals(Object otherSong) {
 		return (this.title.equals(((Song) otherSong).title) && this.artist.equals(((Song) otherSong).artist));
 	}
 	
-}
 
-@Override
-public String toString() {
-	String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
-	return message;
-}
-}
-
+	public String toStringFile() {
+		String message = toString().strip() + " " + this.rating;
+		return message;
+	}
+	
+	@Override
+	public String toString() {
+		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
+		return message;
+	} 
 
 
 //public class Song {

@@ -2,23 +2,33 @@ colin gale
 My Library:
 	Albums:
 		1. 21 - by: Adele (POP) 2011
+		2. A Rush of Blood to the Head - by: Coldplay (ALTERNATIVE) 2002
 	Songs:
 		1. Rolling in the Deep - by: Adele (21)
+		2. Rumour Has It - by: Adele (21)
+		3. Turning Tables - by: Adele (21)
+		4. Don't You Remember - by: Adele (21)
+		5. Set Fire to the Rain - by: Adele (21)
+		6. He Won't Go - by: Adele (21)
+		7. Take It All - by: Adele (21)
+		8. I'll Be Waiting - by: Adele (21)
+		9. One and Only - by: Adele (21)
+		10. Lovesong - by: Adele (21)
+		11. Someone Like You - by: Adele (21)
+		12. I Found a Boy - by: Adele (21)
+		13. Politik - by: Coldplay (A Rush of Blood to the Head)
+		14. In My Place - by: Coldplay (A Rush of Blood to the Head)
+		15. God Put a Smile Upon Your Face - by: Coldplay (A Rush of Blood to the Head)
+		16. The Scientist - by: Coldplay (A Rush of Blood to the Head)
+		17. Clocks - by: Coldplay (A Rush of Blood to the Head)
+		18. Daylight - by: Coldplay (A Rush of Blood to the Head)
+		19. Green Eyes - by: Coldplay (A Rush of Blood to the Head)
+		20. Warning Sign - by: Coldplay (A Rush of Blood to the Head)
+		21. A Whisper - by: Coldplay (A Rush of Blood to the Head)
+		22. A Rush of Blood to the Head - by: Coldplay (A Rush of Blood to the Head)
+		23. Amsterdam - by: Coldplay (A Rush of Blood to the Head)
 	Playlists:
-//
-gilliland ruby
-My Library:
-	Albums:
-		1. A Rush of Blood to the Head - by: Coldplay (ALTERNATIVE) 2002
-	Songs:
-		1. Clocks - by: Coldplay (A Rush of Blood to the Head)
-	Playlists:
-//
-colin gale
-My Library:
-	Albums:
-		1. 21 - by: Adele (POP) 2011
-	Songs:
-		1. Rolling in the Deep - by: Adele (21)
-	Playlists:
+		1. workout:
+				The Scientist - by: Coldplay (A Rush of Blood to the Head)
+
 //
