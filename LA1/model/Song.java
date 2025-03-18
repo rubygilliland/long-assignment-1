@@ -100,6 +100,11 @@ public class Song {
 		
 	}
 	
+	public String toStringFile() {
+		String message = toString().strip() + " " + this.rating;
+		return message;
+	}
+	
 	@Override
 	public String toString() {
 		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";

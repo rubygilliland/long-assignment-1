@@ -19,6 +19,12 @@ public class User {
 		this.userLibrary = new UserLibrary(new MusicStore());
 	}
 	
+	public User(String username, String password, UserLibrary userLibrary) {
+		this.username = username;
+		this.password = password;
+		this.userLibrary = userLibrary;
+	}
+	
 	public UserLibrary getUserLibrary() {
 		return userLibrary;
 	}
