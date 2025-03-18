@@ -101,7 +101,7 @@ public class Song {
 	}
 	
 	public String toStringFile() {
-		String message = toString().strip() + " " + this.rating;
+		String message = toString().strip() + " " + this.rating + "\n";
 		return message;
 	}
 	

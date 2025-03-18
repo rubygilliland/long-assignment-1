@@ -95,7 +95,9 @@ public class Parser {
 					addAttribute = 3;
 					continue;
 				}
-				
+				else if (line.strip().equals("")) {
+					continue;
+				}
 				currPlaylist = changeUserLibrary(addAttribute, line, userLibrary, currPlaylist);
 		}
 		
@@ -108,6 +110,12 @@ public class Parser {
 			String[] lineArray = line.split(":");
 			switch (addAttribute) {
 				case 1:
+					ArrayList<Album> userAlbums = userLibrary.getAlbumList();
+					for (Album a : userAlbums) {
+						if (a.getTitle().equals(lineArray[1].strip())) {
+							return currPlaylist;
+						}
+					}
 					userLibrary.addAlbum(lineArray[1].strip());
 					return currPlaylist;
 				case 2:

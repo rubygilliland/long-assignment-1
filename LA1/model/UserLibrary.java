@@ -239,6 +239,14 @@ public class UserLibrary {
 	}
 	
 	
+	public ArrayList<Album> getAlbumList(){
+		ArrayList<Album> albums = new ArrayList<>();
+		for (Album a : this.albums) {
+			albums.add(new Album(a));
+		}
+		return albums;
+	}
+	
 	// searches for a playlist in user library by playlist name
 	public String getPlaylist(String name) {
 		String playlistStr = "";
@@ -438,15 +446,15 @@ public class UserLibrary {
 	
 	public String toStringFile() {
 		String message = "My Library:\n";
-		message += "\tAlbums:\n";
-		for (int i = 0; i < albums.size(); i++){
-			int j = i+1;
-			message += "\t\t" + j + ". " + albums.get(i).toString();
-		}
 		message += "\tSongs:\n";
 		for (int i = 0; i < songs.size(); i++) {
 			int j = i+1;
 			message += "\t\t" + j + ". " + songs.get(i).toStringFile();
+		}
+		message += "\tAlbums:\n";
+		for (int i = 0; i < albums.size(); i++){
+			int j = i+1;
+			message += "\t\t" + j + ". " + albums.get(i).toString();
 		}
 		message += "\tPlaylists:\n";
 	    for (int i = 0; i < playlists.size(); i++) {
