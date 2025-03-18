@@ -52,7 +52,7 @@ public class UserData {
 					String[] fileLine = line.split(" ");
 					userFile.write(line + "\n");
 					if (fileLine[0].equals(user.getUsername()) && fileLine[1].equals(user.getPassword())) {
-						userFile.write(user.getUserLibrary().toString());
+						userFile.write(user.getUserLibrary().toStringFile());
 						userFile.write("//\n");
 						ignoreNext = true;
 					}
