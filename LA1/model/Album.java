@@ -11,7 +11,7 @@ public class Album {
 	private String artist;
 	private int year;
 	public enum Genre {POP, ALTERNATIVE, TRADITIONAL_COUNTRY, 
-						LATIN, ROCK, SINGER_SONGWRITER, HIP_HOP, FOLK, JAZZ, CLASSICAL, INDIE, BLUES }
+						LATIN, ROCK, SINGER_SONGWRITER }
 	private Genre genre;
 	private String genreStr;
 	
@@ -65,30 +65,6 @@ public class Album {
 			break;
 		case "rock":
 			genre = Genre.ROCK;
-			break;
-			
-		case "hip-hop":
-			genre = Genre.HIP_HOP;
-			break;
-			
-		case "folk":
-			genre = Genre.FOLK;
-			break;
-			
-		case "jazz":
-			genre = Genre.JAZZ;
-			break;
-			
-		case "classical":
-			genre = Genre.CLASSICAL;
-			break;
-			
-		case "indie":
-			genre = Genre.INDIE;
-			break;
-			
-		case "blues":
-			genre = Genre.BLUES;
 			break;
 		default:
 			genre = Genre.SINGER_SONGWRITER;

@@ -19,7 +19,7 @@ public class Parser {
 		 * is found by the name of the album and the name of the artist. The method finally returns
 		 * an ArrayList of all the albums.
 		 */
-		
+		 
 		ArrayList<Album> myAlbumList = new ArrayList<>();
 		File myFile = new File(fileName);
 		
@@ -29,7 +29,7 @@ public class Parser {
 				String line = fileScanner.nextLine();
 				
 				// file path to all the individual album text files
-				String albumFileName  = "C:\\Users\\colin\\eclipse-workspace\\long-assignment-1\\LA1\\";
+				String albumFileName  = "LA1/";
 				albumFileName += line.strip().replace(",", "_");
 				albumFileName += ".txt";
 				
