@@ -104,5 +104,6 @@ public class Song {
 	public String toString() {
 		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
 		return message;
-	} 
+	}
+
 }
