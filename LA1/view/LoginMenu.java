@@ -1,30 +1,33 @@
 package view;
 
 import java.util.Scanner;
+
+import model.PasswordUtil;
 import model.User;
 import model.UserData;
 import model.UserDatabase;
 
 public class LoginMenu {
-	
-	
-	
+
+
+
 	public static User loginSignUpMenu() {
+		UserData.writeSaltString();
 		UserDatabase myUserDatabase = new UserDatabase();
 		System.out.print("Would you like to login or signup?: ");
 		Scanner userInput = new Scanner(System.in);
-		String response = userInput.nextLine();		
+		String response = userInput.nextLine();
 		if (response.toLowerCase().equals("login") || response.toLowerCase().equals("l")) {
 			return login(myUserDatabase);
 		}
 		else {
 			return signUp(myUserDatabase);
 		}
-		
-		
+
+
 	}
-	
-	
+
+
 	public static User signUp(UserDatabase myUserDatabase) {
 		System.out.print("Enter in new Username: ");
 		Scanner userLogin = new Scanner(System.in);
@@ -35,7 +38,7 @@ public class LoginMenu {
 			userLogin = new Scanner(System.in);
 			username = userLogin.nextLine();
 		}
-		
+
 		System.out.print("Enter in your Password: ");
 		Scanner userPass = new Scanner(System.in);
 		String password = userPass.nextLine();
@@ -46,16 +49,19 @@ public class LoginMenu {
 			password = userPass.nextLine();
 		}
 		
+		String salt = UserData.getSaltString();
+		password = PasswordUtil.hashPassword(password, salt);
 		User myUser = new User(username, password);
 		UserData.createUser(myUser);
 
 		return myUser;
-		
+
 	}
-	
-	
-	
+
+
+
 	public static User login(UserDatabase myUserDatabase) {
+		String salt = UserData.getSaltString();
 		System.out.print("Enter in your Username: ");
 		Scanner userLogin = new Scanner(System.in);
 		String username = userLogin.nextLine();
@@ -65,23 +71,23 @@ public class LoginMenu {
 			userLogin = new Scanner(System.in);
 			username = userLogin.nextLine();
 		}
-		
+
 		System.out.print("Enter in your Password: ");
 		Scanner userPass = new Scanner(System.in);
-		String password = userPass.nextLine();
+		String password = PasswordUtil.hashPassword(userPass.nextLine().strip(), salt);
 		while(!myUserDatabase.getUsernamePasswords().get(username).equals(password)) {
 			System.out.println("Incorrect Password. Try again or restart to signup.");
 			System.out.print("Enter in your Password: ");
 			userPass = new Scanner(System.in);
-			password = userPass.nextLine();
+			password = PasswordUtil.hashPassword(userPass.nextLine().strip(), salt);
 		}
-		
+
 		User myUser = UserData.getUser(username, password);
 
 		return myUser;
-		
+
 	}
-	
+
 	/*
 	public static User login() {
 		System.out.print("Enter in your Username: ");
@@ -89,11 +95,11 @@ public class LoginMenu {
 		String username = userLogin.nextLine();
 		userLogin.close();
 		System.out.println(username);
-		
+
 		System.out.print("Enter in your Password: ");
 		Scanner userPass = new Scanner(System.in);
 		String password = userPass.nextLine();
-		
+
 		return UserData.getUser(username, password);
 	}
 	*/

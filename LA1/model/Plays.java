@@ -8,15 +8,15 @@ import java.util.List;
 
 public class Plays {
 	private HashMap<Song, Integer> plays;
-	private Playlist recentlyPlayed; 
+	private Playlist recentlyPlayed;
 	private Playlist frequentlyPlayed;
-	
+
 	public Plays() {
-		this.plays = new HashMap<Song, Integer>();
+		this.plays = new HashMap<>();
 		this.recentlyPlayed = new Playlist("Recently Played");
 		this.frequentlyPlayed = new Playlist("Frequently Played");
 	}
-	
+
 	// assume song passed in is a copy
 	public void playSong(Song song) {
 		plays.putIfAbsent(song, 0);
@@ -24,14 +24,16 @@ public class Plays {
 		updateRecentlyPlayed(new Song(song));
 		updateFrequentlyPlayed();
 	}
+
 	 
 	// assume song passed in is a copy
 	public void updateRecentlyPlayed(Song song) {
 		recentlyPlayed.insertSong(song); 
 		if (recentlyPlayed.getSongsList().size() > 10) recentlyPlayed.popSong();
 	}
-	
+
 	public void updateFrequentlyPlayed() {
+
 	    frequentlyPlayed.clear(); // Clear the existing list before updating
 
 	    // Sort songs by play count in descending order
@@ -45,14 +47,16 @@ public class Plays {
 	        frequentlyPlayed.addSong(song);
 	        count++;
 	    }
-	}
+
+		}
 	
+
 	public Playlist getRecentlyPlayed() {
 		return new Playlist(recentlyPlayed);
 	}
-	
+
 	public Playlist getFrequentlyPlayed() {
 		return new Playlist(frequentlyPlayed);
 	}
-	
+
 }

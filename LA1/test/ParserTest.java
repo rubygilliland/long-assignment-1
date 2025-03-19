@@ -1,15 +1,19 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import model.Song;
+
 import model.Album;
 import model.Parser;
+import model.Song;
 
 public class ParserTest {
-	
+
 	@Test
 	public void testMakeAlbumList() {
 		ArrayList<Album> myAlbumList = Parser.makeAlbumList("LA1/albums.txt");
@@ -29,12 +33,12 @@ public class ParserTest {
 		testAlbumList.add(new Album("Coat of Many Colors", "Dolly Parton", "Traditional Country", "1971"));
 		testAlbumList.add(new Album("Tapestry", "Carol King", "Rock", "1971"));
 		testAlbumList.add(new Album("Sons", "The Heavy", "Rock", "2019"));
-		
+
 		for (int i = 0; i < myAlbumList.size(); i++) {
 			assertTrue(myAlbumList.get(i).equals(testAlbumList.get(i)));
 		}
-	} 
-	
+	}
+
 	@Test
 	public void testMakeAlbum() {
 
@@ -46,25 +50,25 @@ public class ParserTest {
 		String[] testSongs = {"Daydreamer", "Best for Last", "Chasing Pavements", "Cold Shoulder",
 		                         "Crazy for You", "Melt My Heart to Stone", "First Love", "Right as Rain",
 		                         "Make You Feel My Love", "My Same", "Tired", "Hometown Glory"};
-		
+
 		for (int i =0; i < albumSongs.length; i++) {
 			assertEquals(albumSongs[i].getTitle(), testSongs[i]);
 		}
 	}
-		
+
 	@Test
 	public void testMakeAlbumFileNotFound() {
 		Album myAlbum = Parser.makeAlbum("LA1/Not_Real.txt");
 		assertNull(myAlbum);
-		
+
 	}
-	
+
 	@Test
 	public void testMakeAlbumListFileNotFound() {
 		ArrayList<Album> myAlbums = Parser.makeAlbumList("LA1/Not_Real.txt");
 		assertNull(myAlbums);
-		
+
 	}
-		
+
 
 }

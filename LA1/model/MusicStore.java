@@ -11,17 +11,17 @@ import java.util.ArrayList;
 public class MusicStore {
 	private ArrayList<Song> songs;
 	private ArrayList<Album> albums;
-	
+
 	public MusicStore() {
 		albums = Parser.makeAlbumList("LA1/albums.txt");
-		songs = new ArrayList<Song>();
+		songs = new ArrayList<>();
 		for (Album a : albums) {
 			for (Song s : a.getSongs()) {
 				songs.add(s);
 			}
 		}
 	}
-	
+
 	public String getSongByTitle(String songTitle) {
 		/*
 		 * This method searches the music store for song(s) by title and returns
@@ -34,10 +34,12 @@ public class MusicStore {
 				songStr += s.toString();
 			}
 		}
-		if (songStr.equals("")) songStr = "This song cannot be found.";
+		if (songStr.equals("")) {
+			songStr = "This song cannot be found.";
+		}
 		return songStr;
 	}
-	
+
 	public String getSongByArtist(String artist) {
 		/*
 		 * This method searches the music store for song(s) by artist and returns
@@ -50,10 +52,12 @@ public class MusicStore {
 				songStr += s.toString();
 			}
 		}
-		if (songStr.equals("")) songStr = "Songs by this artist cannot be found.";
+		if (songStr.equals("")) {
+			songStr = "Songs by this artist cannot be found.";
+		}
 		return songStr;
 	}
-	
+
 	public String getAlbumByTitle(String albumTitle) {
 		/*
 		 * This method searches the music store for an album by title and returns
@@ -70,10 +74,12 @@ public class MusicStore {
 				}
 			}
 		}
-		if (albumStr.equals("")) albumStr = "This album cannot be found.";
+		if (albumStr.equals("")) {
+			albumStr = "This album cannot be found.";
+		}
 		return albumStr;
 	}
-	
+
 	public String getAlbumByArtist(String artist) {
 		/*
 		 * This method searches the music store for album(s) by artist and returns
@@ -90,10 +96,12 @@ public class MusicStore {
 				}
 			}
 		}
-		if (albumStr.equals("")) albumStr = "Albums by this artist cannot be found.";
+		if (albumStr.equals("")) {
+			albumStr = "Albums by this artist cannot be found.";
+		}
 		return albumStr;
 	}
-	
+
 	public ArrayList<Song> getSongs(){
 		/*
 		 * This method returns a deep copy of an ArrayList of
@@ -103,10 +111,10 @@ public class MusicStore {
 		for (Song s : songs) {
 			copySongs.add(new Song(s));
 		}
-		
+
 		return copySongs;
 	}
-	
+
 	public ArrayList<Album> getAlbums(){
 		/*
 		 * This method returns a deep copy of an ArrayList of
@@ -118,7 +126,7 @@ public class MusicStore {
 		}
 		return copyAlbums;
 	}
-	
+
 	@Override
 	public String toString() {
 		String message = "Music Store:\n";
@@ -132,9 +140,9 @@ public class MusicStore {
 			int j = i+1;
 			message += "\t\t" + j + ". " + songs.get(i).toString();
 		}
-		
+
 		return message;
-		
+
 	}
 
 	}
