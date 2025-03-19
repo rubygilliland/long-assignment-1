@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import model.Album;
 import model.Song;
+import model.Song.Rating;
 
 class SongTest {
 
@@ -32,6 +33,14 @@ class SongTest {
 		Song mySong = new Song("Make You Feel My Love", "Adele", myAlbum);
 		mySong.rate(2);
 		assertEquals(Song.Rating.TWO, mySong.getRating());
+	}
+	
+	@Test
+	void testRatingThree() {
+		Album myAlbum = new Album("19", "Adele", "Pop", "2008");
+		Song mySong = new Song("Make You Feel My Love", "Adele", myAlbum);
+		mySong.rate(3);
+		assertEquals(Song.Rating.THREE, mySong.getRating());
 	}
 
 	@Test
@@ -122,6 +131,71 @@ class SongTest {
 		String expected = "Crazy for You - by: Adele (19):FOUR\n";
 		String actual = mySong1.toStringFile();
 		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testRateWithStringOne() {
+		Album myAlbum = new Album("19", "Adele", "Pop", "2008");
+		Song mySong1 = new Song("Crazy for You", "Adele", myAlbum);
+		mySong1.rate("one");
+		Rating expected = Song.Rating.ONE;
+		Rating actual = mySong1.getRating();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testRateWithStringTwo() {
+		Album myAlbum = new Album("19", "Adele", "Pop", "2008");
+		Song mySong1 = new Song("Crazy for You", "Adele", myAlbum);
+		mySong1.rate("two");
+		Rating expected = Song.Rating.TWO;
+		Rating actual = mySong1.getRating();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testRateWithStringThree() {
+		Album myAlbum = new Album("19", "Adele", "Pop", "2008");
+		Song mySong1 = new Song("Crazy for You", "Adele", myAlbum);
+		mySong1.rate("three");
+		Rating expected = Song.Rating.THREE;
+		Rating actual = mySong1.getRating();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testRateWithStringFour() {
+		Album myAlbum = new Album("19", "Adele", "Pop", "2008");
+		Song mySong1 = new Song("Crazy for You", "Adele", myAlbum);
+		mySong1.rate("four");
+		Rating expected = Song.Rating.FOUR;
+		Rating actual = mySong1.getRating();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testRateWithStringFavorite() {
+		Album myAlbum = new Album("19", "Adele", "Pop", "2008");
+		Song mySong1 = new Song("Crazy for You", "Adele", myAlbum);
+		mySong1.rate("favorite");
+		Rating expected = Song.Rating.FAVORITE;
+		Rating actual = mySong1.getRating();
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void getAlbumObj() {
+		Album myAlbum = new Album("19", "Adele", "Pop", "2008");
+		Song mySong1 = new Song("Crazy for You", "Adele", myAlbum);
+		myAlbum.addSong(mySong1);
+		assertEquals(myAlbum, mySong1.getAlbumObj());
+	}
+	
+	@Test
+	void testGetGenre() {
+		Album myAlbum = new Album("19", "Adele", "Pop", "2008");
+		Song mySong1 = new Song("Crazy for You", "Adele", myAlbum);
+		assertEquals("Pop", mySong1.getGenre());
 	}
 
 

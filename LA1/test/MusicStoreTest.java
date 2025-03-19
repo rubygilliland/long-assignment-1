@@ -32,7 +32,7 @@ public class MusicStoreTest {
 							"Green Eyes - by: Coldplay (A Rush of Blood to the Head)\n" +
 							"Warning Sign - by: Coldplay (A Rush of Blood to the Head)\n" +
 							"A Whisper - by: Coldplay (A Rush of Blood to the Head)\n" +
-							"A Rush of Blood to the Head - by: Coldplay (A Rush of Blood to the Head)\n" +
+					 		"A Rush of Blood to the Head - by: Coldplay (A Rush of Blood to the Head)\n" +
 							"Amsterdam - by: Coldplay (A Rush of Blood to the Head)\n";
 
 
