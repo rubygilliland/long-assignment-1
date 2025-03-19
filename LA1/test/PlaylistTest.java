@@ -1,15 +1,11 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import model.Album;
 import model.MusicStore;
 import model.Playlist;
-import model.Song;
 import model.UserLibrary;
 
 class PlaylistTest {
@@ -30,8 +26,8 @@ class PlaylistTest {
 		expected += "\tChasing Pavements - by: Adele (19)\n";
 		assertEquals(expected, USER_LIBRARY.getPlaylist("Pop Hits"));
 	}
-	
-	@Test 
+
+	@Test
 	void testRemoveSongs() {
 		USER_LIBRARY.createPlaylist("Pop Hits");
 		USER_LIBRARY.addSongToPlaylist("Begin Again", "Norah Jones", "Pop Hits");
@@ -44,7 +40,7 @@ class PlaylistTest {
 		songStr += "\tChasing Pavements - by: Adele (19)\n";
 		assertEquals(songStr, USER_LIBRARY.getPlaylist("Pop Hits"));
 	}
-	
+
 	@Test
 	void testGetName() {
 		Playlist myPlaylist = new Playlist("Pop Hits");

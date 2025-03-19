@@ -5,13 +5,13 @@
  */
 
 package model;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Parser {
-	
+
 	public static ArrayList<Album> makeAlbumList(String fileName){
 		/*
 		 * This method reads in a text file containing album names and the artist and calls upon
@@ -19,32 +19,32 @@ public class Parser {
 		 * is found by the name of the album and the name of the artist. The method finally returns
 		 * an ArrayList of all the albums.
 		 */
-		 
+
 		ArrayList<Album> myAlbumList = new ArrayList<>();
 		File myFile = new File(fileName);
-		
+
 		try (Scanner fileScanner = new Scanner(myFile)){
-			
+
 			while (fileScanner.hasNextLine()) {
 				String line = fileScanner.nextLine();
-				
+
 				// file path to all the individual album text files
 				String albumFileName  = "LA1/";
 				albumFileName += line.strip().replace(",", "_");
 				albumFileName += ".txt";
-				
+
 				Album myAlbum = makeAlbum(albumFileName);
 				myAlbumList.add(myAlbum);
 			}
-			
+
 			return myAlbumList;
 		}
 		catch (FileNotFoundException exception) {
 			System.out.println("File not found.");
-			return null; 
+			return null;
 		}
 	}
-	
+
 	public static Album makeAlbum(String fileName){
 		/*
 		 * This method reads in a text file containing information about an album and constructs
@@ -55,15 +55,15 @@ public class Parser {
 		try (Scanner fileScanner = new Scanner(myFile)){
 			String firstLine = fileScanner.nextLine();
 			String[] albumDetails = firstLine.strip().split(",");
-			
+
 			// [0] is name of album, [1] is artist, [2] is genre, [3] is year
 			Album myAlbum = new Album(albumDetails[0], albumDetails[1], albumDetails[2], albumDetails[3]);
-			
+
 			// creates song objects for every line after the 1st line
 			while (fileScanner.hasNextLine()) {
 				String line = fileScanner.nextLine();
 				line = line.strip();
-				
+
 				Song newSong = new Song(line, albumDetails[1], myAlbum);
 				myAlbum.addSong(newSong);
 			}
@@ -74,14 +74,14 @@ public class Parser {
 			return null;
 		}
 	}
-		
-		
+
+
 		public static UserLibrary loadUserLibrary(String userLibraryString) {
 			UserLibrary userLibrary = new UserLibrary(new MusicStore());
 			String[] userLibraryArray = userLibraryString.split("\n");
 			int addAttribute = 0;
 			String currPlaylist = "";
-			
+
 			for (String line : userLibraryArray) {
 				if (line.strip().equals("Albums:")) {
 					addAttribute = 1;
@@ -100,10 +100,10 @@ public class Parser {
 				}
 				currPlaylist = changeUserLibrary(addAttribute, line, userLibrary, currPlaylist);
 		}
-		
+
 			return userLibrary;
 	}
-	
+
 		private static String changeUserLibrary(int addAttribute, String line, UserLibrary userLibrary, String currPlaylist) {
 			line = line.strip();
 			line = line.replace(".", ":").replace("-", ":").replace("(", ":");
@@ -126,9 +126,12 @@ public class Parser {
 				case 3:
 					// checks if first element consists of only digits
 				    if (lineArray[0].strip().matches("\\d+")) {
-				      userLibrary.createPlaylist(lineArray[1].strip());
-				      currPlaylist = lineArray[1].strip();
-				      return currPlaylist;
+				    	
+				    	currPlaylist = lineArray[1].strip();
+				    	if (!currPlaylist.toLowerCase().equals("favorites") && !currPlaylist.toLowerCase().equals("top rated")) {
+				    		userLibrary.createPlaylist(lineArray[1].strip());
+				    	}
+				     return currPlaylist;
 				    } else {
 				        userLibrary.addSongToPlaylist(lineArray[0].strip(), lineArray[2].strip(), currPlaylist);
 				        return currPlaylist;
@@ -136,7 +139,7 @@ public class Parser {
 				default:
 					return currPlaylist;
 			}
-			
+
 		}
 
 }

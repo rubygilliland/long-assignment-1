@@ -12,12 +12,15 @@ import java.util.Scanner;
 public class UserData {
 	private final static String FILE_PATH = "C:\\Users\\colin\\eclipse-workspace\\long-assignment-1\\LA1\\users.txt";
 	//private static HashMap
-	
+
 	public static void createUser(User user) {
-		
-		try{ 
+
+		try{
 			ArrayList<String> fileContents = getFileContents();
+			String salt = fileContents.get(0);
 			FileWriter userFile = new FileWriter(FILE_PATH);
+			userFile.write(salt + "\n");
+			fileContents.remove(0);
 			for (String line : fileContents) {
 				userFile.write(line + "\n");
 			}
@@ -35,12 +38,15 @@ public class UserData {
 			return;
 		}
 	}
-	
+
 	public static void saveUser(User user) {
-		
-		try{ 
+
+		try{
 			ArrayList<String> fileContents = getFileContents();
+			String salt = fileContents.get(0);
 			FileWriter userFile = new FileWriter(FILE_PATH);
+			userFile.write(salt + "\n");
+			fileContents.remove(0);
 			boolean ignoreNext = false;
 			for (String line : fileContents) {
 				if (ignoreNext) {
@@ -58,7 +64,7 @@ public class UserData {
 					}
 				}
 			}
-			
+
 			userFile.close();
 		}
 		catch (FileNotFoundException e){
@@ -69,11 +75,11 @@ public class UserData {
 			System.out.println("File not found.");
 			return;
 		}
-		
+
 	}
-	
-	
-	
+
+
+
 	private static ArrayList<String> getFileContents() throws FileNotFoundException {
 		ArrayList<String> fileContents = new ArrayList<>();
 		File myFile = new File(FILE_PATH);
@@ -82,41 +88,17 @@ public class UserData {
 		while (myScanner.hasNext()) {
 			fileContents.add(myScanner.nextLine());
 		}
-		
+
 		myScanner.close();
-		
+
 		return fileContents;
 	}
-	
-	public static HashSet<String> getUsernames(){
-		try {
-			ArrayList<String>fileContents = getFileContents();
-			HashSet<String> usernames = new HashSet<>();
-			boolean ignoreNext = false;
-			for (String line : fileContents) {
-				if (ignoreNext) {
-					if (line.equals("//")){
-						ignoreNext = false;
-					}
-				}
-				else {
-					String[] fileLine = line.split(" ");
-					usernames.add(fileLine[0]);
-					ignoreNext = true;
-				}
-			}
-			
-			return usernames;
-		}
-		catch (FileNotFoundException e) {
-			System.out.println("File not found.");
-			return null;
-		}
-	}
-	
+
+
 	public static HashMap<String, String> getData(){
 		try {
 			ArrayList<String>fileContents = getFileContents();
+			fileContents.remove(0);
 			HashMap<String, String> usernames = new HashMap<>();
 			boolean ignoreNext = false;
 			for (String line : fileContents) {
@@ -127,11 +109,13 @@ public class UserData {
 				}
 				else {
 					String[] fileLine = line.split(" ");
-					usernames.put(fileLine[0].strip(), fileLine[1].strip());
-					ignoreNext = true;
+					if (fileLine.length > 1) {
+						usernames.put(fileLine[0].strip(), fileLine[1].strip());
+						ignoreNext = true;
+					}
 				}
 			}
-			
+
 			return usernames;
 		}
 		catch (FileNotFoundException e) {
@@ -139,37 +123,11 @@ public class UserData {
 			return null;
 		}
 	}
-	
-	
-	public static HashSet<String> getPasswords(){
-		try {
-			ArrayList<String>fileContents = getFileContents();
-			HashSet<String> passwords = new HashSet<>();
-			boolean ignoreNext = false;
-			for (String line : fileContents) {
-				if (ignoreNext) {
-					if (line.equals("//")){
-						ignoreNext = false;
-					}
-				}
-				else {
-					String[] fileLine = line.split(" ");
-					passwords.add(fileLine[1]);
-					ignoreNext = true;
-				}
-			}
-			
-			return passwords;
-		}
-		catch (FileNotFoundException e) {
-			System.out.println("File not found.");
-			return null;
-		}
-	}
-	
+
 	public static User getUser(String username, String password) {
 		try {
 			ArrayList<String> fileContents = getFileContents();
+			fileContents.remove(0);
 			boolean ignoreNext = false;
 			for (int i = 0; i < fileContents.size(); i++) {
 				String line = fileContents.get(i);
@@ -201,5 +159,41 @@ public class UserData {
 			System.out.println("File Not Found.");
 			return null;
 		}
+	}
+	
+	public static String getSaltString() {
+		try {
+			File myFile = new File(FILE_PATH);
+			Scanner myScanner = new Scanner(myFile);
+			return myScanner.nextLine().strip();
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("File Not Found.");
+			return null;
+		}
+	}
+	
+	public static void writeSaltString() {
+		
+		try {
+			ArrayList<String> fileContents = getFileContents();
+			FileWriter userFile = new FileWriter(FILE_PATH);
+			if (fileContents.isEmpty()) {
+				String salt = PasswordUtil.generateSalt();
+				userFile.write(salt + "\n");
+			}
+			else {
+				for (String line : fileContents) {
+					userFile.write(line + "\n");
+				}
+			}
+			
+			userFile.close();
+		}
+		catch (IOException e) {
+			System.out.println("File Not Found.");
+			return;
+		}
+		
 	}
 }

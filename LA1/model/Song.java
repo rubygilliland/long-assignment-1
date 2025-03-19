@@ -5,10 +5,10 @@ package model;
  * This class defines methods and instance variables for a Song object.
  * Song objects have a String artist and title, an assigned Album object,
  * and a Rating.
- * 
+ *
  * Songs can be copied (with the copy constructor), have an Album object assigned
  * to them, rated, rated as a favorite, and can be compared to other Song objects
- * (equals method). 
+ * (equals method).
  */
 public class Song {
 private final Album ALBUM;
@@ -28,7 +28,7 @@ public Song(String title, String artist, Album album) {
 		this(song.title, song.artist, song.ALBUM);
 		if (song.rating != null) {
 			this.rate(song.rating);
-		} 
+		}
 	}
 
 // helper method for Song copy constructor
@@ -46,14 +46,14 @@ public void rate(int userRating) {
 	case 2:
 		rating = Rating.TWO;
 		break;
-	case 3: 
+	case 3:
 		rating = Rating.THREE;
 		break;
 	case 4:
 		rating = Rating.FOUR;
 		break;
 	default:
-		
+
 		// if the user rating is 5, song is automatically marked as favorite
 		rating = Rating.FAVORITE;
 	}
@@ -69,14 +69,14 @@ public void rate(String userRating) {
 	case "two":
 		rating = Rating.TWO;
 		break;
-	case "three": 
+	case "three":
 		rating = Rating.THREE;
 		break;
 	case "four":
 		rating = Rating.FOUR;
 		break;
 	default:
-		
+
 		// if the user rating is 5, song is automatically marked as favorite
 		rating = Rating.FAVORITE;
 	}
@@ -106,7 +106,7 @@ public String getAlbum() {
 }
 
 public String getGenre() {
-	return ALBUM.getGenreStr();	
+	return ALBUM.getGenreStr();
 }
 
 @Override
@@ -124,10 +124,10 @@ public boolean equals(Object otherSong) {
 		String message = toString().strip() + ":" + this.rating + "\n";
 		return message;
 	}
-	
+
 	@Override
 	public String toString() {
 		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
 		return message;
-	} 
+	}
 }

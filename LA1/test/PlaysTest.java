@@ -9,7 +9,7 @@ import model.Plays;
 import model.Song;
 
 public class PlaysTest {
-	
+
 	@Test
 	public void testPlaySong() {
 		Plays plays = new Plays();
@@ -18,7 +18,7 @@ public class PlaysTest {
 		plays.playSong(song);
 		String actual =  plays.getRecentlyPlayed().toString();
 		String expected = "Recently Played:\n\tRolling in the Deep - by: Adele (21)\n";
-		assertEquals(expected, actual); 
+		assertEquals(expected, actual);
 	}
-	
+
 }
