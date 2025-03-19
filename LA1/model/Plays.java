@@ -50,7 +50,16 @@ public class Plays {
 
 		}
 	
-
+	
+	public int getPlaysBySong(Song song) {
+		if (!plays.containsKey(song)) {
+			return 0;
+		}
+		else {
+			return plays.get(song);
+		}
+	}
+	
 	public Playlist getRecentlyPlayed() {
 		return new Playlist(recentlyPlayed);
 	}

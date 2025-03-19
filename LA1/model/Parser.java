@@ -121,7 +121,13 @@ public class Parser {
 					return currPlaylist;
 				case 2:
 					// add song
-					userLibrary.addSong(lineArray[1].strip(), lineArray[3].strip(), lineArray[5].strip());
+					String songname = lineArray[1].strip();
+					String artist = lineArray[3].strip();
+					userLibrary.addSong(songname, artist, lineArray[5].strip());
+					int plays = Integer.valueOf(lineArray[6].strip());
+					for (int i = 0; i < plays; i++) {
+						userLibrary.play(songname, artist);
+					}
 					return currPlaylist;
 				case 3:
 					// checks if first element consists of only digits

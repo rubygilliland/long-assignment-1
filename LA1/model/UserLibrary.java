@@ -695,7 +695,7 @@ public class UserLibrary {
 		message += "\tSongs:\n";
 		for (int i = 0; i < songs.size(); i++) {
 			int j = i+1;
-			message += "\t\t" + j + ". " + songs.get(i).toStringFile();
+			message += "\t\t" + j + ". " + songs.get(i).toStringFile().strip() + ":" + this.plays.getPlaysBySong(songs.get(i)) + "\n";
 		}
 		message += "\tAlbums:\n";
 		for (int i = 0; i < albums.size(); i++){
