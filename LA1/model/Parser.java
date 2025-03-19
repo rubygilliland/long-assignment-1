@@ -110,6 +110,7 @@ public class Parser {
 			String[] lineArray = line.split(":");
 			switch (addAttribute) {
 				case 1:
+					// add album
 					ArrayList<Album> userAlbums = userLibrary.getAlbumList();
 					for (Album a : userAlbums) {
 						if (a.getTitle().equals(lineArray[1].strip())) {
@@ -119,7 +120,8 @@ public class Parser {
 					userLibrary.addAlbum(lineArray[1].strip());
 					return currPlaylist;
 				case 2:
-					userLibrary.addSong(lineArray[1].strip(), lineArray[3].strip());
+					// add song
+					userLibrary.addSong(lineArray[1].strip(), lineArray[3].strip(), lineArray[5].strip());
 					return currPlaylist;
 				case 3:
 					// checks if first element consists of only digits

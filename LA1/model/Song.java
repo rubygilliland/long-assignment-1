@@ -59,6 +59,29 @@ public void rate(int userRating) {
 	}
 }
 
+public void rate(String userRating) {
+	switch(userRating.toLowerCase()) {
+	case "null":
+		break;
+	case "one":
+		rating = Rating.ONE;
+		break;
+	case "two":
+		rating = Rating.TWO;
+		break;
+	case "three": 
+		rating = Rating.THREE;
+		break;
+	case "four":
+		rating = Rating.FOUR;
+		break;
+	default:
+		
+		// if the user rating is 5, song is automatically marked as favorite
+		rating = Rating.FAVORITE;
+	}
+}
+
 public void favorite() {
 	rating = Rating.FAVORITE;
 }
@@ -96,10 +119,10 @@ public boolean equals(Object otherSong) {
 		return (this.title.equals(((Song) otherSong).title) && this.artist.equals(((Song) otherSong).artist));
 	}
 	}
-	
+
 
 	public String toStringFile() {
-		String message = toString().strip() + " " + this.rating + "\n";
+		String message = toString().strip() + ":" + this.rating + "\n";
 		return message;
 	}
 	
@@ -110,5 +133,6 @@ public boolean equals(Object otherSong) {
 	} 
 
 }
+
 
 

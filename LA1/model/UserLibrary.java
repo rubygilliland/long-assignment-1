@@ -398,6 +398,26 @@ public class UserLibrary {
 		updateGenrePlaylists();
 	}
 	
+	// adds a song to user library based on title and artist and rate the song
+		public void addSong(String songName, String artist, String rating) {
+			
+			// only searches for Songs in music store
+			for (Song s : musicStore.getSongs()) {
+				
+				// adds a Song with given artist and given title to songs, if it is not already in songs list
+				if (s.getTitle().toLowerCase().equals(songName.toLowerCase()) && songs.contains(s) == false && 
+						s.getArtist().toLowerCase().equals(artist.toLowerCase())){ 
+					Song newSong = new Song(s);
+					newSong.rate(rating);
+					songs.add(newSong);
+					addPartAlbum(s.getAlbum());
+					addToGenrePlaylists(s.getTitle(), s.getArtist());
+				}
+			}
+			updateGenrePlaylists();
+		}
+		
+	
 	// adds an album to user library based on title 
 	public void addAlbum(String albumName) {
 		
