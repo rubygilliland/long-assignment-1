@@ -118,7 +118,8 @@ public boolean equals(Object otherSong) {
 		// compares Song objects based on their title and artist
 		return (this.title.equals(((Song) otherSong).title) && this.artist.equals(((Song) otherSong).artist));
 	}
-}
+	}
+
 
 	public String toStringFile() {
 		String message = toString().strip() + ":" + this.rating + "\n";
@@ -129,5 +130,10 @@ public boolean equals(Object otherSong) {
 	public String toString() {
 		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
 		return message;
-	}
+
+	} 
+
 }
+
+
+

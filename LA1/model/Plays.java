@@ -23,17 +23,16 @@ public class Plays {
 		updateFrequentlyPlayed();
 	}
 
+	 
 	// assume song passed in is a copy
 	public void updateRecentlyPlayed(Song song) {
-		recentlyPlayed.insertSong(song);
-		if (recentlyPlayed.getSongsList().size() > 1) {
-			recentlyPlayed.popSong();
-		}
+		recentlyPlayed.insertSong(song); 
+		if (recentlyPlayed.getSongsList().size() > 10) recentlyPlayed.popSong();
 	}
 
 	public void updateFrequentlyPlayed() {
-		ArrayList songsList = new ArrayList(plays.values());
-		Collections.sort(songsList);
+		ArrayList<Integer> songsList = new ArrayList<Integer>(plays.values());
+		Collections.sort(songsList); 
 		int songsNum = 0;
 		while ((songsNum < 10) && songsNum < songsList.size()) {
 		for (Song key : plays.keySet()) {

@@ -107,11 +107,21 @@ class SongTest {
 	void testCopyConstructor() {
 		Album myAlbum = new Album("19", "Adele", "Pop", "2008");
 		Song mySong1 = new Song("Crazy for You", "Adele", myAlbum);
-				mySong1.rate(4);
+		mySong1.rate(4);
 		Song mySong2 = new Song(mySong1);
 		assertTrue(mySong1.getAlbum().equals(mySong2.getAlbum()));
 		assertTrue(mySong1.getRating().equals(mySong2.getRating()));
 
+	}
+	
+	@Test
+	void testToStringFile() {
+		Album myAlbum = new Album("19", "Adele", "Pop", "2008");
+		Song mySong1 = new Song("Crazy for You", "Adele", myAlbum);
+		mySong1.rate(4);
+		String expected = "Crazy for You - by: Adele (19) FOUR\n";
+		String actual = mySong1.toStringFile();
+		assertEquals(expected, actual);
 	}
 
 
