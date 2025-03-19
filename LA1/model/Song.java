@@ -59,6 +59,29 @@ public void rate(int userRating) {
 	}
 }
 
+public void rate(String userRating) {
+	switch(userRating.toLowerCase()) {
+	case "null":
+		break;
+	case "one":
+		rating = Rating.ONE;
+		break;
+	case "two":
+		rating = Rating.TWO;
+		break;
+	case "three": 
+		rating = Rating.THREE;
+		break;
+	case "four":
+		rating = Rating.FOUR;
+		break;
+	default:
+		
+		// if the user rating is 5, song is automatically marked as favorite
+		rating = Rating.FAVORITE;
+	}
+}
+
 public void favorite() {
 	rating = Rating.FAVORITE;
 }
@@ -95,10 +118,10 @@ public boolean equals(Object otherSong) {
 		// compares Song objects based on their title and artist
 		return (this.title.equals(((Song) otherSong).title) && this.artist.equals(((Song) otherSong).artist));
 	}
-	
+}
 
 	public String toStringFile() {
-		String message = toString().strip() + " " + this.rating + "\n";
+		String message = toString().strip() + ":" + this.rating + "\n";
 		return message;
 	}
 	
@@ -107,108 +130,4 @@ public boolean equals(Object otherSong) {
 		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
 		return message;
 	} 
-
-
-//public class Song {
-//	private Album album;
-//	private String title;
-//	private String artist;
-//	public enum Rating {ONE, TWO, THREE, FOUR, FAVORITE}
-//	private Rating rating;
-//	
-//	public Song(String title, String artist, Album album) {
-//		this.title = title;
-//		this.artist = artist;
-//		this.album = album;
-//		
-//		// default rating
-//		this.rating = Rating.ONE;
-//	}	
-//	
-//	// Copy constructor
-//    public Song(String title, String artist, Album album, int rating) {
-//        this.title = title;
-//        this.artist = artist;
-//        this.album = album;
-//        this.rating = rate(rating);
-//    }
-//    
-//    // copy constructor
-//    public Song(Song s) {
-//    	this.title = s.getTitle();
-//    	this.artist = s.getArtist();
-//    	this.album = s.getAlbum();
-//    	this.rating = s.getRating();
-//    }
-//
-//	// @pre int userRating must be a rating from 1-5
-//	private Rating rate(int userRating) {
-//		switch(userRating) {
-//		case 1:
-//			return Rating.ONE;
-//		case 2:
-//			return Rating.TWO;
-//		case 3: 
-//			return Rating.THREE;
-//		case 4:
-//			return Rating.FOUR;
-//		default:
-//			
-//			// if the user rating is 5, song is automatically marked as favorite
-//			return Rating.FAVORITE;
-//		}
-//	}
-//	
-//	public Song rateSong(int newRating) {
-//        return new Song(this.title,this.artist, this.album, newRating);
-//    }
-//	
-//	public void favorite() {
-//		rating = Rating.FAVORITE;
-//	}
-//	
-//	public int getRatingInt() {
-//		return rating.ordinal();
-//	}
-//	
-//	public Rating getRating() {
-//		return rating;
-//	}
-//	
-//	public String getTitle() {
-//		return title;
-//	}
-//	
-//	public String getArtist() {
-//		return artist;
-//	}
-//	
-////	public Album getAlbum() {
-////		return new Album(album);
-////	}
-////	
-//	public String getAlbumTitle() {
-//		return album.getTitle();
-//	}
-//	
-//	public String getGenre() {
-//		return album.getGenreStr();
-//	}
-//	@Override
-//	public boolean equals(Object otherSong) {
-//		if (this.getClass() != otherSong.getClass()) {
-//			return false;
-//		}
-//		else {
-//			// compares Song objects based on their title and artist
-//			return (this.title.equals(((Song) otherSong).title) && this.artist.equals(((Song) otherSong).artist));
-//		}
-//		
-//	}
-//	
-//	@Override
-//	public String toString() {
-//		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
-//		return message;
-//	}
-
+}
