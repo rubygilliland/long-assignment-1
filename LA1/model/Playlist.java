@@ -79,6 +79,10 @@ public class Playlist {
 		return new Song(random);
 	}
 	
+	public void clear() {
+		songs.clear();
+	}
+	
 	
 	// gets a deep copy of the Songs list
 	public ArrayList<Song> getSongsList(){

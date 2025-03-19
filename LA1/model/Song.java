@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Objects;
 
 /*
  * This class defines methods and instance variables for a Song object.
@@ -119,7 +120,7 @@ public boolean equals(Object otherSong) {
 		return (this.title.equals(((Song) otherSong).title) && this.artist.equals(((Song) otherSong).artist));
 	}
 	}
-
+ 
 
 	public String toStringFile() {
 		String message = toString().strip() + ":" + this.rating + "\n";
@@ -131,6 +132,11 @@ public boolean equals(Object otherSong) {
 		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
 		return message;
 	} 
+	
+	@Override
+	public int hashCode() {
+	    return Objects.hash(title, artist);
+	}
 
 }
 

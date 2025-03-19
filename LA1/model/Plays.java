@@ -2,7 +2,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 
 public class Plays {
 	private HashMap<Song, Integer> plays;
@@ -30,16 +32,19 @@ public class Plays {
 	}
 	
 	public void updateFrequentlyPlayed() {
-		ArrayList<Integer> songsList = new ArrayList<Integer>(plays.values());
-		Collections.sort(songsList); 
-		int songsNum = 0;
-		while ((songsNum < 10) && songsNum < songsList.size()) {
-		for (Song key : plays.keySet())
-			if (plays.get(key) == songsList.get(songsNum)) {
-			frequentlyPlayed.addSong(key);
-			songsNum += 1;
-			}
-		}
+	    frequentlyPlayed.clear(); // Clear the existing list before updating
+
+	    // Sort songs by play count in descending order
+	    List<Song> sortedSongs = new ArrayList<>(plays.keySet());
+	    sortedSongs.sort((s1, s2) -> plays.get(s2) - plays.get(s1)); // Sort in descending order
+
+	    // Add up to 10 most played songs
+	    int count = 0;
+	    for (Song song : sortedSongs) {
+	        if (count >= 10) break;
+	        frequentlyPlayed.addSong(song);
+	        count++;
+	    }
 	}
 	
 	public Playlist getRecentlyPlayed() {

@@ -376,17 +376,17 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		String actual = USER_LIBRARY.toStringFile();
 		String expected = "My Library:\n";
 		expected += "\tSongs:\n";
-		expected += "\t\t1. Made for You - by: OneRepublic (Waking Up) null\n";
-		expected += "\t\t2. All the Right Moves - by: OneRepublic (Waking Up) null\n";
-		expected += "\t\t3. Secrets - by: OneRepublic (Waking Up) null\n";
-		expected += "\t\t4. Everybody Loves Me - by: OneRepublic (Waking Up) null\n";
-		expected += "\t\t5. Missing Persons 1 & 2 - by: OneRepublic (Waking Up) null\n";
-		expected += "\t\t6. Good Life - by: OneRepublic (Waking Up) FAVORITE\n"; 
-		expected += "\t\t7. All This Time - by: OneRepublic (Waking Up) null\n";
-		expected += "\t\t8. Fear - by: OneRepublic (Waking Up) null\n";
-		expected += "\t\t9. Waking Up - by: OneRepublic (Waking Up) null\n";
-		expected += "\t\t10. Marchin On - by: OneRepublic (Waking Up) null\n";
-		expected += "\t\t11. Lullaby - by: OneRepublic (Waking Up) FOUR\n";
+		expected += "\t\t1. Made for You - by: OneRepublic (Waking Up):null\n";
+		expected += "\t\t2. All the Right Moves - by: OneRepublic (Waking Up):null\n";
+		expected += "\t\t3. Secrets - by: OneRepublic (Waking Up):null\n";
+		expected += "\t\t4. Everybody Loves Me - by: OneRepublic (Waking Up):null\n";
+		expected += "\t\t5. Missing Persons 1 & 2 - by: OneRepublic (Waking Up):null\n";
+		expected += "\t\t6. Good Life - by: OneRepublic (Waking Up):FAVORITE\n"; 
+		expected += "\t\t7. All This Time - by: OneRepublic (Waking Up):null\n";
+		expected += "\t\t8. Fear - by: OneRepublic (Waking Up):null\n";
+		expected += "\t\t9. Waking Up - by: OneRepublic (Waking Up):null\n";
+		expected += "\t\t10. Marchin On - by: OneRepublic (Waking Up):null\n";
+		expected += "\t\t11. Lullaby - by: OneRepublic (Waking Up):FOUR\n";
 		expected += "\tAlbums:\n";
 		expected += "\t\t1. Waking Up - by: OneRepublic (ROCK) 2009\n";
 		expected += "\tPlaylists:\n";
@@ -439,17 +439,27 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		assertEquals(expected, actual);
 	}
 	
-//	@Test
-//	void testFrequentlyPlayed() {
-//		USER_LIBRARY.addAlbum("Waking Up");
-//		USER_LIBRARY.play("Made for You", "OneRepublic");
-//		USER_LIBRARY.play("Made for You", "OneRepublic");
-//		USER_LIBRARY.play("Made for You", "OneRepublic");
-//		USER_LIBRARY.play("Secrets", "OneRepublic");
-//		USER_LIBRARY.play("Lullaby", "OneRepublic");
-//		String actual = USER_LIBRARY.getFrequentlyPlayed().toString();
-//		String expected = "Frequently Played:\n\tMade for You - by: OneRepublic (Waking Up)\n\tLullaby - by: OneRepublic (Waking Up)\n\t";
-//		expected += "Secrets - by: OneRepublic (Waking Up)\n\t";
-//		assertEquals(expected, actual);
-//	}
+	@Test
+	void testFrequentlyPlayed() {
+		USER_LIBRARY.addAlbum("Waking Up");
+		USER_LIBRARY.play("Made for You", "OneRepublic");
+		USER_LIBRARY.play("Made for You", "OneRepublic");
+		USER_LIBRARY.play("Made for You", "OneRepublic");
+		USER_LIBRARY.play("Secrets", "OneRepublic");
+		USER_LIBRARY.play("Lullaby", "OneRepublic");
+		String actual = USER_LIBRARY.getFrequentlyPlayed().toString();
+		String expected = "Frequently Played:\n\tMade for You - by: OneRepublic (Waking Up)\n";
+		expected += "\tSecrets - by: OneRepublic (Waking Up)\n\tLullaby - by: OneRepublic (Waking Up)\n";
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testAddSongWithRating() {
+		USER_LIBRARY.addSong("Secrets", "OneRepublic", "5");
+		String actual = USER_LIBRARY.getSongTitles();
+		String expected = "Songs in Your Library:\nSecrets\n";
+		assertEquals(expected, actual);
+		assertEquals(USER_LIBRARY.getFavoriteSongs(), "Your Favorited Songs:\nSecrets - by: OneRepublic (Waking Up)\n");
+		
+	}
 }
