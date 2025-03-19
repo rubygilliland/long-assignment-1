@@ -17,9 +17,10 @@ public class Main {
 	
 	public static void main(String[] args) {
 		User myUser = LoginMenu.loginSignUpMenu();
+		System.out.println(myUser.getUsername());
 		
 		
-		System.out.println(WELCOME_MESSAGE);
+		//System.out.println(WELCOME_MESSAGE);
 		MusicStore musicStore = new MusicStore();
 		UserLibrary userLibrary = myUser.getUserLibrary();
 		
