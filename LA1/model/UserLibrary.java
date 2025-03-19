@@ -48,6 +48,7 @@ public class UserLibrary {
 		singerSongwriter = new Playlist("Singer Songwriter");
 		playlists.add(favorites);
 		playlists.add(topRated);
+		shuffleLibrary();
 	}
 	
 	// searches for songs in the user library by title
@@ -376,7 +377,7 @@ public class UserLibrary {
 				}
 				return false;
 			}
-		}
+		} 
 		return false;
 	}
 	
@@ -507,11 +508,11 @@ public class UserLibrary {
 			Song copyS = new Song(s);
 			
 			// avoids any escaping references
-			shuffled.add(copyS);
+			shuffle.add(copyS);
 		}
-		
+		 
 		Collections.shuffle(shuffle);
-		this.shuffled = shuffle;
+		shuffled = shuffle;
 	}
 	
 	// gets a random song in the list of shuffled songs
@@ -526,6 +527,7 @@ public class UserLibrary {
 		Song random = new Song("", "", null);
 		for (Playlist p : playlists) {
 			if (p.getName().toLowerCase().equals(playlistName.toLowerCase())) {
+				p.shufflePlaylist();
 				random = p.getRandomSong();
 			}
 		}
@@ -613,7 +615,7 @@ public class UserLibrary {
 	}
 	
 	public Playlist getFrequentlyPlayed() {
-		return new Playlist(plays.getRecentlyPlayed());
+		return new Playlist(plays.getFrequentlyPlayed());
 	}
 	
 	public String toStringFile() {

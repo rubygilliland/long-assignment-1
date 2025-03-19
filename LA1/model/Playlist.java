@@ -20,6 +20,7 @@ public class Playlist {
 	public Playlist(String name) {
 		songs = new ArrayList<Song>(); 
 		this.name = name;
+		shufflePlaylist();
 	}
 	
 	// copy constructor
@@ -57,14 +58,14 @@ public class Playlist {
 	}
 	
 
-	public void shufflePlaylist(String playlistName) {
+	public void shufflePlaylist() {
 		shufflePointer = 0;
 			ArrayList<Song> shuffle = new ArrayList<Song>();
 			for (Song s : this.getSongsList()) {
 				Song copyS = new Song(s);
 				
 				// avoids any escaping references
-				shuffled.add(copyS);
+				shuffle.add(copyS);
 			}
 			
 			// shuffles all the songs in that playlist
@@ -111,6 +112,5 @@ public class Playlist {
 		pString += getSongs();
 		return pString;
 	}
-
 
 }

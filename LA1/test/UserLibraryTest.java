@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import model.MusicStore;
+import model.Song;
 import model.UserLibrary;
 
 class UserLibraryTest {
@@ -366,4 +367,89 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		String expected = "Driving Around:\n\tBegin Again - by: Norah Jones (Begin Again)\n\tRolling in the Deep - by: Adele (21)\n";
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	void testToStringFile() {
+		USER_LIBRARY.addAlbum("Waking Up");
+		USER_LIBRARY.rateSong("Good Life", "OneRepublic", 5);
+		USER_LIBRARY.rateSong("Lullaby", "OneRepublic", 4);
+		String actual = USER_LIBRARY.toStringFile();
+		String expected = "My Library:\n";
+		expected += "\tSongs:\n";
+		expected += "\t\t1. Made for You - by: OneRepublic (Waking Up) null\n";
+		expected += "\t\t2. All the Right Moves - by: OneRepublic (Waking Up) null\n";
+		expected += "\t\t3. Secrets - by: OneRepublic (Waking Up) null\n";
+		expected += "\t\t4. Everybody Loves Me - by: OneRepublic (Waking Up) null\n";
+		expected += "\t\t5. Missing Persons 1 & 2 - by: OneRepublic (Waking Up) null\n";
+		expected += "\t\t6. Good Life - by: OneRepublic (Waking Up) FAVORITE\n"; 
+		expected += "\t\t7. All This Time - by: OneRepublic (Waking Up) null\n";
+		expected += "\t\t8. Fear - by: OneRepublic (Waking Up) null\n";
+		expected += "\t\t9. Waking Up - by: OneRepublic (Waking Up) null\n";
+		expected += "\t\t10. Marchin On - by: OneRepublic (Waking Up) null\n";
+		expected += "\t\t11. Lullaby - by: OneRepublic (Waking Up) FOUR\n";
+		expected += "\tAlbums:\n";
+		expected += "\t\t1. Waking Up - by: OneRepublic (ROCK) 2009\n";
+		expected += "\tPlaylists:\n";
+		expected += "\t\t1. Favorites:\n";
+		expected += "\t\t\t\tGood Life - by: OneRepublic (Waking Up)\n\n";
+		expected += "\t\t2. Top Rated:\n";
+		expected += "\t\t\t\tGood Life - by: OneRepublic (Waking Up)\n";
+		expected += "\t\t\t\tLullaby - by: OneRepublic (Waking Up)\n\n";
+		expected += "\t\t3. Rock:\n";
+		expected += "\t\t\t\tMade for You - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tAll the Right Moves - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tSecrets - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tEverybody Loves Me - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tMissing Persons 1 & 2 - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tGood Life - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tAll This Time - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tFear - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tWaking Up - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tMarchin On - by: OneRepublic (Waking Up)\n"
+				+ "\t\t\t\tLullaby - by: OneRepublic (Waking Up)\n\n";
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testGetRandomSongLibrary() {
+		USER_LIBRARY.addSong("Made for You", "OneRepublic");
+		USER_LIBRARY.addSong("Secrets", "OneRepublic");
+		USER_LIBRARY.addSong("Lullaby", "OneRepublic");
+		USER_LIBRARY.shuffleLibrary();
+		Song random = USER_LIBRARY.getRandomSongLibrary();
+		assertNotNull(random);
+	}
+	
+	@Test
+	void testGetRandomSongPlaylist() {
+		USER_LIBRARY.addAlbum("Waking Up");
+		Song random = USER_LIBRARY.getRandomSongPlaylist("Rock");
+		assertNotNull(random);
+		}
+	
+	@Test
+	void testRecentlyPlayed() {
+		USER_LIBRARY.addAlbum("Waking Up");
+		USER_LIBRARY.play("Made for You", "OneRepublic");
+		USER_LIBRARY.play("Secrets", "OneRepublic");
+		USER_LIBRARY.play("Lullaby", "OneRepublic");
+		String actual = USER_LIBRARY.getRecentlyPlayed().toString();
+		String expected = "Recently Played:\n\tLullaby - by: OneRepublic (Waking Up)\n\t";
+		expected += "Secrets - by: OneRepublic (Waking Up)\n\tMade for You - by: OneRepublic (Waking Up)\n";
+		assertEquals(expected, actual);
+	}
+	
+//	@Test
+//	void testFrequentlyPlayed() {
+//		USER_LIBRARY.addAlbum("Waking Up");
+//		USER_LIBRARY.play("Made for You", "OneRepublic");
+//		USER_LIBRARY.play("Made for You", "OneRepublic");
+//		USER_LIBRARY.play("Made for You", "OneRepublic");
+//		USER_LIBRARY.play("Secrets", "OneRepublic");
+//		USER_LIBRARY.play("Lullaby", "OneRepublic");
+//		String actual = USER_LIBRARY.getFrequentlyPlayed().toString();
+//		String expected = "Frequently Played:\n\tMade for You - by: OneRepublic (Waking Up)\n\tLullaby - by: OneRepublic (Waking Up)\n\t";
+//		expected += "Secrets - by: OneRepublic (Waking Up)\n\t";
+//		assertEquals(expected, actual);
+//	}
 }
