@@ -1,6 +1,6 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class MusicStoreTest {
 		String result = myStore.getSongByTitle("Here We Go");
 		assertEquals(result, "Here We Go - by: Ozomatli (Don't Mess With the Dragon)\n");
 	}
-	
+
 	@Test
 	public void testGetSongByArtist() {
 		MusicStore myStore = new MusicStore();
@@ -26,7 +26,7 @@ public class MusicStoreTest {
 		String otherResult = "Politik - by: Coldplay (A Rush of Blood to the Head)\n" +
 							"In My Place - by: Coldplay (A Rush of Blood to the Head)\n" +
 							"God Put a Smile Upon Your Face - by: Coldplay (A Rush of Blood to the Head)\n" +
-							"The Scientist - by: Coldplay (A Rush of Blood to the Head)\n" + 
+							"The Scientist - by: Coldplay (A Rush of Blood to the Head)\n" +
 							"Clocks - by: Coldplay (A Rush of Blood to the Head)\n" +
 							"Daylight - by: Coldplay (A Rush of Blood to the Head)\n" +
 							"Green Eyes - by: Coldplay (A Rush of Blood to the Head)\n" +
@@ -34,15 +34,15 @@ public class MusicStoreTest {
 							"A Whisper - by: Coldplay (A Rush of Blood to the Head)\n" +
 							"A Rush of Blood to the Head - by: Coldplay (A Rush of Blood to the Head)\n" +
 							"Amsterdam - by: Coldplay (A Rush of Blood to the Head)\n";
-							
-							
-							
+
+
+
 		assertEquals(result, otherResult);
 	}
-	
-	
+
+
 	@Test
-	public void testGetAlbumByTitle() { 
+	public void testGetAlbumByTitle() {
 		MusicStore myStore = new MusicStore();
 		String result = myStore.getAlbumByTitle("21");
 		String otherResult = "21 - by: Adele (POP) 2011\n" +
@@ -57,11 +57,11 @@ public class MusicStoreTest {
 							"\tOne and Only - by: Adele (21)\n" +
 							"\tLovesong - by: Adele (21)\n" +
 							"\tSomeone Like You - by: Adele (21)\n" +
-							"\tI Found a Boy - by: Adele (21)\n";		
-							
+							"\tI Found a Boy - by: Adele (21)\n";
+
 		assertEquals(result, otherResult);
 	}
-	
+
 	@Test
 	public void testGetAlbumByArtist() {
 		MusicStore myStore = new MusicStore();
@@ -77,10 +77,10 @@ public class MusicStoreTest {
 							"\tBanjo - by: Leonard Cohen (Old Ideas)\n" +
 							"\tLullaby - by: Leonard Cohen (Old Ideas)\n" +
 							"\tDifferent Sides - by: Leonard Cohen (Old Ideas)\n";
-							
+
 		assertEquals(result, otherResult);
 	}
-	
+
 	@Test
 	public void testGetAlbums() {
 		MusicStore myStore = new MusicStore();
@@ -101,12 +101,12 @@ public class MusicStoreTest {
 		otherResult.add(new Album("Coat of Many Colors", "Dolly Parton", "TRADITIONAl COUNTRY", "1971"));
 		otherResult.add(new Album("Tapestry", "Carol King", "ROCK", "1971"));
 		otherResult.add(new Album("Sons", "The Heavy", "ROCK", "2019"));
-		
+
 		for (int i = 0; i < result.size(); i++) {
 			assertEquals(result.get(i), otherResult.get(i));
 		}
 	}
-	
+
 	@Test
 	public void testGetSongs() {
 		MusicStore myStore = new MusicStore();
@@ -275,13 +275,13 @@ public class MusicStoreTest {
 		otherResult.add(new Song("A Whole Lot of Love", "The Heavy"));
 		otherResult.add(new Song("What Don't Kill You", "The Heavy"));
 		otherResult.add(new Song("Burn Bright", "The Heavy"));
-		
+
 		for (int i = 0; i < result.size(); i++) {
 			assertEquals(result.get(i), otherResult.get(i));
 		}
-		
-	} 
-	
+
+	}
+
 	@Test
 	public void testToString(){
 		MusicStore myStore = new MusicStore();
@@ -468,11 +468,11 @@ public class MusicStoreTest {
                 "\t\t161. A Whole Lot of Love - by: The Heavy (Sons)\n" +
                 "\t\t162. What Don't Kill You - by: The Heavy (Sons)\n" +
                 "\t\t163. Burn Bright - by: The Heavy (Sons)\n";
-		
+
 		assertEquals(result, musicStore);
-		
-		
+
+
 	}
-	
-	
+
+
 }
