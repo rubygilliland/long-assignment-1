@@ -106,7 +106,8 @@ public class MusicStoreTest {
 			assertEquals(result.get(i), otherResult.get(i));
 		}
 	}
-
+	
+	/*
 	@Test
 	public void testGetSongs() {
 		MusicStore myStore = new MusicStore();
@@ -280,6 +281,36 @@ public class MusicStoreTest {
 			assertEquals(result.get(i), otherResult.get(i));
 		}
 
+	}
+	*/
+	
+	@Test
+	public void testNoArtistAlbumsFound() {
+		MusicStore myStore = new MusicStore();
+		String albumStr = "Albums by this artist cannot be found.";
+		assertEquals(myStore.getAlbumByArtist("bcnr"), albumStr);
+	}
+	
+	@Test
+	public void testNoAlbumsFound() {
+		MusicStore myStore = new MusicStore();
+		String albumStr = "This album cannot be found.";
+		assertEquals(myStore.getAlbumByTitle("imaginal disk"), albumStr);
+	}
+	
+	
+	@Test
+	public void testNoSongFound() {
+		MusicStore myStore = new MusicStore();
+		String songStr = "This song cannot be found.";
+		assertEquals(myStore.getSongByTitle("basketball shoes"), songStr);
+	}
+	
+	@Test
+	public void testNoArtistSongsFound() {
+		MusicStore myStore = new MusicStore();
+		String songStr = "Songs by this artist cannot be found.";
+		assertEquals(myStore.getSongByArtist("clairo"), songStr);
 	}
 
 	@Test

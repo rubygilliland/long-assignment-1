@@ -40,5 +40,15 @@ public class PlaysTest {
 		assertEquals(expected, actual);
 		
 	}
+	
+	@Test
+	public void testGetPlaysBySong() {
+		Plays plays = new Plays();
+		Album adele = new Album("21", "Adele", "Pop", "2011");
+		Song song = new Song("Rolling in the Deep", "Adele", adele);
+		plays.playSong(song);
+		assertEquals(plays.getPlaysBySong(song), 1);
+		
+	}
 
 }
