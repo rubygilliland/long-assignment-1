@@ -1,5 +1,6 @@
 package view;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 import model.PasswordUtil;
@@ -28,7 +29,7 @@ public class LoginMenu {
 	}
 
 
-	public static User signUp(UserDatabase myUserDatabase) {
+	public static User signUp(UserDatabase myUserDatabase){
 		System.out.print("Enter in new Username: ");
 		Scanner userLogin = new Scanner(System.in);
 		String username = userLogin.nextLine();
@@ -50,7 +51,10 @@ public class LoginMenu {
 		}
 		
 		String salt = UserData.getSaltString();
-		password = PasswordUtil.hashPassword(password, salt);
+		try {
+			password = PasswordUtil.hashPassword(password, salt);
+		} catch (NoSuchAlgorithmException e) {
+			System.out.println("No Hash Found.");		}
 		User myUser = new User(username, password);
 		UserData.createUser(myUser);
 
@@ -74,17 +78,22 @@ public class LoginMenu {
 
 		System.out.print("Enter in your Password: ");
 		Scanner userPass = new Scanner(System.in);
-		String password = PasswordUtil.hashPassword(userPass.nextLine().strip(), salt);
-		while(!myUserDatabase.getUsernamePasswords().get(username).equals(password)) {
-			System.out.println("Incorrect Password. Try again or restart to signup.");
-			System.out.print("Enter in your Password: ");
-			userPass = new Scanner(System.in);
-			password = PasswordUtil.hashPassword(userPass.nextLine().strip(), salt);
+		try {
+			String password = PasswordUtil.hashPassword(userPass.nextLine().strip(), salt);
+			while(!myUserDatabase.getUsernamePasswords().get(username).equals(password)) {
+				System.out.println("Incorrect Password. Try again or restart to signup.");
+				System.out.print("Enter in your Password: ");
+				userPass = new Scanner(System.in);
+				password = PasswordUtil.hashPassword(userPass.nextLine().strip(), salt);
+			}
+
+			User myUser = UserData.getUser(username, password);
+			return myUser;
 		}
-
-		User myUser = UserData.getUser(username, password);
-
-		return myUser;
+		catch (NoSuchAlgorithmException e) {
+			System.out.println("No hash found.");
+			return null;
+		}
 
 	}
 
