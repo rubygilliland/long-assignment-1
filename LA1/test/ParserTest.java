@@ -10,7 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import model.Album;
 import model.Parser;
+import model.Playlist;
 import model.Song;
+import model.User;
+import model.UserLibrary;
 
 public class ParserTest {
 
@@ -68,6 +71,21 @@ public class ParserTest {
 		ArrayList<Album> myAlbums = Parser.makeAlbumList("LA1/Not_Real.txt");
 		assertNull(myAlbums);
 
+	}
+	
+	@Test
+	public void testLoadUserLibrary() {
+		User myUser = new User("colin", "gale");
+		UserLibrary userLibrary = myUser.getUserLibrary();
+		userLibrary.addAlbum("21");
+		userLibrary.addSong("Rolling in the Deep", "Adele");
+		userLibrary.createPlaylist("myPlaylist");
+		
+		UserLibrary newUser = Parser.loadUserLibrary(userLibrary.toStringFile());
+		
+		assertEquals(newUser.toString(), userLibrary.toString());
+		
+		
 	}
 
 

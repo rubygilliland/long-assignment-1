@@ -173,7 +173,7 @@ public class UserData {
 		}
 	}
 	
-	public static void writeSaltString() {
+	public static String writeSaltString() {
 		
 		try {
 			ArrayList<String> fileContents = getFileContents();
@@ -189,10 +189,11 @@ public class UserData {
 			}
 			
 			userFile.close();
+			return fileContents.get(0).strip();
 		}
 		catch (IOException e) {
 			System.out.println("File Not Found.");
-			return;
+			return null;
 		}
 		
 	}

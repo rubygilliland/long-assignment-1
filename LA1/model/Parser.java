@@ -8,6 +8,8 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Parser {
@@ -105,6 +107,7 @@ public class Parser {
 	}
 
 		private static String changeUserLibrary(int addAttribute, String line, UserLibrary userLibrary, String currPlaylist) {
+			HashSet<String> skipPlaylists = autoPlaylists();
 			line = line.strip();
 			line = line.replace(".", ":").replace("-", ":").replace("(", ":");
 			String[] lineArray = line.split(":");
@@ -134,8 +137,11 @@ public class Parser {
 				    if (lineArray[0].strip().matches("\\d+")) {
 				    	
 				    	currPlaylist = lineArray[1].strip();
-				    	if (!currPlaylist.toLowerCase().equals("favorites") && !currPlaylist.toLowerCase().equals("top rated")) {
+				    	if (!skipPlaylists.contains(currPlaylist.toLowerCase())) {
 				    		userLibrary.createPlaylist(lineArray[1].strip());
+				    	}
+				    	else {
+				    		currPlaylist = "";
 				    	}
 				     return currPlaylist;
 				    } else {
@@ -146,6 +152,19 @@ public class Parser {
 					return currPlaylist;
 			}
 
+		}
+		
+		private static HashSet<String> autoPlaylists(){
+			HashSet<String> playlists = new HashSet<>();
+			playlists.add("favorites");
+			playlists.add("top rated");
+			playlists.add("pop");
+			playlists.add("alternative");
+			playlists.add("latin");
+			playlists.add("rock");
+			playlists.add("traditional_country");
+			playlists.add("singer_songwriter");
+			return playlists;
 		}
 
 }
