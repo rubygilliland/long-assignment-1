@@ -2,6 +2,7 @@ package view;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import model.Album;
 import model.MusicStore;
 import model.User;
 import model.UserData;
@@ -15,7 +16,8 @@ public class Main {
 			"Jammify brings the best music straight to you!\n";
 
 	public static final String LIST_OF_COMMANDS = "List of Commands:\n1. Search Songs\n2. Search Albums\n3. Browse \n4. Create Playlist" +
-	"\n5. View Playlists\n6. Add Songs\n7. Add Albums\n8. Edit Playlist\n9. Rate Songs\n10. Get Favorites\n11. Get Songs\n12. Get Albums\n13 Get Artists";
+	"\n5. View Playlists\n6. Add Songs\n7. Add Albums\n8. Edit Playlist\n9. Rate Songs\n10. Get Favorites\n11. Get Songs\n12. Get Albums\n13. Get Artists" +
+	"\n14. Play Song\n15. Remove Songs/Albums";
 
 
 	public static void main(String[] args) {
@@ -28,7 +30,7 @@ public class Main {
 
 		while (true) {
 			System.out.println(LIST_OF_COMMANDS);
-			System.out.print("Enter a command (1-13): ");
+			System.out.print("Enter a command (1-15): ");
 			Scanner userInput = new Scanner(System.in);
 			String inputString = userInput.nextLine().strip().toLowerCase();
 
@@ -111,6 +113,18 @@ public class Main {
 				case "get artists":
 					System.out.print("\n" + userLibrary.getArtists() + "\n");
 					break;
+				case "14":
+					System.out.print("\n" + userLibrary.getSongInfo() + "\n");
+					playSong(userLibrary);
+					break;
+				case "play song":
+					System.out.print("\n" + userLibrary.getSongInfo() + "\n");
+					playSong(userLibrary);
+					break;
+				case "15":
+					System.out.print("\n" + userLibrary.toString() + "\n");
+					removeFromLibrary(userLibrary);
+					break;
 				default:
 					System.out.println("Sorry command not found. Please try again!\n");
 					break;
@@ -136,17 +150,22 @@ public class Main {
 		 * return a string that tells the user.
 		 */
 
-		System.out.print("Search for a song by title or artist: ");
+		System.out.print("Search for a song by title, genre, or artist: ");
 		Scanner searchInput = new Scanner(System.in);
 		String songSearch = searchInput.nextLine().strip();
 		String songFound = musicStore.getSongByTitle(songSearch);
-
-		// check song by title, then check song by artist
+		
+		// check song by title, then check song by genre
 		if (songFound.equals("This song cannot be found.")) {
+			songFound = musicStore.getSongByGenre(songSearch);
+		}
+
+		// check song by artist
+		if (songFound.equals("Songs for this genre can not be found.")) {
 			songFound = musicStore.getSongByArtist(songSearch);
 		}
 
-		songFound = songFound.replace("artist", "title/artist");
+		songFound = songFound.replace("artist", "title/artist/genre");
 		return songFound;
 	}
 
@@ -610,7 +629,97 @@ public class Main {
 		}
     }
 	}
-
+	
+	public static void playSong(UserLibrary userLibrary) {
+		Scanner myScanner = new Scanner(System.in);
+		
+		String[] songs = userLibrary.getSongInfo().split("\n");
+		
+		while (true) {
+			System.out.print("Enter the NUMBER of the song you wish to play: ");
+		
+			int songNum;
+			try {
+				songNum = Integer.valueOf(myScanner.nextLine());
+				if (songNum < 1 || songNum > songs.length - 1) {
+					System.out.println("Invalid selection. Please try again.\n");
+					continue;
+				}
+				String songString = songs[songNum].strip().replace(".", ":").replace("-", ":").replace("(", ":");
+				String[] songList = songString.split(":");
+				userLibrary.play(songList[1].strip(), songList[3].strip());
+				System.out.println("\nNow playing: " + songList[1].strip() + " - by: " + songList[3].strip() + "!\n");
+				return;
+			}	
+			catch (NumberFormatException e) {
+				System.out.println("Invalid selection. Please try again.\n");
+				continue;
+			}
+		}
+	}
+	
+	public static void removeFromLibrary(UserLibrary userLibrary) {
+		System.out.print("What would you like to remove? (Song/Album): ");
+		while (true) {
+			Scanner myScanner = new Scanner(System.in);
+			String response = myScanner.nextLine();
+			if (response.toLowerCase().equals("song")) {
+				System.out.println(userLibrary.getSongInfo());
+				System.out.print("Enter the NUMBER of the song you would like to remove: ");
+				Scanner songScanner = new Scanner(System.in);
+				
+				String[] songs = userLibrary.getSongInfo().split("\n");
+				
+				int songNum;
+				try {
+					songNum = Integer.valueOf(songScanner.nextLine());
+					if (songNum < 1 || songNum > songs.length - 1) {
+						System.out.println("Invalid selection. Please try again.\n");
+						continue;
+					}
+					String songString = songs[songNum].strip().replace(".", ":").replace("-", ":").replace("(", ":");
+					String[] songList = songString.split(":");
+					userLibrary.removeSongFromLibrary(songList[1].strip(), songList[3].strip());
+					System.out.println("\nSong: " + songList[1].strip() + " - by: " + songList[3].strip() + " successfully removed!\n");
+					return;
+				}	
+				catch (NumberFormatException e) {
+					System.out.println("Invalid selection. Please try again.\n");
+					continue;
+				}
+			}
+			else if (response.toLowerCase().equals("album")) {
+				System.out.println(userLibrary.getAlbumTitles());
+				System.out.print("Enter the NUMBER of the album you would like to remove: ");
+				Scanner songScanner = new Scanner(System.in);
+				
+				ArrayList<Album> albums = userLibrary.getAlbumList();
+				
+				int songNum;
+				try {
+					songNum = Integer.valueOf(songScanner.nextLine());
+					if (songNum < 1 || songNum > albums.size()) {
+						System.out.println("Invalid selection. Please try again.\n");
+						continue;
+					}
+					String albumTitle = albums.get(songNum - 1).getTitle();
+					String albumArtist = albums.get(songNum - 1).getArtist();
+					userLibrary.removeAlbumFromLibrary(albumTitle, albumArtist);
+					System.out.println("\nAlbum: " + albumTitle + " - by: " + albumArtist + " successfully removed!\n");
+					return;
+				}	
+				catch (NumberFormatException e) {
+					System.out.println("Invalid selection. Please try again.\n");
+					continue;
+				}
+			}
+			else {
+				System.out.println("Invalid selection. Please try again.\n");
+				continue;
+			}
+		}
+		
+	}
 }
 
 

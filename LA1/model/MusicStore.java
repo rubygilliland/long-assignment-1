@@ -21,7 +21,27 @@ public class MusicStore {
 			}
 		}
 	}
-
+	
+	public String getSongByGenre(String genre) {
+		/*
+		 * This method searches the music store for song(s) by title and returns
+		 * a string representing the song(s) if the song(s) exist in the music store.
+		 */
+		genre = genre.toLowerCase();
+		String songStr = "";
+		for (Song s : songs) {
+			if (s.getGenre().toLowerCase().equals(genre)) {
+				songStr += s.toString();
+			}
+		}
+		if (songStr.equals("")) {
+			songStr = "Songs for this genre can not be found.";
+		}
+		return songStr;
+	}
+	
+	
+	
 	public String getSongByTitle(String songTitle) {
 		/*
 		 * This method searches the music store for song(s) by title and returns

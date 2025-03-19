@@ -198,6 +198,16 @@ public class UserLibrary {
 		}
 		return songsStr;
 	}
+	
+	// returns a String of the titles of the Songs in the songs list
+		public String getSongInfo() {
+			String songsStr = "Songs in Your Library:\n";
+			for (Song s : songs) {
+				int index = songs.indexOf(s) + 1;
+				songsStr += index + ". " + s.toString();
+			}
+			return songsStr;
+		}
 
 	// returns an alphabetized list of artists in the user library
 	public String getArtists() {
