@@ -36,10 +36,10 @@ public class Main {
 
 			switch(inputString) {
 				case "search songs":
-					System.out.println("\n" + searchSongs(musicStore) + "\n");
+					System.out.println("\n" + songSearchLibraryStore(userLibrary, musicStore) + "\n");
 					break;
 				case "1":
-					System.out.println("\n" + searchSongs(musicStore) + "\n");
+					System.out.println("\n" + songSearchLibraryStore(userLibrary, musicStore) + "\n");
 					break;
 				case "search albums":
 					System.out.println("\n" + searchAlbum(musicStore) + "\n");
@@ -140,33 +140,117 @@ public class Main {
 
 		}
 	}
+	
+	public static String songSearchLibraryStore(UserLibrary userLibrary, MusicStore musicStore) {
+		Scanner responseWait = new Scanner(System.in);
+		System.out.print("Search My Library or Music Store? (1-2): ");
+		String wait = responseWait.nextLine().toLowerCase();
+		
+		switch (wait) {
+		case "my library":
+			String songResult = searchSongs(userLibrary);
+			return songResult + getAlbumInfo(userLibrary, songResult);
+			
+		case "1":
+			String songResult1 = searchSongs(userLibrary);
+			return songResult1 + getAlbumInfo(userLibrary, songResult1);
+		case "music store":
+			return searchSongs(musicStore);
+		case "2":
+			return searchSongs(musicStore);
+		default:
+			return "Can not reach this library. Please try again!";
+	}
+	}
 
 	public static String searchSongs(MusicStore musicStore) {
 		/*
-		 * This method searches the music store for a song by either title or
-		 * artist depending on the user's input. The method returns a string to be
+		 * This method searches the user library for a song by title, artist, or
+		 * genre depending on the user's input. The method returns a string to be
 		 * printed in main so the user can view the song or songs that were
 		 * found in the music store. If no song is found, the method will
 		 * return a string that tells the user.
 		 */
 
-		System.out.print("Search for a song by title, genre, or artist: ");
+		System.out.print("Are you searching for a song by title, genre, or artist? ");
 		Scanner searchInput = new Scanner(System.in);
 		String songSearch = searchInput.nextLine().strip();
-		String songFound = musicStore.getSongByTitle(songSearch);
+		String songFound = "";
+		switch(songSearch.toLowerCase()) {
+		case "title":
+			System.out.print("Enter song title: ");
+			String titleGiven = searchInput.nextLine().strip();
+			songFound = musicStore.getSongByTitle(titleGiven);
+			break;
 		
-		// check song by title, then check song by genre
-		if (songFound.equals("This song cannot be found.")) {
-			songFound = musicStore.getSongByGenre(songSearch);
+		case "genre":
+			System.out.print("Enter song genre: ");
+			String genreGiven = searchInput.nextLine().strip();
+			songFound = musicStore.getSongByGenre(genreGiven);
+			break;
+			
+		case "artist":
+			System.out.print("Enter song artist: ");
+			String artistGiven = searchInput.nextLine().strip();
+			songFound = musicStore.getSongByArtist(artistGiven);
+			break;
 		}
-
-		// check song by artist
-		if (songFound.equals("Songs for this genre can not be found.")) {
-			songFound = musicStore.getSongByArtist(songSearch);
-		}
-
-		songFound = songFound.replace("artist", "title/artist/genre");
+		searchInput.close();
 		return songFound;
+	}
+	
+	public static String searchSongs(UserLibrary userLibrary) {
+		/*
+		 * This method searches the user library for a song by title, artist, or
+		 * genre depending on the user's input. The method returns a string to be
+		 * printed in main so the user can view the song or songs that were
+		 * found in the music store. If no song is found, the method will
+		 * return a string that tells the user.
+		 */
+
+		System.out.print("Are you searching for a song by title, genre, or artist? ");
+		Scanner searchInput = new Scanner(System.in);
+		String songSearch = searchInput.nextLine().strip();
+		String songFound = "";
+		switch(songSearch.toLowerCase()) {
+		case "title":
+			System.out.print("Enter song title: ");
+			String titleGiven = searchInput.nextLine().strip();
+			songFound = userLibrary.getSongByTitle(titleGiven);
+			break;
+		
+		case "genre":
+			System.out.print("Enter song genre: ");
+			String genreGiven = searchInput.nextLine().strip();
+			songFound = userLibrary.getSongsByGenre(genreGiven);
+			break;
+			
+		case "artist":
+			System.out.print("Enter song artist: ");
+			String artistGiven = searchInput.nextLine().strip();
+			songFound = userLibrary.getSongByArtist(artistGiven);
+			break;
+		}
+		searchInput.close();
+		return songFound;
+	}
+	
+	public static String getAlbumInfo(UserLibrary userLibrary, String song) {
+		String albumInfo = "";
+		if (!(song.equals("Songs by this artist cannot be found.") || song.equals("Songs of this genre cannot be found.") 
+				|| song.equals("This song cannot be found."))) {
+		System.out.print("Would you like to get the album info for this song? Y/N" );
+		Scanner response = new Scanner(System.in);
+		
+		if (response.nextLine().trim().equalsIgnoreCase("Y")) {
+			
+			// Extract artist and title from "Title - by: Artist (Album)" format
+            String artist = song.split(" - by: ")[1].split(" \\(")[0];
+            String title = song.split(" - by: ")[0];
+            albumInfo = userLibrary.getAlbumInfo(title, artist);
+		}
+		}
+		return albumInfo;
 	}
 
 	public static String searchAlbum(MusicStore musicStore) {

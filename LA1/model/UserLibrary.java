@@ -110,6 +110,16 @@ public class UserLibrary {
 		return songStr;
 	}
 
+	public String getAlbumInfo(String songTitle, String artist) {
+		String albumStr = "";
+		for (Song s : songs) {
+			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase())
+					&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
+				albumStr += s.getAlbumObj().toString();
+			}
+		}
+		return albumStr;
+	}
 
 	// searches for albums in user library by title
 	public String getAlbumByTitle(String albumTitle) {
