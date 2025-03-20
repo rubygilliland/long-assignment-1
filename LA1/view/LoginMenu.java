@@ -13,6 +13,10 @@ public class LoginMenu {
 
 
 	public static User loginSignUpMenu() {
+		/*
+		 * This method prompts the user to either login to an existing account or signup
+		 * to create a new account.
+		 */
 		UserData.writeSaltString();
 		UserDatabase myUserDatabase = new UserDatabase();
 		System.out.print("Would you like to login or signup?: ");

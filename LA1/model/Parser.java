@@ -79,11 +79,17 @@ public class Parser {
 
 
 		public static UserLibrary loadUserLibrary(String userLibraryString) {
+			/*
+			 * This method parses a String representation of a UserLibrary that was stored under a user
+			 * and creates a new UserLibrary that has all the same information that was stored in the
+			 * original user library.
+			 */
 			UserLibrary userLibrary = new UserLibrary(new MusicStore());
 			String[] userLibraryArray = userLibraryString.split("\n");
 			int addAttribute = 0;
 			String currPlaylist = "";
-
+			
+			// sets command for changeUserLibrary method to make changes
 			for (String line : userLibraryArray) {
 				if (line.strip().equals("Albums:")) {
 					addAttribute = 1;
@@ -107,36 +113,54 @@ public class Parser {
 	}
 
 		private static String changeUserLibrary(int addAttribute, String line, UserLibrary userLibrary, String currPlaylist) {
+			/*
+			 * This method helps the loadUserLibrary by adding attributes of the original UserLibrary to
+			 * the new user library. This method is called on for each line of the original UserLibrary's
+			 * String representation. This method returns a String representing the currPlaylist so that when adding to a Playlist,
+			 * the name of which Playlist to add to can be retrieved.
+			 */
 			HashSet<String> skipPlaylists = autoPlaylists();
 			line = line.strip();
+			
+			// replaces certain characters to make splitting easier
 			line = line.replace(".", ":").replace("-", ":").replace("(", ":");
 			String[] lineArray = line.split(":");
+			
 			switch (addAttribute) {
 				case 1:
 					// add album
 					ArrayList<Album> userAlbums = userLibrary.getAlbumList();
 					for (Album a : userAlbums) {
+						// if album is already in UserLibrary, don't add it again
 						if (a.getTitle().equals(lineArray[1].strip())) {
 							return currPlaylist;
 						}
 					}
+					// add new album to UserLibrary
 					userLibrary.addAlbum(lineArray[1].strip());
 					return currPlaylist;
+					
 				case 2:
 					// add song
 					String songname = lineArray[1].strip();
 					String artist = lineArray[3].strip();
 					userLibrary.addSong(songname, artist, lineArray[5].strip());
+					
+					// restores the amount of plays for each song
 					int plays = Integer.valueOf(lineArray[6].strip());
 					for (int i = 0; i < plays; i++) {
 						userLibrary.play(songname, artist);
 					}
 					return currPlaylist;
+					
 				case 3:
+					// add to/create playlists
+					
 					// checks if first element consists of only digits
 				    if (lineArray[0].strip().matches("\\d+")) {
 				    	
 				    	currPlaylist = lineArray[1].strip();
+				    	// if playlist is one of the auto created playlists, don't add twice
 				    	if (!skipPlaylists.contains(currPlaylist.toLowerCase())) {
 				    		userLibrary.createPlaylist(lineArray[1].strip());
 				    	}
@@ -144,7 +168,8 @@ public class Parser {
 				    		currPlaylist = "";
 				    	}
 				     return currPlaylist;
-				    } else {
+				    	} 
+				    else {
 				        userLibrary.addSongToPlaylist(lineArray[0].strip(), lineArray[2].strip(), currPlaylist);
 				        return currPlaylist;
 				    }
@@ -155,6 +180,11 @@ public class Parser {
 		}
 		
 		private static HashSet<String> autoPlaylists(){
+			/*
+			 * This method is a helper method for creating a HashSet of all the automatically
+			 * created playlists. This is used in changeUserLibrary to ensure the playlists isn't
+			 * added twice to UserLibrary.
+			 */
 			HashSet<String> playlists = new HashSet<>();
 			playlists.add("favorites");
 			playlists.add("top rated");

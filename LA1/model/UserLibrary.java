@@ -647,6 +647,7 @@ public class UserLibrary {
 			playlists.remove(singerSongwriter);
 		}
 	}
+	
 	public void addToGenrePlaylists(String songTitle, String artist) {
 		Song toAdd = new Song("", "", null);
 		for (Song s : songs) {
