@@ -97,10 +97,10 @@ public class Main {
 					System.out.print("\n" + userLibrary.getFavoriteSongs() + "\n");
 					break;
 				case "11":
-					System.out.print("\n" + userLibrary.getSongTitles() + "\n");
+					getSongs(userLibrary);
 					break;
 				case "get songs":
-					System.out.print("\n" + userLibrary.getSongTitles() + "\n");
+					getSongs(userLibrary);
 					break;
 				case "12":
 					System.out.print("\n" + userLibrary.getAlbumTitles() + "\n");
@@ -109,10 +109,10 @@ public class Main {
 					System.out.print("\n" + userLibrary.getAlbumTitles() + "\n");
 					break;
 				case "13":
-					System.out.print("\n" + userLibrary.getArtists() + "\n");
+					System.out.print("\n" + userLibrary.getSortedArtist() + "\n");
 					break;
 				case "get artists":
-					System.out.print("\n" + userLibrary.getArtists() + "\n");
+					System.out.print("\n" + userLibrary.getSortedArtist() + "\n");
 					break;
 				case "14":
 					System.out.print("\n" + userLibrary.getSongInfo() + "\n");
@@ -338,6 +338,26 @@ public class Main {
 			break;
 		}
 		return albumFound;
+	}
+	
+	public static void getSongs(UserLibrary userLibrary) {
+		Scanner responseWait = new Scanner(System.in);
+		System.out.print("Do you want songs listed by title or rating? (1-2) ");
+		String wait = responseWait.nextLine().toLowerCase();
+		
+		switch(wait) {
+		case "1":
+			System.out.print("\n" + userLibrary.getSortedTitles() + "\n");
+			break;
+		case "title":
+			System.out.print("\n" + userLibrary.getSortedTitles() + "\n");
+			break;
+		case "2":
+			System.out.print("\n" + userLibrary.getSortedRating() + "\n");
+			break;
+		default:
+			System.out.print("\n" + userLibrary.getSortedRating() + "\n");
+		}
 	}
 	
 

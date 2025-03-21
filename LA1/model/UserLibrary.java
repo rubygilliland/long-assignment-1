@@ -174,7 +174,7 @@ public class UserLibrary {
 	// searches for songs in user library by genre
 		public String getAlbumByGenre(String genre) {
 			String albumStr = "";
-			for (Album a : albums) {
+			for (Album a : albums) { 
 
 				// checks if given genre matches genre of Song in songs, ignoring capitalization
 				if (a.getGenreStr().toLowerCase().equals(genre.toLowerCase())) {
