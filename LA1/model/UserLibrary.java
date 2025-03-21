@@ -262,7 +262,8 @@ public class UserLibrary {
 	public String getAlbumTitles() {
 		String albumsStr = "Albums in Your Library:\n";
 		for (Album a : albums) {
-			albumsStr += a.getTitle() + " - by: "+ a.getArtist() + "\n";
+			int index = albums.indexOf(a);
+			albumsStr += index + ". " + a.getTitle() + " - by: "+ a.getArtist() + "\n";
 		}
 		return albumsStr;
 	}
