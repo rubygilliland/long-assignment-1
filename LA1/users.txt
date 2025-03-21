@@ -1,66 +1,8 @@
-<<<<<<< HEAD
-JNY3WJy2hCqHR6QAbPie8g==
-colin U13FaM+DQLoBbNKDDOO1YBN8i6h9zq89jm5rng3iY6I=
-My Library:
-	Songs:
-		1. Rolling in the Deep - by: Adele (21):null:0
-		2. Rumour Has It - by: Adele (21):null:0
-		3. Turning Tables - by: Adele (21):null:0
-		4. Don't You Remember - by: Adele (21):null:0
-		5. Set Fire to the Rain - by: Adele (21):null:0
-		6. He Won't Go - by: Adele (21):null:0
-		7. Take It All - by: Adele (21):null:0
-		8. I'll Be Waiting - by: Adele (21):null:0
-		9. One and Only - by: Adele (21):null:0
-		10. Lovesong - by: Adele (21):null:0
-		11. Someone Like You - by: Adele (21):null:0
-		12. I Found a Boy - by: Adele (21):null:0
-	Albums:
-		1. 21 - by: Adele (POP) 2011
-	Playlists:
-		1. Favorites:
-
-		2. Top Rated:
-
-		3. workout mix:
-
-		4. Pop:
-				Rolling in the Deep - by: Adele (21)
-				Rumour Has It - by: Adele (21)
-				Turning Tables - by: Adele (21)
-				Don't You Remember - by: Adele (21)
-				Set Fire to the Rain - by: Adele (21)
-				He Won't Go - by: Adele (21)
-				Take It All - by: Adele (21)
-				I'll Be Waiting - by: Adele (21)
-				One and Only - by: Adele (21)
-				Lovesong - by: Adele (21)
-				Someone Like You - by: Adele (21)
-				I Found a Boy - by: Adele (21)
-
-//
-test meEqL2mhXu3dJv/wLQnklj0z5JQqsJIxalxbSQ3qTNE=
-=======
-+kPuoeLxyt47qBqN8YFnIA==
-colin kmuufvIVem/1aLv5o0DpOKDdEIsFAyfCoZ7q/bhEqec=
->>>>>>> d49f6e552cca36e3241c428c626482a87c7cf41f
-//
-rubySkye itLZ39ILI+TBA5BwF0RIVTeyiyHsdKAzW8oCcm+7i+Q=
+7s7nWI4Uli1Uvmp14zv6Rg==
+colin ZYDgo9jP2Ep8VB7Nc+fMGl632oHo/xGh/h8c7uda98w=
 My Library:
 	Songs:
 	Albums:
-	Playlists:
-		1. Favorites:
-
-		2. Top Rated:
-
-//
-rubySkye1 I5b2I2tbnWsbJJvu62VWvQK1C7qHfQ1r/QBq1oHqv54=
-My Library:
-	Songs:
-		1. Someone Like You - by: Adele (21):null:0
-	Albums:
-		1. 21 - by: Adele (POP) 2011
 	Playlists:
 		1. Favorites:
 

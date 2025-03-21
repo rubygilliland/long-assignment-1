@@ -124,7 +124,7 @@ public class Main {
 					break;
 				case "15":
 					System.out.print("\n" + userLibrary.toString() + "\n");
-					removeFromLibrary(userLibrary);
+					removeFromLibrary(userLibrary, userInput);
 					break;
 				default:
 					System.out.println("Sorry command not found. Please try again!\n");
@@ -134,8 +134,8 @@ public class Main {
 			UserData.saveUser(myUser);
 
 			// added buffer to see results of the command before listing commands again
-			Scanner responseWait = new Scanner(System.in);
 			System.out.println("Hit Enter to Return to the List of Commands: ");
+			Scanner responseWait = new Scanner(System.in);
 			String wait = responseWait.nextLine();
 		}
 	}
@@ -156,10 +156,10 @@ public class Main {
 			System.out.print("\n" + songResult1 + getAlbumInfo(userLibrary, songResult1));
 			break;
 		case "music store":
-			System.out.print("\n" + searchSongs(musicStore));
+			System.out.print("\n" + searchSongs(musicStore) + "\n");
 			break;
 		case "2":
-			System.out.print("\n" + searchSongs(musicStore));
+			System.out.print("\n" + searchSongs(musicStore) + "\n");
 			break;
 		default:
 			System.out.print("\nCan not reach this library. Please try again!\n");
@@ -763,6 +763,11 @@ public class Main {
 		
 		String[] songs = userLibrary.getSongInfo().split("\n");
 		
+		if (songs.length - 1 == 0) {
+			System.out.println("No songs in library. Please add a song and try again!\n");
+			return;
+		}
+		
 		while (true) {
 			System.out.print("Enter the NUMBER of the song you wish to play: ");
 		
@@ -786,67 +791,68 @@ public class Main {
 		}
 	}
 	
-	public static void removeFromLibrary(UserLibrary userLibrary) {
-		System.out.print("What would you like to remove? (Song/Album): ");
-		while (true) {
-			Scanner myScanner = new Scanner(System.in);
-			String response = myScanner.nextLine();
-			if (response.toLowerCase().equals("song")) {
-				System.out.println(userLibrary.getSongInfo());
-				System.out.print("Enter the NUMBER of the song you would like to remove: ");
-				Scanner songScanner = new Scanner(System.in);
-				
-				String[] songs = userLibrary.getSongInfo().split("\n");
-				
-				int songNum;
-				try {
-					songNum = Integer.valueOf(songScanner.nextLine());
-					if (songNum < 1 || songNum > songs.length - 1) {
-						System.out.println("Invalid selection. Please try again.\n");
-						continue;
-					}
-					String songString = songs[songNum].strip().replace(".", ":").replace("-", ":").replace("(", ":");
-					String[] songList = songString.split(":");
-					userLibrary.removeSongFromLibrary(songList[1].strip(), songList[3].strip());
-					System.out.println("\nSong: " + songList[1].strip() + " - by: " + songList[3].strip() + " successfully removed!\n");
-					return;
-				}	
-				catch (NumberFormatException e) {
-					System.out.println("Invalid selection. Please try again.\n");
-					continue;
-				}
-			}
-			else if (response.toLowerCase().equals("album")) {
-				System.out.println(userLibrary.getAlbumTitles());
-				System.out.print("Enter the NUMBER of the album you would like to remove: ");
-				Scanner songScanner = new Scanner(System.in);
-				
-				ArrayList<Album> albums = userLibrary.getAlbumList();
-				
-				int songNum;
-				try {
-					songNum = Integer.valueOf(songScanner.nextLine());
-					if (songNum < 1 || songNum > albums.size()) {
-						System.out.println("Invalid selection. Please try again.\n");
-						continue;
-					}
-					String albumTitle = albums.get(songNum - 1).getTitle();
-					String albumArtist = albums.get(songNum - 1).getArtist();
-					userLibrary.removeAlbumFromLibrary(albumTitle, albumArtist);
-					System.out.println("\nAlbum: " + albumTitle + " - by: " + albumArtist + " successfully removed!\n");
-					return;
-				}	
-				catch (NumberFormatException e) {
-					System.out.println("Invalid selection. Please try again.\n");
-					continue;
-				}
-			}
-			else {
-				System.out.println("Invalid selection. Please try again.\n");
-				continue;
-			}
-		}
-		
+	public static void removeFromLibrary(UserLibrary userLibrary, Scanner myScanner) { 
+	    System.out.print("What would you like to remove? (Song/Album): ");
+	    while (true) {
+	        String response = myScanner.nextLine();
+	        if (response.toLowerCase().equals("song")) {
+	            String[] songs = userLibrary.getSongInfo().split("\n");
+	            if (songs.length - 1 == 0) {
+	                System.out.println("No songs in library to remove.\n");
+	                return;
+	            }
+	            System.out.println(userLibrary.getSongInfo());
+	            System.out.print("Enter the NUMBER of the song you would like to remove: ");
+	            
+	            int songNum;
+	            try {
+	                songNum = Integer.parseInt(myScanner.nextLine()); // Reuse the same Scanner
+	                
+	                if (songNum < 1 || songNum > songs.length - 1) {
+	                    System.out.println("Invalid selection. Please try again.\n");
+	                    continue;
+	                }
+	                
+	                String songString = songs[songNum].strip().replace(".", ":").replace("-", ":").replace("(", ":");
+	                String[] songList = songString.split(":");
+	                userLibrary.removeSongFromLibrary(songList[1].strip(), songList[3].strip());
+	                System.out.println("\nSong: " + songList[1].strip() + " - by: " + songList[3].strip() + " successfully removed!\n");
+	                return;
+	            } catch (NumberFormatException e) {
+	                System.out.println("Invalid selection. Please try again.\n");
+	                continue;
+	            }
+	        } else if (response.toLowerCase().equals("album")) {
+	            ArrayList<Album> albums = userLibrary.getAlbumList();
+	            if (albums.isEmpty()) {
+	                System.out.println("No albums in library to remove.\n");
+	                return;
+	            }
+	            
+	            System.out.println(userLibrary.getAlbumTitles());
+	            System.out.print("Enter the NUMBER of the album you would like to remove: ");
+	            
+	            int albumNum;
+	            try {
+	                albumNum = Integer.parseInt(myScanner.nextLine()); // Reuse the same Scanner
+	                
+	                if (albumNum < 1 || albumNum > albums.size()) {
+	                    System.out.println("Invalid selection. Please try again.\n");
+	                    continue;
+	                }
+	                String albumTitle = albums.get(albumNum - 1).getTitle();
+	                String albumArtist = albums.get(albumNum - 1).getArtist();
+	                userLibrary.removeAlbumFromLibrary(albumTitle, albumArtist);
+	                System.out.println("\nAlbum: " + albumTitle + " - by: " + albumArtist + " successfully removed!\n");
+	                return;
+	            } catch (NumberFormatException e) {
+	                System.out.println("Invalid selection. Please try again.\n");
+	                continue;
+	            }
+	        } else {
+	            System.out.println("Invalid selection. Please try again.\n");
+	        }
+	    }
 	}
 }
 
