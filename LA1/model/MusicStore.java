@@ -121,6 +121,25 @@ public class MusicStore {
 		}
 		return albumStr;
 	}
+	
+	// searches for songs in music by genre
+			public String getAlbumByGenre(String genre) {
+				String albumStr = "";
+				for (Album a : albums) {
+
+					// checks if given genre matches genre of Song in songs, ignoring capitalization
+					if (a.getGenreStr().toLowerCase().equals(genre.toLowerCase())) {
+
+						// adds String of every Song of given genre to songStr
+						albumStr += a.toString();
+					}
+				}
+
+				if (albumStr.equals("")) {
+					albumStr = "Albums of this genre cannot be found.";
+				}
+				return albumStr;
+			}
 
 	public ArrayList<Song> getSongs(){
 		/*
