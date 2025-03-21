@@ -763,6 +763,11 @@ public class Main {
 		
 		String[] songs = userLibrary.getSongInfo().split("\n");
 		
+		if (songs.length - 1 == 0) {
+			System.out.println("No songs in library found. Please add a song and try again!\n");
+			return;
+		}
+		
 		while (true) {
 			System.out.print("Enter the NUMBER of the song you wish to play: ");
 		
@@ -791,12 +796,17 @@ public class Main {
 		while (true) {
 			Scanner myScanner = new Scanner(System.in);
 			String response = myScanner.nextLine();
+			myScanner.close();
 			if (response.toLowerCase().equals("song")) {
+				String[] songs = userLibrary.getSongInfo().split("\n");
+				if (songs.length - 1 == 0) {
+					System.out.println("No songs in library found.\n");
+					return;
+				}
+				
 				System.out.println(userLibrary.getSongInfo());
 				System.out.print("Enter the NUMBER of the song you would like to remove: ");
 				Scanner songScanner = new Scanner(System.in);
-				
-				String[] songs = userLibrary.getSongInfo().split("\n");
 				
 				int songNum;
 				try {
@@ -817,11 +827,17 @@ public class Main {
 				}
 			}
 			else if (response.toLowerCase().equals("album")) {
+				ArrayList<Album> albums = userLibrary.getAlbumList();
+				if (albums.size() == 0) {
+					System.out.println("No albums in library found.\n");
+					return;
+				}
+				
 				System.out.println(userLibrary.getAlbumTitles());
 				System.out.print("Enter the NUMBER of the album you would like to remove: ");
 				Scanner songScanner = new Scanner(System.in);
 				
-				ArrayList<Album> albums = userLibrary.getAlbumList();
+
 				
 				int songNum;
 				try {
