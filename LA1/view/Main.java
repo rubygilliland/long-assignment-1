@@ -764,11 +764,7 @@ public class Main {
 		String[] songs = userLibrary.getSongInfo().split("\n");
 		
 		if (songs.length - 1 == 0) {
-<<<<<<< HEAD
 			System.out.println("No songs in library. Please add a song and try again!\n");
-=======
-			System.out.println("No songs in library found. Please add a song and try again!\n");
->>>>>>> 83d24fb89ea1202b77118c3e5c07fbb98bb13ca9
 			return;
 		}
 		
@@ -794,8 +790,8 @@ public class Main {
 			}
 		}
 	}
+
 	
-<<<<<<< HEAD
 	public static void removeFromLibrary(UserLibrary userLibrary, Scanner myScanner) { 
 	    System.out.print("What would you like to remove? (Song/Album): ");
 	    while (true) {
@@ -803,7 +799,7 @@ public class Main {
 	        if (response.toLowerCase().equals("song")) {
 	            String[] songs = userLibrary.getSongInfo().split("\n");
 	            if (songs.length - 1 == 0) {
-	                System.out.println("No songs in library to remove.\n");
+	                System.out.println("\nNo songs in library to remove.\n");
 	                return;
 	            }
 	            System.out.println(userLibrary.getSongInfo());
@@ -830,7 +826,7 @@ public class Main {
 	        } else if (response.toLowerCase().equals("album")) {
 	            ArrayList<Album> albums = userLibrary.getAlbumList();
 	            if (albums.isEmpty()) {
-	                System.out.println("No albums in library to remove.\n");
+	                System.out.println("\nNo albums in library to remove.\n");
 	                return;
 	            }
 	            
@@ -858,7 +854,8 @@ public class Main {
 	            System.out.println("Invalid selection. Please try again.\n");
 	        }
 	    }
-=======
+	}
+
 	public static void removeFromLibrary(UserLibrary userLibrary) {
 		System.out.print("What would you like to remove? (Song/Album): ");
 		while (true) {
@@ -931,7 +928,6 @@ public class Main {
 			}
 		}
 		
->>>>>>> 83d24fb89ea1202b77118c3e5c07fbb98bb13ca9
 	}
 }
 
