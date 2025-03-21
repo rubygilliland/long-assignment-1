@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Scanner;
 
 public class UserData {
-	private final static String FILE_PATH = "C:\\Users\\colin\\eclipse-workspace\\long-assignment-1\\LA1\\users.txt";
+	private final static String FILE_PATH = "LA1\\users.txt";
 	//private static HashMap
 
 	public static void createUser(User user) {
@@ -37,7 +37,7 @@ public class UserData {
 			System.out.println("File not found.");
 			return;
 		}
-	}
+	} 
 
 	public static void saveUser(User user) {
 

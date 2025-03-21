@@ -28,7 +28,7 @@ public class Main {
 		MusicStore musicStore = new MusicStore();
 		UserLibrary userLibrary = myUser.getUserLibrary();
 
-		while (true) {
+		while (true) { 
 			System.out.println(LIST_OF_COMMANDS);
 			System.out.print("Enter a command (1-15): ");
 			Scanner userInput = new Scanner(System.in);
@@ -36,10 +36,11 @@ public class Main {
 
 			switch(inputString) {
 				case "search songs":
-					System.out.println("\n" + songSearchLibraryStore(userLibrary, musicStore) + "\n");
+					songSearchLibraryStore(userLibrary, musicStore);
 					break;
 				case "1":
-					System.out.println("\n" + songSearchLibraryStore(userLibrary, musicStore) + "\n");
+					songSearchLibraryStore(userLibrary, musicStore);
+					
 					break;
 				case "search albums":
 					System.out.println("\n" + albumSearchLibraryStore(userLibrary, musicStore) + "\n");
@@ -136,12 +137,10 @@ public class Main {
 			Scanner responseWait = new Scanner(System.in);
 			System.out.println("Hit Enter to Return to the List of Commands: ");
 			String wait = responseWait.nextLine();
-
-
 		}
 	}
 	
-	public static String songSearchLibraryStore(UserLibrary userLibrary, MusicStore musicStore) {
+	public static void songSearchLibraryStore(UserLibrary userLibrary, MusicStore musicStore) {
 		Scanner responseWait = new Scanner(System.in);
 		System.out.print("Search My Library or Music Store? (1-2): ");
 		String wait = responseWait.nextLine().toLowerCase();
@@ -149,17 +148,21 @@ public class Main {
 		switch (wait) {
 		case "my library":
 			String songResult = searchSongs(userLibrary);
-			return songResult + getAlbumInfo(userLibrary, songResult);
+			System.out.print("\n" + songResult + getAlbumInfo(userLibrary, songResult));
+			break;
 			
 		case "1":
 			String songResult1 = searchSongs(userLibrary);
-			return songResult1 + getAlbumInfo(userLibrary, songResult1);
+			System.out.print("\n" + songResult1 + getAlbumInfo(userLibrary, songResult1));
+			break;
 		case "music store":
-			return searchSongs(musicStore);
+			System.out.print("\n" + searchSongs(musicStore));
+			break;
 		case "2":
-			return searchSongs(musicStore);
+			System.out.print("\n" + searchSongs(musicStore));
+			break;
 		default:
-			return "Can not reach this library. Please try again!";
+			System.out.print("\nCan not reach this library. Please try again!\n");
 	}
 	}
 
@@ -195,7 +198,6 @@ public class Main {
 			songFound = musicStore.getSongByArtist(artistGiven);
 			break;
 		}
-		searchInput.close();
 		return songFound;
 	}
 	
@@ -231,7 +233,6 @@ public class Main {
 			songFound = userLibrary.getSongByArtist(artistGiven);
 			break;
 		}
-		searchInput.close();
 		return songFound;
 	}
 	
@@ -302,7 +303,6 @@ public class Main {
 			albumFound = musicStore.getAlbumByArtist(artistGiven);
 			break;
 		}
-		searchInput.close();
 		return albumFound;
 	}
 	
@@ -337,7 +337,6 @@ public class Main {
 			albumFound = userLibrary.getAlbumByArtist(artistGiven);
 			break;
 		}
-		searchInput.close();
 		return albumFound;
 	}
 	
@@ -366,7 +365,7 @@ public class Main {
 				return "Can not reach this library. Please try again!";
 		}
 	}
-
+ 
 	public static void createPlaylist(UserLibrary userLibrary) {
 		/*
 		 * This method creates a playlist in the user library based on the user's input. The
