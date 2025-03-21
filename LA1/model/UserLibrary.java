@@ -262,7 +262,11 @@ public class UserLibrary {
 	public String getAlbumTitles() {
 		String albumsStr = "Albums in Your Library:\n";
 		for (Album a : albums) {
+<<<<<<< HEAD
 			int index = albums.indexOf(a) + 1;
+=======
+			int index = albums.indexOf(a);
+>>>>>>> 83d24fb89ea1202b77118c3e5c07fbb98bb13ca9
 			albumsStr += index + ". " + a.getTitle() + " - by: "+ a.getArtist() + "\n";
 		}
 		return albumsStr;
