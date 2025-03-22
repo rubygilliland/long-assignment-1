@@ -194,6 +194,8 @@ public class Parser {
 			playlists.add("rock");
 			playlists.add("traditional_country");
 			playlists.add("singer_songwriter");
+			playlists.add("recently played");
+			playlists.add("frequently played");
 			return playlists;
 		}
 

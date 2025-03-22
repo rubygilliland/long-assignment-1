@@ -62,9 +62,11 @@ public class Main {
 					break;
 				case "view playlists":
 					System.out.println("\n" + userLibrary.getPlaylists() + "\n");
+					viewPlaylist(userLibrary);
 					break;
 				case "5":
 					System.out.println("\n" + userLibrary.getPlaylists() + "\n");
+					viewPlaylist(userLibrary);
 					break;
 				case "6":
 					 addSong(userLibrary, musicStore);
@@ -97,10 +99,10 @@ public class Main {
 					System.out.print("\n" + userLibrary.getFavoriteSongs() + "\n");
 					break;
 				case "11":
-					System.out.print("\n" + userLibrary.getSongTitles() + "\n");
+					getSongs(userLibrary);
 					break;
 				case "get songs":
-					System.out.print("\n" + userLibrary.getSongTitles() + "\n");
+					getSongs(userLibrary);
 					break;
 				case "12":
 					System.out.print("\n" + userLibrary.getAlbumTitles() + "\n");
@@ -148,12 +150,12 @@ public class Main {
 		switch (wait) {
 		case "my library":
 			String songResult = searchSongs(userLibrary);
-			System.out.print("\n" + songResult + getAlbumInfo(userLibrary, songResult));
+			System.out.println("\n" + "Song(s):\n" + songResult + "\n" + getAlbumInfo(userLibrary, songResult) + "\n");
 			break;
 			
 		case "1":
 			String songResult1 = searchSongs(userLibrary);
-			System.out.print("\n" + songResult1 + getAlbumInfo(userLibrary, songResult1));
+			System.out.println("\n" + "Song(s):\n" + songResult1 + "\n" + getAlbumInfo(userLibrary, songResult1) + "\n");
 			break;
 		case "music store":
 			System.out.print("\n" + searchSongs(musicStore) + "\n");
@@ -240,7 +242,7 @@ public class Main {
 		String albumInfo = "";
 		if (!(song.equals("Songs by this artist cannot be found.") || song.equals("Songs of this genre cannot be found.") 
 				|| song.equals("This song cannot be found."))) {
-		System.out.print("Would you like to get the album info for this song? Y/N" );
+		System.out.print("Would you like to get the album info for this song? (Y/N): " );
 		Scanner response = new Scanner(System.in);
 		
 		if (response.nextLine().trim().equalsIgnoreCase("Y")) {
@@ -248,7 +250,7 @@ public class Main {
 			// Extract artist and title from "Title - by: Artist (Album)" format
             String artist = song.split(" - by: ")[1].split(" \\(")[0];
             String title = song.split(" - by: ")[0];
-            albumInfo = userLibrary.getAlbumInfo(title, artist);
+            albumInfo = "Album: \n" + userLibrary.getAlbumInfo(title, artist);
 		}
 		}
 		return albumInfo;
@@ -340,6 +342,36 @@ public class Main {
 		return albumFound;
 	}
 	
+	public static void getSongs(UserLibrary userLibrary) {
+		Scanner responseWait = new Scanner(System.in);
+		System.out.print("Do you want songs listed by title, artist, or rating? (1-3): ");
+		String wait = responseWait.nextLine().toLowerCase().strip();
+		
+		switch(wait) {
+		case "1":
+			System.out.println("\n" + userLibrary.getSortedTitles() + "\n");
+			break;
+		case "title":
+			System.out.println("\n" + userLibrary.getSortedTitles() + "\n");
+			break;
+		case "2":
+			System.out.println("\n" + userLibrary.getSortedArtist() + "\n");
+			break;
+		case "artist":
+			System.out.println("\n" + userLibrary.getSortedArtist() + "\n");
+			break;
+		case "3":
+			System.out.println("\n" + userLibrary.getSortedRating() + "\n");
+			break;
+		case "rating":
+			System.out.println("\n" + userLibrary.getSortedRating() + "\n");
+			break;
+		default:
+			System.out.println("Command not found. Please try again!");
+			break;
+		}
+	}
+	
 
 	public static String browseMenu(UserLibrary userLibrary, MusicStore musicStore) {
 		/*
@@ -389,7 +421,41 @@ public class Main {
 		}
 
 	}
+	
+	public static void viewPlaylist(UserLibrary userLibrary) {
+		String[] playlists = userLibrary.getPlaylists().split("\n");
+		
+		Scanner responseWait = new Scanner(System.in);
+		System.out.print("Enter the NUMBER of playlist you would like to view: ");
+		String wait = responseWait.nextLine().toLowerCase().strip();
+		
+		int choice;
+        try {
+            choice = Integer.parseInt(wait);
 
+            if (choice < 1 || choice > playlists.length - 1) {
+				throw new NumberFormatException();
+			}
+            
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid selection. Please try again.\n");
+            return;
+        }
+        
+        String playlistName = playlists[choice].replace(".", ":").split(":")[1].strip();
+        String playlistString;
+        if (playlistName.equals("Frequently Played")) {
+        	playlistString = userLibrary.getPlays().getFrequentlyPlayed().toString(userLibrary.getPlays());
+        }
+        else {
+        	playlistString = userLibrary.getPlaylist(playlistName).toString();
+        }
+        System.out.println("\n" + playlistString + "\n");
+        
+        
+	}
+	
+	
 	// allows user to add Songs to their library using input get a Song by title or artist
 	// Used AI to help generate this function
 	public static void addSong(UserLibrary userLibrary, MusicStore musicStore) {
