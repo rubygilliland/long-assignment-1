@@ -48,8 +48,6 @@ public class UserLibrary {
 		singerSongwriter = new Playlist("Singer Songwriter");
 		playlists.add(favorites);
 		playlists.add(topRated);
-		playlists.add(plays.getRecentlyPlayed());
-		playlists.add(plays.getFrequentlyPlayed());
 		shuffleLibrary();
 	}
 
@@ -212,7 +210,16 @@ public class UserLibrary {
 		}
 		return albums;
 	}
-
+	
+	public Playlist getPlaylistObj(String name) {
+		for (Playlist p : playlists) {
+			if (p.getName().toLowerCase().equals(name.toLowerCase())) {
+				return new Playlist(p);
+			}
+		}
+		return null;
+	}
+	
 	// searches for a playlist in user library by playlist name
 	public String getPlaylist(String name) {
 		String playlistStr = "";
@@ -430,7 +437,22 @@ public class UserLibrary {
 			}
 		}
 	}
-
+	
+	// removes a playlist from a users library given a name
+	public void removePlaylistFromLibrary(String name) {
+		Playlist toRemove = null;
+		for (Playlist p : playlists) {
+			// finds the Album object in songs that matches the given title and artist
+			if (p.getName().toLowerCase().equals(name.toLowerCase())) {
+				toRemove = p;
+			}
+		}
+		if (toRemove != null) {
+			playlists.remove(toRemove);
+		}
+	}
+	
+	
 	// helper method to remove songs from all playlists when they are removed from library
 	private void removeSongsFromPlaylists(String songName, String artist) {
 		for (Playlist p : playlists) {
@@ -626,11 +648,25 @@ public class UserLibrary {
 
 	// gets a random song in the list of shuffled songs
 	public Song getRandomSongLibrary() {
+		if (shuffled.size() == 0) {
+			shuffleLibrary();
+		}
+		System.out.println("pointer: " + shufflePointer);
+		System.out.println("size: " + shuffled.size());
 		Song random = shuffled.get(shufflePointer);
 		shufflePointer += 1;
 		return random;
 	}
-
+	
+	// shuffle a playlist by playlist name
+	public void shufflePlaylist(String playlistName) {
+		for (Playlist p : playlists) {
+			if (p.getName().toLowerCase().equals(playlistName.toLowerCase())) {
+		        p.shufflePlaylist();
+			}
+		}
+	}
+	
 	// gets a random song from a playlist shuffle
 	public Song getRandomSongPlaylist(String playlistName) {
 		Song random = new Song("", "", null);
@@ -644,15 +680,17 @@ public class UserLibrary {
 	}
 
 	// plays a random song from a playlist shuffle
-	public void playRandomSong(String playlistName) {
+	public String playRandomSong(String playlistName) {
 		Song random = getRandomSongPlaylist(playlistName);
 		play(random.getTitle(), random.getArtist());
+		return random.toString();
 	}
 
 	// plays a random song from the users library
-	public void playRandomSong() {
+	public String playRandomSong() {
 		Song random = getRandomSongLibrary();
 		play(random.getTitle(), random.getArtist());
+		return random.toString();
 	}
 
 	public void updateGenrePlaylists() {
@@ -737,8 +775,11 @@ public class UserLibrary {
 			}
 		}
 		
+		if (!playlistInLibrary("Recently Played") || !playlistInLibrary("Frequently Played")) {
+			playlists.add(plays.getRecentlyPlayed());
+			playlists.add(plays.getFrequentlyPlayed());
+		}
 		// update recently played and frequently played
-		
 		for (int i = 0; i < playlists.size(); i ++) {
 			if (playlists.get(i).getName().equals("Recently Played")) {
 				playlists.set(i, plays.getRecentlyPlayed());
@@ -777,7 +818,17 @@ public class UserLibrary {
 
 	    return message;
 	}
-
+	
+	public String toStringShuffled() {
+		String message = "My Library:\n";
+		message += "\tShuffled Songs:\n";
+		for (int i = 0; i < shuffled.size(); i++) {
+			int j = i+1;
+			message += "\t\t" + j + ". " + shuffled.get(i).toString();
+		}
+		return message;
+	}
+	
 	@Override
 	public String toString() {
 		String message = "My Library:\n";
@@ -804,7 +855,25 @@ public class UserLibrary {
 
 	    return message;
 	}
-
+	
+	public void setRecentlyPlayed(Playlist recent) {
+		plays.setRecentlyPlayed(recent);
+		for (int i = 0; i < playlists.size(); i ++) {
+			if (playlists.get(i).getName().equals("Recently Played")) {
+				playlists.set(i, plays.getRecentlyPlayed());
+			}
+		}
+	}
+	
+	private boolean playlistInLibrary(String name) {
+		for (Playlist p : playlists) {
+			if (p.getName().toLowerCase().equals(name.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	// Helper method to properly indent playlist songs
 	private String formatPlaylistSongs(String playlistSongs) {
 	    return playlistSongs.replaceAll("(?m)^", "\t\t\t"); // Adds an extra tab for proper indentation

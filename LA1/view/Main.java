@@ -17,7 +17,7 @@ public class Main {
 
 	public static final String LIST_OF_COMMANDS = "List of Commands:\n1. Search Songs\n2. Search Albums\n3. Browse \n4. Create Playlist" +
 	"\n5. View Playlists\n6. Add Songs\n7. Add Albums\n8. Edit Playlist\n9. Rate Songs\n10. Get Favorites\n11. Get Songs\n12. Get Albums\n13. Get Artists" +
-	"\n14. Play Song\n15. Remove Songs/Albums";
+	"\n14. Play Song\n15. Remove Songs/Albums\n16. Shuffle\n17. Play Random Song";
 
 
 	public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class Main {
 
 		while (true) { 
 			System.out.println(LIST_OF_COMMANDS);
-			System.out.print("Enter a command (1-15): ");
+			System.out.print("Enter a command (1-17): ");
 			Scanner userInput = new Scanner(System.in);
 			String inputString = userInput.nextLine().strip().toLowerCase();
 
@@ -127,6 +127,18 @@ public class Main {
 				case "15":
 					System.out.print("\n" + userLibrary.toString() + "\n");
 					removeFromLibrary(userLibrary, userInput);
+					break;
+				case "16":
+					shuffle(userLibrary);
+					break;
+				case "shuffle":
+					shuffle(userLibrary);
+					break;
+				case "17":
+					playRandom(userLibrary);
+					break;
+				case "play random song":
+					playRandom(userLibrary);
 					break;
 				default:
 					System.out.println("Sorry command not found. Please try again!\n");
@@ -994,6 +1006,103 @@ public class Main {
 			}
 		}
 		
+	}
+	
+	public static void shuffle(UserLibrary userLibrary) {
+		Scanner responseWait = new Scanner(System.in);
+		System.out.print("What would you like to shuffle? (Library/Playlist): ");
+		String response = responseWait.nextLine().toLowerCase().strip();
+		
+		switch(response) {
+		case "library":
+			userLibrary.shuffleLibrary();
+			System.out.println("Library has been shuffled!\n");
+			System.out.println("\n" + userLibrary.toStringShuffled() + "\n");
+			break;
+		case "playlist":
+			String[] playlists = userLibrary.getPlaylists().split("\n");
+			
+			Scanner enterPlaylist = new Scanner(System.in);
+			System.out.println("\n" + userLibrary.getPlaylists() + "\n");
+			System.out.print("Enter the NUMBER of the playlist you would like to shuffle: ");
+			String playlist = enterPlaylist.nextLine().strip();
+			
+			int choice;
+	        try {
+	            choice = Integer.parseInt(playlist);
+
+	            if (choice < 1 || choice > playlists.length - 1) {
+					throw new NumberFormatException();
+				}
+	            
+	        } catch (NumberFormatException e) {
+	            System.out.println("Invalid selection. Please try again.\n");
+	            return;
+	        }
+	        
+	        String playlistName = playlists[choice].replace(".", ":").split(":")[1].strip();
+	        if (playlistName.equals("Frequently Played") || playlistName.equals("Recently Played")) {
+	        	System.out.println("Sorry, this playlist can not be shuffled.\n");
+	        	return;
+	        }
+	        
+	        userLibrary.shufflePlaylist(playlistName);
+	        String playlistString = userLibrary.getPlaylistObj(playlistName).toStringShuffled();
+	        System.out.println("\n" + playlistString + "\n");
+	        break;
+		default:
+			System.out.println("Invalid response. Please Try again!\n");
+			
+	        
+		}
+	}
+	
+	public static void playRandom(UserLibrary userLibrary) {
+		Scanner responseWait = new Scanner(System.in);
+		System.out.print("Where do you want to play a song from? (Library/Playlist): ");
+		String response = responseWait.nextLine().toLowerCase().strip();
+		
+		String songString;
+		String[] songList;
+		switch(response) {
+		case "library":
+			songString = userLibrary.playRandomSong();
+			songString = songString.strip().replace(".", ":").replace("-", ":").replace("(", ":");
+			songList = songString.split(":");
+			System.out.println("\nNow playing: " + songList[0].strip() + " - by: " + songList[2].strip() + "!\n");
+			break;
+		case "playlist":
+			String[] playlists = userLibrary.getPlaylists().split("\n");
+			
+			Scanner enterPlaylist = new Scanner(System.in);
+			System.out.println("\n" + userLibrary.getPlaylists() + "\n");
+			System.out.print("Enter the NUMBER of the playlist you would like to shuffle: ");
+			String playlist = enterPlaylist.nextLine().strip();
+			
+			int choice;
+	        try {
+	            choice = Integer.parseInt(playlist);
+
+	            if (choice < 1 || choice > playlists.length - 1) {
+					throw new NumberFormatException();
+				}
+	            
+	        } catch (NumberFormatException e) {
+	            System.out.println("Invalid selection. Please try again.\n");
+	            return;
+	        }
+	        
+	        String playlistName = playlists[choice].replace(".", ":").split(":")[1].strip();
+	        
+	        songString = userLibrary.playRandomSong(playlistName);
+	        songString = songString.strip().replace("-", ":").replace("(", ":");
+			songList = songString.split(":");
+			System.out.println("\nNow playing: " + songList[0].strip() + " - by: " + songList[2].strip() + "!\n");
+	        break;
+		default:
+			System.out.println("Invalid response. Please Try again!\n");
+			break;
+		}
 	}
 }
 

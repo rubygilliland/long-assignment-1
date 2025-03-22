@@ -27,6 +27,8 @@ public class Playlist {
 	public Playlist(Playlist p) {
 		this.name = p.getName();
 		this.songs = p.getSongsList();
+		this.shuffled = p.shuffled;
+		this.shufflePointer = p.shufflePointer;
 	}
 
 	// adds the given Song object to the songs list
@@ -111,6 +113,22 @@ public class Playlist {
 	public String getName() {
 		return name;
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String toStringShuffled() {
+		String pString = this.name + ":\n";
+		for (Song s : shuffled) {
+
+			// Song object Strings are tabbed in to make for easier readability
+			pString += "\t" + s.toString();
+		}
+		return pString;
+		
+	}
+	
 	
 	public String toString(Plays plays) {
 		String pString = this.name + ":\n";

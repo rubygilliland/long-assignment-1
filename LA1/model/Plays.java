@@ -56,6 +56,10 @@ public class Plays {
 
 		}
 	
+	public void setRecentlyPlayed(Playlist freq) {
+		recentlyPlayed = new Playlist(freq);
+		recentlyPlayed.setName("Recently Played");
+	}
 	
 	public int getPlaysBySong(Song song) {
 		if (!plays.containsKey(song)) {

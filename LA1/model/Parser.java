@@ -108,7 +108,9 @@ public class Parser {
 				}
 				currPlaylist = changeUserLibrary(addAttribute, line, userLibrary, currPlaylist);
 		}
-
+			
+			userLibrary.setRecentlyPlayed(userLibrary.getPlaylistObj("real recently played"));
+			userLibrary.removePlaylistFromLibrary("real recently played");
 			return userLibrary;
 	}
 
@@ -160,8 +162,15 @@ public class Parser {
 				    if (lineArray[0].strip().matches("\\d+")) {
 				    	
 				    	currPlaylist = lineArray[1].strip();
+				    	
+				    	// if playlist is recently played, make a unique name for it
+				    	if (currPlaylist.toLowerCase().equals("recently played")) {
+				    		System.out.println("here");
+				    		userLibrary.createPlaylist("real recently played");
+				    		currPlaylist = "real recently played";
+				    	}
 				    	// if playlist is one of the auto created playlists, don't add twice
-				    	if (!skipPlaylists.contains(currPlaylist.toLowerCase())) {
+				    	else if (!skipPlaylists.contains(currPlaylist.toLowerCase())) {
 				    		userLibrary.createPlaylist(lineArray[1].strip());
 				    	}
 				    	else {
@@ -194,7 +203,6 @@ public class Parser {
 			playlists.add("rock");
 			playlists.add("traditional_country");
 			playlists.add("singer_songwriter");
-			playlists.add("recently played");
 			playlists.add("frequently played");
 			return playlists;
 		}
