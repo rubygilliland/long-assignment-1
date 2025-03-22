@@ -111,7 +111,20 @@ public class Playlist {
 	public String getName() {
 		return name;
 	}
-
+	
+	public String toString(Plays plays) {
+		String pString = this.name + ":\n";
+		for (Song s : songs) {
+			if (plays.getPlaysBySong(s) != 1) {
+				pString += "\t" + s.toString().strip() + " - " + plays.getPlaysBySong(s) + " plays\n";
+			}
+			else {
+				pString += "\t" + s.toString().strip() + " - " + plays.getPlaysBySong(s) + " play\n";
+			}
+		}
+		return pString;
+	}
+	
 	@Override
 	public String toString() {
 		String pString = this.name + ":\n";

@@ -48,6 +48,8 @@ public class UserLibrary {
 		singerSongwriter = new Playlist("Singer Songwriter");
 		playlists.add(favorites);
 		playlists.add(topRated);
+		playlists.add(plays.getRecentlyPlayed());
+		playlists.add(plays.getFrequentlyPlayed());
 		shuffleLibrary();
 	}
 
@@ -115,12 +117,25 @@ public class UserLibrary {
 		for (Song s : songs) {
 			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase())
 					&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
-				albumStr += s.getAlbumObj().toString();
+				albumStr += s.getAlbumObj().toString().strip();
+				
+				for (Album a : albums) {
+					if (s.getAlbumObj().getTitle().equals(a.getTitle())) {
+						albumStr += " - is in your library!";
+						return albumStr;
+					}
+				}
 			}
 		}
+		albumStr += " is not in your library.";
 		return albumStr;
 	}
-
+	
+	
+	public Plays getPlays() {
+		return new Plays(this.plays);
+	}
+	
 	// searches for albums in user library by title
 	public String getAlbumByTitle(String albumTitle) {
 		String albumStr = "";
@@ -262,7 +277,8 @@ public class UserLibrary {
 	public String getAlbumTitles() {
 		String albumsStr = "Albums in Your Library:\n";
 		for (Album a : albums) {
-			albumsStr += a.getTitle() + " - by: "+ a.getArtist() + "\n";
+			int index = albums.indexOf(a) + 1;
+			albumsStr += index + ". " + a.getTitle() + " - by: "+ a.getArtist() + "\n";
 		}
 		return albumsStr;
 	}
@@ -271,7 +287,8 @@ public class UserLibrary {
 	public String getPlaylists() {
 		String playlistsStr = "Playlists in Your Library:\n";
 		for (Playlist p : playlists) {
-			playlistsStr += p.getName() + "\n";
+			int index = playlists.indexOf(p) + 1;
+			playlistsStr += index + ". " + p.getName() + "\n";
 		}
 		return playlistsStr;
 	}
@@ -338,17 +355,17 @@ public class UserLibrary {
 		// adds the string of a song to a specific string based on its rating
 		for (Song s : songs) {
 			if (s.getRating() == Song.Rating.ONE) {
-				one += s.toString();
+				one += "1/5: " + s.toString();
 			} else if (s.getRating() == Song.Rating.TWO) {
-				two += s.toString();
+				two += "2/5: " + s.toString();
 			} else if (s.getRating() == Song.Rating.THREE) {
-				three += s.toString();
+				three += "3/5: " + s.toString();
 			} else if (s.getRating() == Song.Rating.FOUR) {
-				four += s.toString();
+				four += "4/5: " + s.toString();
 			} else if (s.getRating() == Song.Rating.FAVORITE) {
-				favorite += s.toString();
+				favorite += "5/5: " + s.toString();
 			} else {
-				nonRated += s.toString();
+				nonRated += "Unrated: " + s.toString();
 			}
 		}
 
@@ -719,6 +736,17 @@ public class UserLibrary {
 				plays.playSong(new Song(s));
 			}
 		}
+		
+		// update recently played and frequently played
+		
+		for (int i = 0; i < playlists.size(); i ++) {
+			if (playlists.get(i).getName().equals("Recently Played")) {
+				playlists.set(i, plays.getRecentlyPlayed());
+			}
+			if (playlists.get(i).getName().equals("Frequently Played")){
+				playlists.set(i, plays.getFrequentlyPlayed());
+			}
+		}
 	}
 
 	public Playlist getRecentlyPlayed() {
@@ -765,8 +793,13 @@ public class UserLibrary {
 		}
 		message += "\tPlaylists:\n";
 	    for (int i = 0; i < playlists.size(); i++) {
-	        message += "\t\t" + (i + 1) + ". "+ (playlists.get(i).getName()) + ":\n";
-	        message += formatPlaylistSongs(playlists.get(i).getSongs()) + "\n";
+	    	if (playlists.get(i).getName().equals("Frequently Played")) {
+	    		message += "\t\t" + (i + 1)+ ". " + playlists.get(i).toString(plays).replace("\t", "\t\t\t\t");
+	    	}
+	    	else {
+	    		message += "\t\t" + (i + 1) + ". "+ (playlists.get(i).getName()) + ":\n";
+		        message += formatPlaylistSongs(playlists.get(i).getSongs()) + "\n";
+	    	}
 	    }
 
 	    return message;

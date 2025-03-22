@@ -16,6 +16,12 @@ public class Plays {
 		this.recentlyPlayed = new Playlist("Recently Played");
 		this.frequentlyPlayed = new Playlist("Frequently Played");
 	}
+	
+	public Plays(Plays other) {
+		this.plays = other.plays;
+		this.recentlyPlayed = other.recentlyPlayed;
+		this.frequentlyPlayed = other.frequentlyPlayed;
+	}
 
 	// assume song passed in is a copy
 	public void playSong(Song song) {

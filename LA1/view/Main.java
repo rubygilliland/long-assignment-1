@@ -62,9 +62,11 @@ public class Main {
 					break;
 				case "view playlists":
 					System.out.println("\n" + userLibrary.getPlaylists() + "\n");
+					viewPlaylist(userLibrary);
 					break;
 				case "5":
 					System.out.println("\n" + userLibrary.getPlaylists() + "\n");
+					viewPlaylist(userLibrary);
 					break;
 				case "6":
 					 addSong(userLibrary, musicStore);
@@ -124,7 +126,7 @@ public class Main {
 					break;
 				case "15":
 					System.out.print("\n" + userLibrary.toString() + "\n");
-					removeFromLibrary(userLibrary);
+					removeFromLibrary(userLibrary, userInput);
 					break;
 				default:
 					System.out.println("Sorry command not found. Please try again!\n");
@@ -134,8 +136,8 @@ public class Main {
 			UserData.saveUser(myUser);
 
 			// added buffer to see results of the command before listing commands again
-			Scanner responseWait = new Scanner(System.in);
 			System.out.println("Hit Enter to Return to the List of Commands: ");
+			Scanner responseWait = new Scanner(System.in);
 			String wait = responseWait.nextLine();
 		}
 	}
@@ -148,18 +150,18 @@ public class Main {
 		switch (wait) {
 		case "my library":
 			String songResult = searchSongs(userLibrary);
-			System.out.print("\n" + songResult + getAlbumInfo(userLibrary, songResult));
+			System.out.println("\n" + "Song(s):\n" + songResult + "\n" + getAlbumInfo(userLibrary, songResult) + "\n");
 			break;
 			
 		case "1":
 			String songResult1 = searchSongs(userLibrary);
-			System.out.print("\n" + songResult1 + getAlbumInfo(userLibrary, songResult1));
+			System.out.println("\n" + "Song(s):\n" + songResult1 + "\n" + getAlbumInfo(userLibrary, songResult1) + "\n");
 			break;
 		case "music store":
-			System.out.print("\n" + searchSongs(musicStore));
+			System.out.print("\n" + searchSongs(musicStore) + "\n");
 			break;
 		case "2":
-			System.out.print("\n" + searchSongs(musicStore));
+			System.out.print("\n" + searchSongs(musicStore) + "\n");
 			break;
 		default:
 			System.out.print("\nCan not reach this library. Please try again!\n");
@@ -240,7 +242,7 @@ public class Main {
 		String albumInfo = "";
 		if (!(song.equals("Songs by this artist cannot be found.") || song.equals("Songs of this genre cannot be found.") 
 				|| song.equals("This song cannot be found."))) {
-		System.out.print("Would you like to get the album info for this song? Y/N" );
+		System.out.print("Would you like to get the album info for this song? (Y/N): " );
 		Scanner response = new Scanner(System.in);
 		
 		if (response.nextLine().trim().equalsIgnoreCase("Y")) {
@@ -248,7 +250,7 @@ public class Main {
 			// Extract artist and title from "Title - by: Artist (Album)" format
             String artist = song.split(" - by: ")[1].split(" \\(")[0];
             String title = song.split(" - by: ")[0];
-            albumInfo = userLibrary.getAlbumInfo(title, artist);
+            albumInfo = "Album: \n" + userLibrary.getAlbumInfo(title, artist);
 		}
 		}
 		return albumInfo;
@@ -342,21 +344,31 @@ public class Main {
 	
 	public static void getSongs(UserLibrary userLibrary) {
 		Scanner responseWait = new Scanner(System.in);
-		System.out.print("Do you want songs listed by title or rating? (1-2) ");
-		String wait = responseWait.nextLine().toLowerCase();
+		System.out.print("Do you want songs listed by title, artist, or rating? (1-3): ");
+		String wait = responseWait.nextLine().toLowerCase().strip();
 		
 		switch(wait) {
 		case "1":
-			System.out.print("\n" + userLibrary.getSortedTitles() + "\n");
+			System.out.println("\n" + userLibrary.getSortedTitles() + "\n");
 			break;
 		case "title":
-			System.out.print("\n" + userLibrary.getSortedTitles() + "\n");
+			System.out.println("\n" + userLibrary.getSortedTitles() + "\n");
 			break;
 		case "2":
-			System.out.print("\n" + userLibrary.getSortedRating() + "\n");
+			System.out.println("\n" + userLibrary.getSortedArtist() + "\n");
+			break;
+		case "artist":
+			System.out.println("\n" + userLibrary.getSortedArtist() + "\n");
+			break;
+		case "3":
+			System.out.println("\n" + userLibrary.getSortedRating() + "\n");
+			break;
+		case "rating":
+			System.out.println("\n" + userLibrary.getSortedRating() + "\n");
 			break;
 		default:
-			System.out.print("\n" + userLibrary.getSortedRating() + "\n");
+			System.out.println("Command not found. Please try again!");
+			break;
 		}
 	}
 	
@@ -409,7 +421,41 @@ public class Main {
 		}
 
 	}
+	
+	public static void viewPlaylist(UserLibrary userLibrary) {
+		String[] playlists = userLibrary.getPlaylists().split("\n");
+		
+		Scanner responseWait = new Scanner(System.in);
+		System.out.print("Enter the NUMBER of playlist you would like to view: ");
+		String wait = responseWait.nextLine().toLowerCase().strip();
+		
+		int choice;
+        try {
+            choice = Integer.parseInt(wait);
 
+            if (choice < 1 || choice > playlists.length - 1) {
+				throw new NumberFormatException();
+			}
+            
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid selection. Please try again.\n");
+            return;
+        }
+        
+        String playlistName = playlists[choice].replace(".", ":").split(":")[1].strip();
+        String playlistString;
+        if (playlistName.equals("Frequently Played")) {
+        	playlistString = userLibrary.getPlays().getFrequentlyPlayed().toString(userLibrary.getPlays());
+        }
+        else {
+        	playlistString = userLibrary.getPlaylist(playlistName).toString();
+        }
+        System.out.println("\n" + playlistString + "\n");
+        
+        
+	}
+	
+	
 	// allows user to add Songs to their library using input get a Song by title or artist
 	// Used AI to help generate this function
 	public static void addSong(UserLibrary userLibrary, MusicStore musicStore) {
@@ -783,6 +829,11 @@ public class Main {
 		
 		String[] songs = userLibrary.getSongInfo().split("\n");
 		
+		if (songs.length - 1 == 0) {
+			System.out.println("No songs in library. Please add a song and try again!\n");
+			return;
+		}
+		
 		while (true) {
 			System.out.print("Enter the NUMBER of the song you wish to play: ");
 		
@@ -805,18 +856,88 @@ public class Main {
 			}
 		}
 	}
+
 	
+	public static void removeFromLibrary(UserLibrary userLibrary, Scanner myScanner) { 
+	    System.out.print("What would you like to remove? (Song/Album): ");
+	    while (true) {
+	        String response = myScanner.nextLine();
+	        if (response.toLowerCase().equals("song")) {
+	            String[] songs = userLibrary.getSongInfo().split("\n");
+	            if (songs.length - 1 == 0) {
+	                System.out.println("\nNo songs in library to remove.\n");
+	                return;
+	            }
+	            System.out.println(userLibrary.getSongInfo());
+	            System.out.print("Enter the NUMBER of the song you would like to remove: ");
+	            
+	            int songNum;
+	            try {
+	                songNum = Integer.parseInt(myScanner.nextLine()); // Reuse the same Scanner
+	                
+	                if (songNum < 1 || songNum > songs.length - 1) {
+	                    System.out.println("Invalid selection. Please try again.\n");
+	                    continue;
+	                }
+	                
+	                String songString = songs[songNum].strip().replace(".", ":").replace("-", ":").replace("(", ":");
+	                String[] songList = songString.split(":");
+	                userLibrary.removeSongFromLibrary(songList[1].strip(), songList[3].strip());
+	                System.out.println("\nSong: " + songList[1].strip() + " - by: " + songList[3].strip() + " successfully removed!\n");
+	                return;
+	            } catch (NumberFormatException e) {
+	                System.out.println("Invalid selection. Please try again.\n");
+	                continue;
+	            }
+	        } else if (response.toLowerCase().equals("album")) {
+	            ArrayList<Album> albums = userLibrary.getAlbumList();
+	            if (albums.isEmpty()) {
+	                System.out.println("\nNo albums in library to remove.\n");
+	                return;
+	            }
+	            
+	            System.out.println(userLibrary.getAlbumTitles());
+	            System.out.print("Enter the NUMBER of the album you would like to remove: ");
+	            
+	            int albumNum;
+	            try {
+	                albumNum = Integer.parseInt(myScanner.nextLine()); // Reuse the same Scanner
+	                
+	                if (albumNum < 1 || albumNum > albums.size()) {
+	                    System.out.println("Invalid selection. Please try again.\n");
+	                    continue;
+	                }
+	                String albumTitle = albums.get(albumNum - 1).getTitle();
+	                String albumArtist = albums.get(albumNum - 1).getArtist();
+	                userLibrary.removeAlbumFromLibrary(albumTitle, albumArtist);
+	                System.out.println("\nAlbum: " + albumTitle + " - by: " + albumArtist + " successfully removed!\n");
+	                return;
+	            } catch (NumberFormatException e) {
+	                System.out.println("Invalid selection. Please try again.\n");
+	                continue;
+	            }
+	        } else {
+	            System.out.println("Invalid selection. Please try again.\n");
+	        }
+	    }
+	}
+
 	public static void removeFromLibrary(UserLibrary userLibrary) {
 		System.out.print("What would you like to remove? (Song/Album): ");
 		while (true) {
 			Scanner myScanner = new Scanner(System.in);
 			String response = myScanner.nextLine();
+			myScanner.close();
 			if (response.toLowerCase().equals("song")) {
+				String[] songs = userLibrary.getSongInfo().split("\n");
+				if (songs.length - 1 == 0) {
+					System.out.println("No songs in library found.\n");
+					return;
+				}
+				
 				System.out.println(userLibrary.getSongInfo());
 				System.out.print("Enter the NUMBER of the song you would like to remove: ");
 				Scanner songScanner = new Scanner(System.in);
-				
-				String[] songs = userLibrary.getSongInfo().split("\n");
 				
 				int songNum;
 				try {
@@ -837,11 +958,17 @@ public class Main {
 				}
 			}
 			else if (response.toLowerCase().equals("album")) {
+				ArrayList<Album> albums = userLibrary.getAlbumList();
+				if (albums.size() == 0) {
+					System.out.println("No albums in library found.\n");
+					return;
+				}
+				
 				System.out.println(userLibrary.getAlbumTitles());
 				System.out.print("Enter the NUMBER of the album you would like to remove: ");
 				Scanner songScanner = new Scanner(System.in);
 				
-				ArrayList<Album> albums = userLibrary.getAlbumList();
+
 				
 				int songNum;
 				try {
