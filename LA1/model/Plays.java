@@ -34,8 +34,15 @@ public class Plays {
 	 
 	// assume song passed in is a copy
 	public void updateRecentlyPlayed(Song song) {
-		recentlyPlayed.insertSong(song); 
-		if (recentlyPlayed.getSongsList().size() > 10) recentlyPlayed.popSong();
+		if (recentlyPlayed.songInPlaylist(song.getTitle(), song.getArtist())) {
+			recentlyPlayed.removeSong(song.getTitle(), song.getArtist());
+			recentlyPlayed.insertSong(song); 
+		}
+		else {
+			recentlyPlayed.insertSong(song);
+			if (recentlyPlayed.getSongsList().size() > 10) recentlyPlayed.popSong();
+		}
+		
 	}
 
 	public void updateFrequentlyPlayed() {
@@ -52,7 +59,7 @@ public class Plays {
 	        if (count >= 10) break;
 	        frequentlyPlayed.addSong(song);
 	        count++;
-	    }
+	    } 
 
 		}
 	

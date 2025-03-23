@@ -148,8 +148,8 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		USER_LIBRARY.addAlbum("Waking Up");
 		String message = USER_LIBRARY.getAlbumTitles();
 		String expected = "Albums in Your Library:\n";
-		expected += "Sons - by: The Heavy\n19 - by: Adele\nWaking Up - by: OneRepublic\n";
-		assertEquals(message, expected);
+		expected += "1. Sons - by: The Heavy\n2. 19 - by: Adele\n3. Waking Up - by: OneRepublic\n";
+		assertEquals(expected, message);
 	}
 
 	@Test
@@ -159,8 +159,8 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		USER_LIBRARY.createPlaylist("Sing-Alongs");
 		String message = USER_LIBRARY.getPlaylists();
 		String expected = "Playlists in Your Library:\n";
-		expected += "Favorites\nTop Rated\nPop Hits\nRock Jams\nSing-Alongs\n";
-		assertEquals(message, expected);
+		expected += "1. Favorites\n2. Top Rated\n3. Pop Hits\n4. Rock Jams\n5. Sing-Alongs\n";
+		assertEquals(expected, message);
 		}
 
 	@Test
@@ -253,8 +253,8 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		USER_LIBRARY.rateSong("Rolling in the Deep", "Adele", 5);
 		USER_LIBRARY.rateSong("Begin Again", "Norah Jones", 3);
 		USER_LIBRARY.rateSong("Cup of Sorrow", "Amos Lee", 1);
-		String expected = "Cup of Sorrow - by: Amos Lee (Mission Bell)\n";
-		expected += "Begin Again - by: Norah Jones (Begin Again)\nRolling in the Deep - by: Adele (21)\n";
+		String expected = "1/5: Cup of Sorrow - by: Amos Lee (Mission Bell)\n";
+		expected += "3/5: Begin Again - by: Norah Jones (Begin Again)\n5/5: Rolling in the Deep - by: Adele (21)\n";
 		String actual = USER_LIBRARY.getSortedRating();
 		assertEquals(expected, actual);
 	}

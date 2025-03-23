@@ -44,6 +44,17 @@ public class Playlist {
 		songs.remove(songs.size() -1);
 	}
 
+	public boolean songInPlaylist(String songTitle, String artist) {
+		boolean inPlaylist = false;
+		for (Song s : songs) {
+			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase()) &&
+					s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
+				inPlaylist = true;
+			}
+		}
+		return inPlaylist;
+	}
+	
 	// removes a Song object from the songs list
 	public void removeSong(String songName, String artist) {
 		Song toRemove = new Song("", "", null);
@@ -59,7 +70,7 @@ public class Playlist {
 		if (toRemove.getTitle() != "" && toRemove.getArtist() != "") {
 		songs.remove(toRemove);
 		}
-	}
+	} 
 
 
 	public void shufflePlaylist() {
