@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import model.Album;
 import model.MusicStore;
 import model.Song;
+import model.UserLibrary;
 
 public class MusicStoreTest {
 
@@ -537,6 +538,25 @@ public class MusicStoreTest {
 		String expected = "19 - by: Adele (POP) 2008\n" +
                 "21 - by: Adele (POP) 2011\n" +
                 "Begin Again - by: Norah Jones (POP) 2018\n";
+		assertEquals(expected, result);
+	}
+	
+	@Test
+	void testGetAlbumInfoNotInLibrary() {
+		MusicStore myStore = new MusicStore();
+		UserLibrary myLibrary = new UserLibrary(myStore);
+		String result = myStore.getAlbumInfo("Rolling in the Deep", "Adele", myLibrary);
+		String expected = "21 - by: Adele (POP) 2011 is not in your library.";
+		assertEquals(expected, result);
+	}
+	
+	@Test
+	void testGetAlbumInfoInLibrary() {
+		MusicStore myStore = new MusicStore();
+		UserLibrary myLibrary = new UserLibrary(myStore);
+		myLibrary.addSong("Lovesong", "Adele");
+		String result = myStore.getAlbumInfo("Rolling in the Deep", "Adele", myLibrary);
+		String expected = "21 - by: Adele (POP) 2011 - is in your library!";
 		assertEquals(expected, result);
 	}
 

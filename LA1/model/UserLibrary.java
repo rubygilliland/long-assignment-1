@@ -125,7 +125,8 @@ public class UserLibrary {
 				}
 			}
 		}
-		albumStr += " is not in your library.";
+
+		albumStr += "Album is not in your library.";
 		return albumStr;
 	}
 	
