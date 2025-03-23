@@ -170,10 +170,12 @@ public class Main {
 			System.out.println("\n" + "Song(s):\n" + songResult1 + "\n" + getAlbumInfo(userLibrary, songResult1) + "\n");
 			break;
 		case "music store":
-			System.out.print("\n" + searchSongs(musicStore) + "\n");
+			String songResult2 = searchSongs(musicStore);
+			System.out.println("\n" + "Song(s):\n" + songResult2 + "\n" + getAlbumInfo(musicStore, userLibrary, songResult2) + "\n");
 			break;
 		case "2":
-			System.out.print("\n" + searchSongs(musicStore) + "\n");
+			String songResult3 = searchSongs(musicStore);
+			System.out.println("\n" + "Song(s):\n" + songResult3 + "\n" + getAlbumInfo(musicStore, userLibrary, songResult3) + "\n");
 			break;
 		default:
 			System.out.print("\nCan not reach this library. Please try again!\n");
@@ -267,6 +269,25 @@ public class Main {
 		}
 		return albumInfo;
 	}
+	
+	public static String getAlbumInfo(MusicStore musicStore, UserLibrary userLibrary, String song) {
+		String albumInfo = "";
+		if (!(song.equals("Songs by this artist cannot be found.") || song.equals("Songs of this genre cannot be found.") 
+				|| song.equals("This song cannot be found."))) {
+		System.out.print("Would you like to get the album info for this song? (Y/N): " );
+		Scanner response = new Scanner(System.in);
+		
+		if (response.nextLine().trim().equalsIgnoreCase("Y")) {
+			
+			// Extract artist and title from "Title - by: Artist (Album)" format
+            String artist = song.split(" - by: ")[1].split(" \\(")[0];
+            String title = song.split(" - by: ")[0];
+            albumInfo = "Album: \n" + musicStore.getAlbumInfo(title, artist, userLibrary);
+		}
+		}
+		return albumInfo;
+	}
+	
 	public static String albumSearchLibraryStore(UserLibrary userLibrary, MusicStore musicStore) {
 		Scanner responseWait = new Scanner(System.in);
 		System.out.print("Search My Library or Music Store? (1-2): ");

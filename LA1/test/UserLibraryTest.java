@@ -4,9 +4,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
+import model.Album;
 import model.MusicStore;
+import model.Playlist;
 import model.Song;
 import model.UserLibrary;
 
@@ -482,5 +486,59 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		+ "Begin Again - by: Norah Jones (POP) 2018\n";
 		assertEquals(expected, actual);
 		
+	}
+	
+	@Test
+	void testGetSongsInfo() {
+		USER_LIBRARY.addSong("Secrets", "OneRepublic");
+		USER_LIBRARY.addSong("Begin Again", "Norah Jones");
+		USER_LIBRARY.addSong("Lovesong", "Adele");
+		String actual = USER_LIBRARY.getSongInfo();
+		String expected = "Songs in Your Library:\n1. Secrets - by: OneRepublic (Waking Up)\n"
+		+ "2. Begin Again - by: Norah Jones (Begin Again)\n"
+		+ "3. Lovesong - by: Adele (21)\n";
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testGetPlaylistObj() {
+		USER_LIBRARY.createPlaylist("Adele Favs");
+		USER_LIBRARY.addSongToPlaylist("Lovesong", "Adele", "Adele Favs");
+		Playlist myPlaylist = new Playlist("Adele Favs");
+		Album adele21 = new Album("21", "Adele", "pop", "2011");
+		Song loveSong = new Song("Lovesong", "Adele", adele21);
+		myPlaylist.addSong(loveSong);
+		assertEquals(USER_LIBRARY.getPlaylistObj("Adele Favs"), myPlaylist);
+	}
+	
+	@Test
+	void testGetAlbumList() {
+		USER_LIBRARY.addAlbum("21");
+		USER_LIBRARY.addAlbum("Begin Again");
+		USER_LIBRARY.addAlbum("Waking Up");
+		ArrayList<Album> myAlbums = new ArrayList<Album>();
+		myAlbums.add(new Album("21", "Adele", "pop", "2011"));
+		myAlbums.add(new Album("Begin Again", "Norah Jones", "pop", "2018"));
+		myAlbums.add(new Album("Waking Up", "OneRepublic", "rock", "2009"));
+		assertEquals(USER_LIBRARY.getAlbumList(), myAlbums);
+		
+	}
+	
+	@Test
+	void testRemovePlaylistFromLibrary() {
+		USER_LIBRARY.createPlaylist("Adele Favs");
+		USER_LIBRARY.addSongToPlaylist("Lovesong", "Adele", "Adele Favs");
+		USER_LIBRARY.removePlaylistFromLibrary("Adele Favs");
+		String actual = USER_LIBRARY.getPlaylists();
+		String expected = "Playlists in Your Library:\n"
+		+ "1. Favorites\n2. Top Rated\n";
+		assertEquals(expected, actual);
+	}
+	 
+	@Test
+	void testGetAlbumInfoNotInLibrary() {
+		USER_LIBRARY.addSong("Secrets", "OneRepublic");
+		String actual = USER_LIBRARY.getAlbumInfo("Lovesong", "Adele");
+		String expected = "Album is not in your library";
 	}
 }

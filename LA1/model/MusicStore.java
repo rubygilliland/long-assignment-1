@@ -77,6 +77,25 @@ public class MusicStore {
 		}
 		return songStr;
 	}
+	
+	public String getAlbumInfo(String songTitle, String artist, UserLibrary userLibrary) {
+		String albumStr = "";
+		for (Song s : songs) {
+			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase())
+					&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
+				albumStr += s.getAlbumObj().toString().strip();
+				
+				for (Album a : userLibrary.getAlbumList()) {
+					if (s.getAlbumObj().getTitle().equals(a.getTitle())) {
+						albumStr += " - is in your library!";
+						return albumStr;
+					}
+				}
+			}
+		}
+		albumStr += " is not in your library.";
+		return albumStr;
+	}
 
 	public String getAlbumByTitle(String albumTitle) {
 		/*
