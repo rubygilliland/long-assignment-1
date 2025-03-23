@@ -505,5 +505,39 @@ public class MusicStoreTest {
 
 	}
 
+	@Test
+	void testGetSongByGenre() {
+		MusicStore myStore = new MusicStore();
+		String result = myStore.getSongByGenre("traditional country");
+		String expected = "Coat of Many Colors - by: Dolly Parton (Coat of Many Colors)\n" 
+		+ "Traveling Man - by: Dolly Parton (Coat of Many Colors)\n" 
+		+ "My Blue Tears - by: Dolly Parton (Coat of Many Colors)\n" 
+		+ "If I Lose My Mind - by: Dolly Parton (Coat of Many Colors)\n"
+		+ "The Mystery of the Mystery - by: Dolly Parton (Coat of Many Colors)\n"
+		+ "She Never Met a Man (She Didn't Like) - by: Dolly Parton (Coat of Many Colors)\n"
+		+ "Early Morning Breeze - by: Dolly Parton (Coat of Many Colors)\n"
+		+ "The Way I See You - by: Dolly Parton (Coat of Many Colors)\n"
+		+ "Here I Am - by: Dolly Parton (Coat of Many Colors)\n"
+		+ "A Better Place to Live - by: Dolly Parton (Coat of Many Colors)\n";
+		assertEquals(expected, result);
+	}
+	
+	@Test
+	void testGetSongByGenreFalse() {
+		MusicStore myStore = new MusicStore();
+		String result = myStore.getSongByGenre("EDM");
+		String expected = "Songs for this genre can not be found.";
+		assertEquals(expected, result);
+	}
+	
+	@Test
+	void testGetAlbumByGenre() {
+		MusicStore myStore = new MusicStore();
+		String result = myStore.getAlbumByGenre("pop");
+		String expected = "19 - by: Adele (POP) 2008\n" +
+                "21 - by: Adele (POP) 2011\n" +
+                "Begin Again - by: Norah Jones (POP) 2018\n";
+		assertEquals(expected, result);
+	}
 
 }

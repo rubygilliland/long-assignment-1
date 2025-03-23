@@ -27,7 +27,11 @@ public class Playlist {
 	public Playlist(Playlist p) {
 		this.name = p.getName();
 		this.songs = p.getSongsList();
-		this.shuffled = p.shuffled;
+		ArrayList<Song> newShuffled = new ArrayList<Song>();
+		for (Song s: p.shuffled) {
+			newShuffled.add(new Song(s));
+		}
+		this.shuffled = newShuffled;
 		this.shufflePointer = p.shufflePointer;
 	}
 
@@ -139,7 +143,7 @@ public class Playlist {
 		return pString;
 		
 	}
-	
+	 
 	
 	public String toString(Plays plays) {
 		String pString = this.name + ":\n";
@@ -160,5 +164,32 @@ public class Playlist {
 		pString += getSongs();
 		return pString;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	        return true;
+	    }
+	    if (obj == null || getClass() != obj.getClass()) {
+	        return false;
+	    }
+	    
+	    Playlist other = (Playlist) obj;
+	    
+	    // Compare names
+	    if (!this.name.equals(other.name)) {
+	        return false;
+	    }
+	    
+	    // Compare songs lists (deep comparison)
+	    if (!this.getSongsList().equals(other.getSongsList())) {
+	        return false;
+	    }
+	    
+	    // Compare shuffled lists and shufflePointer
+	    return this.shuffled.equals(other.shuffled) && this.shufflePointer == other.shufflePointer;
+	}
+	
+
 
 }

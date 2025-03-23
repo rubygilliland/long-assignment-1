@@ -1,10 +1,13 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.Test;
 
 import model.Album;
+import model.Playlist;
 import model.Plays;
 import model.Song;
 
@@ -39,7 +42,7 @@ public class PlaysTest {
 		plays.playSong(SONG);
 		plays.playSong(SONG2);
 		plays.playSong(SONG2);
-		plays.playSong(SONG2);
+		plays.playSong(SONG2); 
 		plays.playSong(SONG3);
 		plays.playSong(SONG);
 		plays.playSong(SONG4);
@@ -68,6 +71,66 @@ public class PlaysTest {
 		plays.playSong(song);
 		assertEquals(plays.getPlaysBySong(song), 1);
 		
+	}
+	
+	@Test 
+	public void testCopyConstructor() {
+		Plays plays = new Plays();
+		Album adele = new Album("21", "Adele", "Pop", "2011");
+		Song song = new Song("Rolling in the Deep", "Adele", adele);
+		plays.playSong(song);
+		assertEquals(plays, new Plays(plays));
+	}
+	
+	@Test
+	public void testEqualsFalse() {
+		Plays plays = new Plays();
+		Album adele = new Album("21", "Adele", "Pop", "2011");
+		Song song = new Song("Rolling in the Deep", "Adele", adele);
+		plays.playSong(song);
+		Playlist myPlaylist = new Playlist("Adele Favs");
+		assertFalse(plays.equals(myPlaylist));	
+	}
+	
+	@Test
+	public void testEqualsNull() {
+		Plays plays = new Plays();
+		Album adele = new Album("21", "Adele", "Pop", "2011");
+		Song song = new Song("Rolling in the Deep", "Adele", adele);
+		plays.playSong(song);
+		assertFalse(plays.equals(null));
+	}
+	
+	@Test
+	public void testEqualsDiff() {
+		Plays plays = new Plays();
+		Album adele = new Album("21", "Adele", "Pop", "2011");
+		Song song = new Song("Rolling in the Deep", "Adele", adele);
+		plays.playSong(song);
+		Plays plays2 = new Plays();
+		assertFalse(plays.equals(plays2));
+	}
+	
+	@Test
+	public void testEqualsSimilar() {
+		Plays plays = new Plays();
+		Album adele = new Album("21", "Adele", "Pop", "2011");
+		Song song = new Song("Rolling in the Deep", "Adele", adele);
+		plays.playSong(song);
+		Plays plays2 = new Plays(plays);
+		plays2.playSong(song);
+		plays2.playSong(song);
+		plays2.playSong(song);
+		assertFalse(plays.equals(plays2));
+	}
+	
+	@Test
+	public void testEqualsTrue() {
+		Plays plays = new Plays();
+		Album adele = new Album("21", "Adele", "Pop", "2011");
+		Song song = new Song("Rolling in the Deep", "Adele", adele);
+		plays.playSong(song);
+		assertTrue(plays.equals(plays));
 	}
 
 }
