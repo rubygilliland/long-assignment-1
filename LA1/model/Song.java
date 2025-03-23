@@ -132,7 +132,7 @@ public boolean equals(Object otherSong) {
 		String message = this.title + " - by: " + this.artist + " (" + this.getAlbum() + ")\n";
 		return message;
 
-	} 
+	}  
 	
 	@Override
 	public int hashCode() {

@@ -469,25 +469,18 @@ public class UserLibrary {
 
 	// determines whether a Song is in given playlist, with given Song title and artist
 	public boolean songInPlaylist(String playlistName, String songTitle, String songArtist) {
+		boolean inPlaylist = false;
 		for (Playlist p : playlists) {
 
 			// checks if name matches name of Playlist in playlists, ignoring capitalization
 			if (p.getName().toLowerCase().equals(playlistName.toLowerCase())) {
-				for (Song s : p.getSongsList()) {
-
-					// checks if title and artist match title and artist of Song in playlist
-					if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase())
-							&& s.getArtist().toLowerCase().equals(songArtist.toLowerCase())) {
-
-						// only returns true if given Song is found in given Playlist
-						return true;
-					}
+				inPlaylist = p.songInPlaylist(songTitle, songArtist);
 				}
-				return false;
+			
 			}
-		} 
-		return false;
-	}
+		return inPlaylist;
+		}
+
 
 	// adds a song to user library based on title and artist
 	public void addSong(String songName, String artist) {
