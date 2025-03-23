@@ -18,9 +18,9 @@ public class Plays {
 	}
 	
 	public Plays(Plays other) {
-		this.plays = other.plays;
-		this.recentlyPlayed = other.recentlyPlayed;
-		this.frequentlyPlayed = other.frequentlyPlayed;
+		this.plays = new HashMap(other.plays);
+		this.recentlyPlayed = new Playlist(other.recentlyPlayed);
+		this.frequentlyPlayed = new Playlist(other.frequentlyPlayed);
 	}
 
 	// assume song passed in is a copy
@@ -63,8 +63,8 @@ public class Plays {
 
 		}
 	
-	public void setRecentlyPlayed(Playlist freq) {
-		recentlyPlayed = new Playlist(freq);
+	public void setRecentlyPlayed(Playlist recent) {
+		recentlyPlayed = new Playlist(recent);
 		recentlyPlayed.setName("Recently Played");
 	}
 	
@@ -84,5 +84,27 @@ public class Plays {
 	public Playlist getFrequentlyPlayed() {
 		return new Playlist(frequentlyPlayed);
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	        return true;
+	    }
+	    if (obj == null || getClass() != obj.getClass()) {
+	        return false;
+	    }
+	    
+	    Plays other = (Plays) obj;
+	    
+	    // Compare plays HashMap
+	    if (!this.plays.equals(other.plays)) {
+	        return false;
+	    }
+	    
+	    // Compare recentlyPlayed and frequentlyPlayed playlists
+	    return this.recentlyPlayed.equals(other.recentlyPlayed) &&
+	           this.frequentlyPlayed.equals(other.frequentlyPlayed);
+	}
+
 
 }

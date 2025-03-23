@@ -464,4 +464,23 @@ private UserLibrary USER_LIBRARY = new UserLibrary(MUSIC_STORE);
 		assertEquals(USER_LIBRARY.getFavoriteSongs(), "Your Favorited Songs:\nSecrets - by: OneRepublic (Waking Up)\n");
 		
 	}
+	
+	@Test
+	void testGetAlbumInfo() {
+		USER_LIBRARY.addSong("Made for You", "OneRepublic");
+		String actual = USER_LIBRARY.getAlbumInfo("Made for You", "OneRepublic");
+		String expected = "Waking Up - by: OneRepublic (ROCK) 2009 - is in your library!";
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testGetAlbumByGenre() {
+		USER_LIBRARY.addAlbum("21");
+		USER_LIBRARY.addAlbum("Begin Again");
+		String actual = USER_LIBRARY.getAlbumByGenre("pop");
+		String expected = "21 - by: Adele (POP) 2011\n"
+		+ "Begin Again - by: Norah Jones (POP) 2018\n";
+		assertEquals(expected, actual);
+		
+	}
 }
