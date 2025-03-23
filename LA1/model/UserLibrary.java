@@ -146,9 +146,11 @@ public class UserLibrary {
 				// adds String of every Album with given title to albumStr
 				albumStr += a.toString();
 				for (Song s : a.getSongs()) {
-
-					// adds String of every song in the Album to albumStr, tabbed in for readability
-					albumStr += "\t" + s.toString();
+					
+					if (songInLibrary(s)) {
+						// adds String of every song in the Album to albumStr, tabbed in for readability
+						albumStr += "\t" + s.toString();
+					}
 				}
 			}
 		}
@@ -159,7 +161,17 @@ public class UserLibrary {
 		}
 		return albumStr;
 	}
-
+	
+	private boolean songInLibrary(Song s) {
+		for (Song s2 : songs) {
+			if (s2.equals(s)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	// searches for albums in user library by artist
 	public String getAlbumByArtist(String artist) {
 		String albumStr = "";
@@ -172,8 +184,10 @@ public class UserLibrary {
 				albumStr += a.toString();
 				for (Song s : a.getSongs()) {
 
-					// adds String of every song in the Album to albumStr, tabbed in for readability
-					albumStr += "\t" + s.toString();
+					if (songInLibrary(s)) {
+						// adds String of every song in the Album to albumStr, tabbed in for readability
+						albumStr += "\t" + s.toString();
+					}
 				}
 			}
 		}
