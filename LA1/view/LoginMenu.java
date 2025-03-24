@@ -34,6 +34,10 @@ public class LoginMenu {
 
 
 	public static User signUp(UserDatabase myUserDatabase){
+		/*
+		 * This method creates a new user and saves their information to a text file.
+		 * It prompts the user for a username and password to create an account.
+		 */
 		System.out.print("Enter in new Username: ");
 		Scanner userLogin = new Scanner(System.in);
 		String username = userLogin.nextLine();
@@ -66,9 +70,12 @@ public class LoginMenu {
 
 	}
 
-
-
 	public static User login(UserDatabase myUserDatabase) {
+		/*
+		 * This method prompts the user to enter in their user name and password.
+		 * It then retrieves the data associated with their account to load it 
+		 * onto the IU.
+		 */
 		String salt = UserData.getSaltString();
 		System.out.print("Enter in your Username: ");
 		Scanner userLogin = new Scanner(System.in);
@@ -101,19 +108,4 @@ public class LoginMenu {
 
 	}
 
-	/*
-	public static User login() {
-		System.out.print("Enter in your Username: ");
-		Scanner userLogin = new Scanner(System.in);
-		String username = userLogin.nextLine();
-		userLogin.close();
-		System.out.println(username);
-
-		System.out.print("Enter in your Password: ");
-		Scanner userPass = new Scanner(System.in);
-		String password = userPass.nextLine();
-
-		return UserData.getUser(username, password);
-	}
-	*/
 }
