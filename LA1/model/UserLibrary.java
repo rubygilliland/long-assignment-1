@@ -113,13 +113,17 @@ public class UserLibrary {
 		return songStr;
 	}
 
+	// this method gets the album information for a given song
 	public String getAlbumInfo(String songTitle, String artist) {
 		String albumStr = "";
 		for (Song s : songs) {
+			
+			// searches for a song in the user library with given title and artist
 			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase())
 					&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
 				albumStr += s.getAlbumObj().toString().strip();
 				
+				// checks whether album is in user library (should always be true if song is in library)
 				for (Album a : albums) {
 					if (s.getAlbumObj().getTitle().equals(a.getTitle())) {
 						albumStr += " - is in your library!";
@@ -165,13 +169,14 @@ public class UserLibrary {
 		return albumStr;
 	}
 	
+	// this method checks whether a song is in a user library given a Song object
+	// assume song is passed in as a copy
 	private boolean songInLibrary(Song s) {
 		for (Song s2 : songs) {
 			if (s2.equals(s)) {
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	
@@ -221,6 +226,7 @@ public class UserLibrary {
 			return albumStr;
 		}
 		
+	// this method returns a deep copy of all the albums in the user library
 	public ArrayList<Album> getAlbumList(){
 		ArrayList<Album> albums = new ArrayList<>();
 		for (Album a : this.albums) {
@@ -229,6 +235,7 @@ public class UserLibrary {
 		return albums;
 	}
 	
+	// this method returns a copy of the playlist with the given name
 	public Playlist getPlaylistObj(String name) {
 		for (Playlist p : playlists) {
 			if (p.getName().toLowerCase().equals(name.toLowerCase())) {
@@ -722,37 +729,45 @@ public class UserLibrary {
 		return random.toString();
 	}
 	
+	// this method updates the automatically made genre playlists any time music is added/removed to the library
 	public void updateGenrePlaylists() {
+		
+		// checks if there are at least 10 pop songs in library and creates pop playlist if so
 		if (pop.getSongsList().size() == 10) {
 			playlists.add(pop);
 		} else if (pop.getSongsList().size() < 10 && playlists.contains(pop)) {
 			playlists.remove(pop);
 		}
 
+		// checks if there are at least 10 alt songs in library and creates alt playlist if so
 		if (alternative.getSongsList().size() == 10) {
 			playlists.add(alternative);
 		} else if (alternative.getSongsList().size() < 10 && playlists.contains(alternative)) {
 			playlists.remove(alternative);
 		}
 
+		// checks if there are at least 10 country songs in library and creates country playlist if so
 		if (traditionalCountry.getSongsList().size() == 10) {
 			playlists.add(traditionalCountry);
 		} else if (traditionalCountry.getSongsList().size() < 10 && playlists.contains(traditionalCountry)) {
 			playlists.remove(traditionalCountry);
 		}
 
+		// checks if there are at least 10 latin songs in library and creates latin playlist if so
 		if (latin.getSongsList().size() == 10) {
 			playlists.add(latin);
 		} else if (latin.getSongsList().size() < 10 && playlists.contains(latin)) {
 			playlists.remove(latin);
 		}
 
+		// checks if there are at least 10 rock songs in library and creates rock playlist if so
 		if (rock.getSongsList().size() == 10) {
 			playlists.add(rock);
 		} else if (rock.getSongsList().size() < 10 && playlists.contains(rock)) {
 			playlists.remove(rock);
 		}
 
+		// checks if there are at least 10 singer/songwriter songs in library and creates singer/songwriter playlist if so
 		if (singerSongwriter.getSongsList().size() == 10) {
 			playlists.add(singerSongwriter);
 		} else if (singerSongwriter.getSongsList().size() < 10 && playlists.contains(singerSongwriter)) {
@@ -760,9 +775,12 @@ public class UserLibrary {
 		}
 	}
 	
+	// this method adds a song to a genre playlist and is called when a song is added to library
 	public void addToGenrePlaylists(String songTitle, String artist) {
 		Song toAdd = new Song("", "", null);
 		for (Song s : songs) {
+			
+			// finds song object with given title and artist
 			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase())
 				&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
 				toAdd = s;
@@ -796,14 +814,20 @@ public class UserLibrary {
 		}
 	}
 
+	// this method plays a song given a title and artist
 	public void play(String songTitle, String artist) {
 		for (Song s : songs) {
+			
+			// searches for the song object in the library
 			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase())
 					&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
+				
+				// adds a copy of the song to the Plays hashMap
 				plays.playSong(new Song(s));
 			}
 		}
 		
+		// updates users recently played and frequently played playlists if they do not exist
 		if (!playlistInLibrary("Recently Played") || !playlistInLibrary("Frequently Played")) {
 			playlists.add(plays.getRecentlyPlayed());
 			playlists.add(plays.getFrequentlyPlayed());
@@ -827,6 +851,7 @@ public class UserLibrary {
 		return new Playlist(plays.getFrequentlyPlayed());
 	}
 
+	// this toString adjacent method helps save all the information for a user to a text file
 	public String toStringFile() {
 		String message = "My Library:\n";
 		message += "\tSongs:\n";
@@ -848,6 +873,7 @@ public class UserLibrary {
 	    return message;
 	}
 	
+	// this toString adjacent method helps with saving the shuffled playlist to a textfile
 	public String toStringShuffled() {
 		String message = "My Library:\n";
 		message += "\tShuffled Songs:\n";
@@ -885,6 +911,7 @@ public class UserLibrary {
 	    return message;
 	}
 	
+	// this method helps re-load user data
 	public void setRecentlyPlayed(Playlist recent) {
 		plays.setRecentlyPlayed(recent);
 		for (int i = 0; i < playlists.size(); i ++) {
@@ -894,6 +921,7 @@ public class UserLibrary {
 		}
 	}
 	
+	// private method to check whether a playlist is in the user library
 	private boolean playlistInLibrary(String name) {
 		for (Playlist p : playlists) {
 			if (p.getName().toLowerCase().equals(name.toLowerCase())) {
