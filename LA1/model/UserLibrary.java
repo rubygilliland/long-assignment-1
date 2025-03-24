@@ -48,9 +48,12 @@ public class UserLibrary {
 		singerSongwriter = new Playlist("Singer Songwriter");
 		playlists.add(favorites);
 		playlists.add(topRated);
+		playlists.add(plays.getRecentlyPlayed());
+		playlists.add(plays.getFrequentlyPlayed());
 		shuffleLibrary();
 	}
 
+	
 	// searches for songs in the user library by title
 	public String getSongByTitle(String songTitle) {
 		String songStr = "";
@@ -626,6 +629,24 @@ public class UserLibrary {
 			}
 		}
 	}
+	
+	// @pre int rating must be a rating from 1-5
+		public void rateSong(String songName, String artist, String rating) {
+			for (Song s : songs) {
+
+				// searches for Song with given title and artist, ignoring capitalization
+				if (s.getTitle().toLowerCase().equals(songName.toLowerCase())
+						&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
+					s.rate(rating);
+					if (rating.toLowerCase().equals("favorite")) {
+						favorites.addSong(s);
+						topRated.addSong(s);
+					} else if (rating.toLowerCase().equals("four")) {
+						topRated.addSong(s);
+					}
+				}
+			}
+		}
 
 	// returns a String of all the favorited Songs in a users library
 	public String getFavoriteSongs() {
@@ -700,7 +721,7 @@ public class UserLibrary {
 		play(random.getTitle(), random.getArtist());
 		return random.toString();
 	}
-
+	
 	public void updateGenrePlaylists() {
 		if (pop.getSongsList().size() == 10) {
 			playlists.add(pop);

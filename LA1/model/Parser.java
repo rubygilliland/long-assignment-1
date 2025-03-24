@@ -145,8 +145,9 @@ public class Parser {
 				case 2:
 					// add song
 					String songname = lineArray[1].strip();
-					String artist = lineArray[3].strip();
-					userLibrary.addSong(songname, artist, lineArray[5].strip());
+					String artist = lineArray[3].strip(); 
+					userLibrary.addSong(songname, artist);
+					userLibrary.rateSong(songname, artist, lineArray[5].strip());
 					
 					// restores the amount of plays for each song
 					int plays = Integer.valueOf(lineArray[6].strip());
@@ -165,7 +166,6 @@ public class Parser {
 				    	
 				    	// if playlist is recently played, make a unique name for it
 				    	if (currPlaylist.toLowerCase().equals("recently played")) {
-				    		System.out.println("here");
 				    		userLibrary.createPlaylist("real recently played");
 				    		currPlaylist = "real recently played";
 				    	}

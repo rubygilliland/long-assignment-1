@@ -1,61 +1,103 @@
-7s7nWI4Uli1Uvmp14zv6Rg==
-colin ZYDgo9jP2Ep8VB7Nc+fMGl632oHo/xGh/h8c7uda98w=
+uAixDeuf+g996dl0nG+lXA==
+colin gz8U1wUKlHhag3eZFeiXeM2X0YCpUxuVry/VDSiziqk=
 My Library:
 	Songs:
-		1. I Found a Boy - by: Adele (21):FOUR:8
-		2. Burn Bright - by: The Heavy (Sons):null:0
-		3. Clocks - by: Coldplay (A Rush of Blood to the Head):null:2
-		4. Amsterdam - by: Coldplay (A Rush of Blood to the Head):null:1
-		5. Daydreamer - by: Adele (19):null:2
-		6. Best for Last - by: Adele (19):null:0
-		7. Chasing Pavements - by: Adele (19):null:0
-		8. Cold Shoulder - by: Adele (19):null:0
-		9. Crazy for You - by: Adele (19):null:0
-		10. Melt My Heart to Stone - by: Adele (19):null:0
-		11. First Love - by: Adele (19):FAVORITE:0
-		12. Right as Rain - by: Adele (19):null:0
-		13. Make You Feel My Love - by: Adele (19):null:0
-		14. My Same - by: Adele (19):null:0
-		15. Tired - by: Adele (19):null:1
-		16. Hometown Glory - by: Adele (19):null:1
+		1. Heavy for You - by: The Heavy (Sons):FOUR:2
+		2. The Thief - by: The Heavy (Sons):null:0
+		3. Better as One - by: The Heavy (Sons):null:0
+		4. Fire - by: The Heavy (Sons):null:0
+		5. Fighting for the Same Thing - by: The Heavy (Sons):null:0
+		6. Hurt Interlude - by: The Heavy (Sons):null:0
+		7. Put the Hurt on Me - by: The Heavy (Sons):null:0
+		8. Simple Things - by: The Heavy (Sons):null:0
+		9. A Whole Lot of Love - by: The Heavy (Sons):THREE:0
+		10. What Don't Kill You - by: The Heavy (Sons):null:0
+		11. Burn Bright - by: The Heavy (Sons):FOUR:0
+		12. Crazy for You - by: Adele (19):FAVORITE:0
+		13. Just a Little Bit - by: Norah Jones (Begin Again):FAVORITE:0
+		14. Lovesong - by: Adele (21):FAVORITE:1
+	Albums:
+		1. Sons - by: The Heavy (ROCK) 2019
+		2. 19 - by: Adele (POP) 2008
+		3. Begin Again - by: Norah Jones (POP) 2018
+		4. 21 - by: Adele (POP) 2011
+	Playlists:
+		1. Favorites:
+				Crazy for You - by: Adele (19)
+				Just a Little Bit - by: Norah Jones (Begin Again)
+				Lovesong - by: Adele (21)
+
+		2. Top Rated:
+				Heavy for You - by: The Heavy (Sons)
+				Burn Bright - by: The Heavy (Sons)
+				Crazy for You - by: Adele (19)
+				Just a Little Bit - by: Norah Jones (Begin Again)
+				Lovesong - by: Adele (21)
+
+		3. Recently Played:
+				Heavy for You - by: The Heavy (Sons)
+				Lovesong - by: Adele (21)
+
+		4. Frequently Played:
+				Heavy for You - by: The Heavy (Sons)
+				Lovesong - by: Adele (21)
+
+		5. Rock:
+				Heavy for You - by: The Heavy (Sons)
+				The Thief - by: The Heavy (Sons)
+				Better as One - by: The Heavy (Sons)
+				Fire - by: The Heavy (Sons)
+				Fighting for the Same Thing - by: The Heavy (Sons)
+				Hurt Interlude - by: The Heavy (Sons)
+				Put the Hurt on Me - by: The Heavy (Sons)
+				Simple Things - by: The Heavy (Sons)
+				A Whole Lot of Love - by: The Heavy (Sons)
+				What Don't Kill You - by: The Heavy (Sons)
+				Burn Bright - by: The Heavy (Sons)
+
+		6. :
+
+//
+ruby Q8vukRD3IkfyCmta3YnT+LCkeQkSYzTsiljzCDF5Hwk=
+My Library:
+	Songs:
+		1. Rumour Has It - by: Adele (21):null:0
+		2. Turning Tables - by: Adele (21):null:0
+		3. Don't You Remember - by: Adele (21):null:0
+		4. Set Fire to the Rain - by: Adele (21):null:0
+		5. He Won't Go - by: Adele (21):null:0
+		6. Take It All - by: Adele (21):null:1
+		7. I'll Be Waiting - by: Adele (21):null:0
+		8. One and Only - by: Adele (21):null:0
+		9. Lovesong - by: Adele (21):null:0
+		10. Someone Like You - by: Adele (21):null:1
+		11. I Found a Boy - by: Adele (21):null:0
 	Albums:
 		1. 21 - by: Adele (POP) 2011
-		2. Sons - by: The Heavy (ROCK) 2019
-		3. A Rush of Blood to the Head - by: Coldplay (ALTERNATIVE) 2002
-		4. 19 - by: Adele (POP) 2008
 	Playlists:
 		1. Favorites:
 
 		2. Top Rated:
 
 		3. Recently Played:
-				I Found a Boy - by: Adele (21)
-				Hometown Glory - by: Adele (19)
-				Clocks - by: Coldplay (A Rush of Blood to the Head)
-				I Found a Boy - by: Adele (21)
-				Tired - by: Adele (19)
+				Someone Like You - by: Adele (21)
+				Take It All - by: Adele (21)
 
 		4. Frequently Played:
-				I Found a Boy - by: Adele (21)
-				Daydreamer - by: Adele (19)
-				Clocks - by: Coldplay (A Rush of Blood to the Head)
-				Amsterdam - by: Coldplay (A Rush of Blood to the Head)
-				Tired - by: Adele (19)
-				Hometown Glory - by: Adele (19)
+				Take It All - by: Adele (21)
+				Someone Like You - by: Adele (21)
 
 		5. Pop:
+				Rumour Has It - by: Adele (21)
+				Turning Tables - by: Adele (21)
+				Don't You Remember - by: Adele (21)
+				Set Fire to the Rain - by: Adele (21)
+				He Won't Go - by: Adele (21)
+				Take It All - by: Adele (21)
+				I'll Be Waiting - by: Adele (21)
+				One and Only - by: Adele (21)
+				Lovesong - by: Adele (21)
+				Someone Like You - by: Adele (21)
 				I Found a Boy - by: Adele (21)
-				Daydreamer - by: Adele (19)
-				Best for Last - by: Adele (19)
-				Chasing Pavements - by: Adele (19)
-				Cold Shoulder - by: Adele (19)
-				Crazy for You - by: Adele (19)
-				Melt My Heart to Stone - by: Adele (19)
-				First Love - by: Adele (19)
-				Right as Rain - by: Adele (19)
-				Make You Feel My Love - by: Adele (19)
-				My Same - by: Adele (19)
-				Tired - by: Adele (19)
-				Hometown Glory - by: Adele (19)
 
 //

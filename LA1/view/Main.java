@@ -161,21 +161,25 @@ public class Main {
 		
 		switch (wait) {
 		case "my library":
-			String songResult = searchSongs(userLibrary);
-			System.out.println("\n" + "Song(s):\n" + songResult + "\n" + getAlbumInfo(userLibrary, songResult) + "\n");
+			//String songResult = searchSongs(userLibrary);
+			//System.out.println("\n" + "Song(s):\n" + songResult + "\n" + getAlbumInfo(userLibrary, songResult) + "\n");
+			getAlbumInfo(userLibrary);
 			break;
 			
 		case "1":
-			String songResult1 = searchSongs(userLibrary);
-			System.out.println("\n" + "Song(s):\n" + songResult1 + "\n" + getAlbumInfo(userLibrary, songResult1) + "\n");
+			//String songResult1 = searchSongs(userLibrary);
+			//System.out.println("\n" + "Song(s):\n" + songResult1 + "\n" + getAlbumInfo(userLibrary, songResult1) + "\n");
+			getAlbumInfo(userLibrary);
 			break;
 		case "music store":
-			String songResult2 = searchSongs(musicStore);
-			System.out.println("\n" + "Song(s):\n" + songResult2 + "\n" + getAlbumInfo(musicStore, userLibrary, songResult2) + "\n");
+			//String songResult2 = searchSongs(musicStore);
+			//System.out.println("\n" + "Song(s):\n" + songResult2 + "\n" + getAlbumInfo(musicStore, userLibrary, songResult2) + "\n");
+			getAlbumInfo(musicStore, userLibrary);
 			break;
 		case "2":
-			String songResult3 = searchSongs(musicStore);
-			System.out.println("\n" + "Song(s):\n" + songResult3 + "\n" + getAlbumInfo(musicStore, userLibrary, songResult3) + "\n");
+			//String songResult3 = searchSongs(musicStore);
+			//System.out.println("\n" + "Song(s):\n" + songResult3 + "\n" + getAlbumInfo(musicStore, userLibrary, songResult3) + "\n");
+			getAlbumInfo(musicStore, userLibrary);
 			break;
 		default:
 			System.out.print("\nCan not reach this library. Please try again!\n");
@@ -213,6 +217,9 @@ public class Main {
 			String artistGiven = searchInput.nextLine().strip();
 			songFound = musicStore.getSongByArtist(artistGiven);
 			break;
+		default:
+			System.out.println("Invalid input. Please try again\n");
+			break;
 		}
 		return songFound;
 	}
@@ -248,44 +255,139 @@ public class Main {
 			String artistGiven = searchInput.nextLine().strip();
 			songFound = userLibrary.getSongByArtist(artistGiven);
 			break;
+		default:
+			System.out.println("Invalid input. Please try again\n");
+			break;
 		}
 		return songFound;
 	}
 	
-	public static String getAlbumInfo(UserLibrary userLibrary, String song) {
+	public static void getAlbumInfo(UserLibrary userLibrary) {
 		String albumInfo = "";
-		if (!(song.equals("Songs by this artist cannot be found.") || song.equals("Songs of this genre cannot be found.") 
-				|| song.equals("This song cannot be found."))) {
-		System.out.print("Would you like to get the album info for this song? (Y/N): " );
 		Scanner response = new Scanner(System.in);
-		
-		if (response.nextLine().trim().equalsIgnoreCase("Y")) {
-			
-			// Extract artist and title from "Title - by: Artist (Album)" format
-            String artist = song.split(" - by: ")[1].split(" \\(")[0];
-            String title = song.split(" - by: ")[0];
-            albumInfo = "Album: \n" + userLibrary.getAlbumInfo(title, artist);
-		}
-		}
-		return albumInfo;
+
+	    while (true) {
+
+	        // searches for Song in music store by title, genre, or artist
+	        String songSearch = searchSongs(userLibrary);
+
+	        // if Song not found, return message
+	        if (songSearch.equals("This song cannot be found.") || songSearch.equals("Songs by this artist cannot be found.")
+	        		|| songSearch.equals("Songs of this genre cannot be found.")) {
+	        	System.out.println("\nThis song cannot be found.\n");
+	        	break;
+	        }
+
+	        	// Splitting multiple results of Song search
+	            String[] songs = songSearch.strip().split("\n");
+
+	            String selectedSong;
+
+	            // if multiple Songs found, print a numbered list of all results
+	            if (songs.length > 1) {
+	                System.out.println("\nMultiple songs found:");
+	                for (int i = 0; i < songs.length; i++) {
+	                    System.out.println((i + 1) + ". " + songs[i]);
+	                }
+	                System.out.print("Enter the NUMBER of the song you're searching for: ");
+
+	                // gets and validates user input of number of the Song they want to add
+	                int choice;
+	                try {
+	                    choice = Integer.parseInt(response.nextLine().strip());
+
+	                    if (choice < 1 || choice > songs.length) {
+							throw new NumberFormatException();
+						}
+	                } catch (NumberFormatException e) {
+	                    System.out.println("Invalid selection. Please try again.\n");
+	                    continue;
+	                }
+	                selectedSong = songs[choice - 1];
+	            } else {
+	                selectedSong = songs[0];
+	            }
+
+	            // Extract artist and title from "Title - by: Artist (Album)" format
+	            String artist = selectedSong.split(" - by: ")[1].split(" \\(")[0];
+	            String title = selectedSong.split(" - by: ")[0];
+
+	            System.out.print("Would you like to get the album info for this song? (Y/N): ");
+	            if(response.nextLine().trim().equalsIgnoreCase("Y")) {
+	            	System.out.println("Album: \n" + userLibrary.getAlbumInfo(title, artist) + "\n");
+	            }
+	        
+
+	        // allows user to keep searching for Songs in library if they'd like
+	        System.out.print("Would you like to search for another song? (Y/N): ");
+	        if (!response.nextLine().trim().equalsIgnoreCase("Y")) {
+				break;
+			}
+	}
 	}
 	
-	public static String getAlbumInfo(MusicStore musicStore, UserLibrary userLibrary, String song) {
+	public static void getAlbumInfo(MusicStore musicStore, UserLibrary userLibrary) {
 		String albumInfo = "";
-		if (!(song.equals("Songs by this artist cannot be found.") || song.equals("Songs of this genre cannot be found.") 
-				|| song.equals("This song cannot be found."))) {
-		System.out.print("Would you like to get the album info for this song? (Y/N): " );
 		Scanner response = new Scanner(System.in);
-		
-		if (response.nextLine().trim().equalsIgnoreCase("Y")) {
-			
-			// Extract artist and title from "Title - by: Artist (Album)" format
-            String artist = song.split(" - by: ")[1].split(" \\(")[0];
-            String title = song.split(" - by: ")[0];
-            albumInfo = "Album: \n" + musicStore.getAlbumInfo(title, artist, userLibrary);
-		}
-		}
-		return albumInfo;
+
+	    while (true) {
+
+	        // searches for Song in music store by title, genre, or artist
+	        String songSearch = searchSongs(musicStore);
+
+	        // if Song not found, return message
+	        if (songSearch.equals("This song cannot be found.") || songSearch.equals("Songs by this artist cannot be found.")
+	        		|| songSearch.equals("Songs of this genre cannot be found.")) {
+	        	System.out.println("\nThis song cannot be found.\n");
+	        	break;
+	        }
+
+	        	// Splitting multiple results of Song search
+	            String[] songs = songSearch.strip().split("\n");
+
+	            String selectedSong;
+
+	            // if multiple Songs found, print a numbered list of all results
+	            if (songs.length > 1) {
+	                System.out.println("\nMultiple songs found:");
+	                for (int i = 0; i < songs.length; i++) {
+	                    System.out.println((i + 1) + ". " + songs[i]);
+	                }
+	                System.out.print("Enter the NUMBER of the song you're searching for: ");
+
+	                // gets and validates user input of number of the Song they want to add
+	                int choice;
+	                try {
+	                    choice = Integer.parseInt(response.nextLine().strip());
+
+	                    if (choice < 1 || choice > songs.length) {
+							throw new NumberFormatException();
+						}
+	                } catch (NumberFormatException e) {
+	                    System.out.println("Invalid selection. Please try again.\n");
+	                    continue;
+	                }
+	                selectedSong = songs[choice - 1];
+	            } else {
+	                selectedSong = songs[0];
+	            }
+
+	            // Extract artist and title from "Title - by: Artist (Album)" format
+	            String artist = selectedSong.split(" - by: ")[1].split(" \\(")[0];
+	            String title = selectedSong.split(" - by: ")[0];
+
+	            System.out.print("Would you like to get the album info for this song? (Y/N): ");
+	            if(response.nextLine().trim().equalsIgnoreCase("Y")) {
+	            	System.out.println("Album: \n" + musicStore.getAlbumInfo(title, artist, userLibrary) + "\n");
+	            }
+	        
+
+	        // allows user to keep searching for Songs in library if they'd like
+	        System.out.print("Would you like to search for another song? (Y/N): ");
+	        if (!response.nextLine().trim().equalsIgnoreCase("Y")) {
+				break;
+			}
+	    }
 	}
 	
 	public static String albumSearchLibraryStore(UserLibrary userLibrary, MusicStore musicStore) {
