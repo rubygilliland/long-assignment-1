@@ -1,3 +1,7 @@
+/*
+ * This class defines methods and instance variables for a UserData
+ * object. UserData contains all the data for a given user.
+ */
 package model;
 
 import java.io.File;
@@ -11,11 +15,12 @@ import java.util.Scanner;
 
 public class UserData {
 	private final static String FILE_PATH = "LA1\\users.txt";
-	//private static HashMap
 
 	public static void createUser(User user) {
 
 		try{
+			
+			// creates a new User and properly stores their username and password
 			ArrayList<String> fileContents = getFileContents();
 			String salt = fileContents.get(0);
 			FileWriter userFile = new FileWriter(FILE_PATH);
@@ -39,9 +44,12 @@ public class UserData {
 		}
 	} 
 
+	// this method writes all the data for a given user to a text file so that it can be reloaded
 	public static void saveUser(User user) {
 
 		try{
+			
+			// saves data for new user
 			ArrayList<String> fileContents = getFileContents();
 			String salt = fileContents.get(0);
 			FileWriter userFile = new FileWriter(FILE_PATH);
@@ -55,6 +63,8 @@ public class UserData {
 					}
 				}
 				else {
+					
+					// saves data for existing user
 					String[] fileLine = line.split(" ");
 					userFile.write(line + "\n");
 					if (fileLine[0].equals(user.getUsername()) && fileLine[1].equals(user.getPassword())) {
@@ -80,6 +90,7 @@ public class UserData {
 
 
 
+	// this helper method gets all the file contents (stored data) for a given user
 	private static ArrayList<String> getFileContents() throws FileNotFoundException {
 		ArrayList<String> fileContents = new ArrayList<>();
 		File myFile = new File(FILE_PATH);
@@ -94,7 +105,7 @@ public class UserData {
 		return fileContents;
 	}
 
-
+	// this method gets the data associated with a username
 	public static HashMap<String, String> getData(){
 		try {
 			ArrayList<String>fileContents = getFileContents();

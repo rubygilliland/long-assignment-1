@@ -48,9 +48,12 @@ public class Playlist {
 		songs.remove(songs.size() -1);
 	}
 
+	// returns a boolean that represents whether a given song is in a playlist
 	public boolean songInPlaylist(String songTitle, String artist) {
 		boolean inPlaylist = false;
 		for (Song s : songs) {
+			
+			// checks songs list for song with given title and artist
 			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase()) &&
 					s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
 				inPlaylist = true;
@@ -92,6 +95,7 @@ public class Playlist {
 			shuffled = shuffle;
 		}
 
+	// gets a random song by picking a song from the shuffled playlist
 	public Song getRandomSong() {
 		Song random = shuffled.get(shufflePointer);
 		shufflePointer += 1;
@@ -176,17 +180,17 @@ public class Playlist {
 	    
 	    Playlist other = (Playlist) obj;
 	    
-	    // Compare names
+	    // compare names
 	    if (!this.name.equals(other.name)) {
 	        return false;
 	    }
 	    
-	    // Compare songs lists (deep comparison)
+	    // sompare songs lists 
 	    if (!this.getSongsList().equals(other.getSongsList())) {
 	        return false;
 	    }
 	    
-	    // Compare shuffled lists and shufflePointer
+	    // compare shuffled lists and shufflePointer
 	    return this.shuffled.equals(other.shuffled) && this.shufflePointer == other.shufflePointer;
 	}
 	

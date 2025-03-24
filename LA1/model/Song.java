@@ -39,6 +39,7 @@ private void rate(Rating rating) {
 
 
 // @pre int userRating must be a rating from 1-5
+// rates a song based on the given integer
 public void rate(int userRating) {
 	switch(userRating) {
 	case 1:
@@ -60,6 +61,7 @@ public void rate(int userRating) {
 	}
 }
 
+// rates a song based on the given string
 public void rate(String userRating) {
 	switch(userRating.toLowerCase()) {
 	case "null":
@@ -122,6 +124,7 @@ public boolean equals(Object otherSong) {
 	}
  
 
+	// this toString adjacent method helps with writing user information to a file to be saved
 	public String toStringFile() {
 		String message = toString().strip() + ":" + this.rating + "\n";
 		return message;

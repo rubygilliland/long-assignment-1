@@ -1,3 +1,8 @@
+/*
+ * This class defines methods and instance variables for a User object.
+ * A User object holds all the information for a user of the music app,
+ * including username, password, and their library.
+ */
 package model;
 
 
@@ -13,6 +18,7 @@ public class User {
 		this.userLibrary = new UserLibrary(new MusicStore());
 	}
 
+	// copy constructor -- to reload a User
 	public User(String username, String password, UserLibrary userLibrary) {
 		this.username = username;
 		this.password = password;
