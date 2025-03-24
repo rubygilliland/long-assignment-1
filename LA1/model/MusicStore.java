@@ -79,12 +79,19 @@ public class MusicStore {
 	}
 	
 	public String getAlbumInfo(String songTitle, String artist, UserLibrary userLibrary) {
+		/*
+		 * This method retrieves the album information for a song given by the title and artist.
+		 * It then determines whether the album is in the given users library.
+		 */
 		String albumStr = "";
 		for (Song s : songs) {
+			
+			// searches for song to find album info
 			if (s.getTitle().toLowerCase().equals(songTitle.toLowerCase())
 					&& s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
 				albumStr += s.getAlbumObj().toString().strip();
 				
+				// searches for album in user library
 				for (Album a : userLibrary.getAlbumList()) {
 					if (s.getAlbumObj().getTitle().equals(a.getTitle())) {
 						albumStr += " - is in your library!";

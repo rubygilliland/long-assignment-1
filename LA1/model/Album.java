@@ -105,7 +105,7 @@ public class Album {
 	@Override
 	public boolean equals(Object otherAlbum) {
 		/*
-		 * This method helps with testing
+		 * This method overrides the inherited equals method and helps with testing
 		 */
 		if (this.getClass() != otherAlbum.getClass()) {
 			return false;
