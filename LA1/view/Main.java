@@ -1072,83 +1072,12 @@ public class Main {
 	        }
 	    }
 	}
-
-	public static void removeFromLibrary(UserLibrary userLibrary) {
-		System.out.print("What would you like to remove? (Song/Album): ");
-		while (true) {
-			Scanner myScanner = new Scanner(System.in);
-			String response = myScanner.nextLine();
-			myScanner.close();
-			if (response.toLowerCase().equals("song")) {
-				String[] songs = userLibrary.getSongInfo().split("\n");
-				if (songs.length - 1 == 0) {
-					System.out.println("No songs in library found.\n");
-					return;
-				}
-				
-				System.out.println(userLibrary.getSongInfo());
-				System.out.print("Enter the NUMBER of the song you would like to remove: ");
-				Scanner songScanner = new Scanner(System.in);
-				
-				int songNum;
-				try {
-					songNum = Integer.valueOf(songScanner.nextLine());
-					if (songNum < 1 || songNum > songs.length - 1) {
-						System.out.println("Invalid selection. Please try again.\n");
-						continue;
-					}
-					String songString = songs[songNum].strip().replace(".", ":").replace("-", ":").replace("(", ":");
-					String[] songList = songString.split(":");
-					userLibrary.removeSongFromLibrary(songList[1].strip(), songList[3].strip());
-					System.out.println("\nSong: " + songList[1].strip() + " - by: " + songList[3].strip() + " successfully removed!\n");
-					return;
-				}	
-				catch (NumberFormatException e) {
-					System.out.println("Invalid selection. Please try again.\n");
-					continue;
-				}
-			}
-			else if (response.toLowerCase().equals("album")) {
-				ArrayList<Album> albums = userLibrary.getAlbumList();
-				if (albums.size() == 0) {
-					System.out.println("No albums in library found.\n");
-					return;
-				}
-				
-				System.out.println(userLibrary.getAlbumTitles());
-				System.out.print("Enter the NUMBER of the album you would like to remove: ");
-				Scanner songScanner = new Scanner(System.in);
-				
-
-				
-				int songNum;
-				try {
-					songNum = Integer.valueOf(songScanner.nextLine());
-					if (songNum < 1 || songNum > albums.size()) {
-						System.out.println("Invalid selection. Please try again.\n");
-						continue;
-					}
-					String albumTitle = albums.get(songNum - 1).getTitle();
-					String albumArtist = albums.get(songNum - 1).getArtist();
-					userLibrary.removeAlbumFromLibrary(albumTitle, albumArtist);
-					System.out.println("\nAlbum: " + albumTitle + " - by: " + albumArtist + " successfully removed!\n");
-					return;
-				}	
-				catch (NumberFormatException e) {
-					System.out.println("Invalid selection. Please try again.\n");
-					continue;
-				}
-			}
-			else {
-				System.out.println("Invalid selection. Please try again.\n");
-				continue;
-			}
-		}
-		
-	}
 	
+	// this method shuffles a playlist or the user library based on user input
 	public static void shuffle(UserLibrary userLibrary) {
 		Scanner responseWait = new Scanner(System.in);
+		
+		// takes user input to determine what to shuffle
 		System.out.print("What would you like to shuffle? (Library/Playlist): ");
 		String response = responseWait.nextLine().toLowerCase().strip();
 		
@@ -1156,6 +1085,8 @@ public class Main {
 		case "library":
 			userLibrary.shuffleLibrary();
 			System.out.println("Library has been shuffled!\n");
+			
+			// prints shuffled library
 			System.out.println("\n" + userLibrary.toStringShuffled() + "\n");
 			break;
 		case "playlist":
@@ -1163,6 +1094,8 @@ public class Main {
 			
 			Scanner enterPlaylist = new Scanner(System.in);
 			System.out.println("\n" + userLibrary.getPlaylists() + "\n");
+			
+			// gets playlist to shuffle
 			System.out.print("Enter the NUMBER of the playlist you would like to shuffle: ");
 			String playlist = enterPlaylist.nextLine().strip();
 			
@@ -1179,12 +1112,14 @@ public class Main {
 	            return;
 	        }
 	        
+	        // does not allow user to shuffle recently played or frequently played
 	        String playlistName = playlists[choice].replace(".", ":").split(":")[1].strip();
 	        if (playlistName.equals("Frequently Played") || playlistName.equals("Recently Played")) {
 	        	System.out.println("Sorry, this playlist can not be shuffled.\n");
 	        	return;
 	        }
 	        
+	        // prints out shuffled playlist
 	        userLibrary.shufflePlaylist(playlistName);
 	        String playlistString = userLibrary.getPlaylistObj(playlistName).toStringShuffled();
 	        System.out.println("\n" + playlistString + "\n");
@@ -1196,6 +1131,7 @@ public class Main {
 		}
 	}
 	
+	// this method plays a random song from the shuffled library or playlist
 	public static void playRandom(UserLibrary userLibrary) {
 		Scanner responseWait = new Scanner(System.in);
 		System.out.print("Where do you want to play a song from? (Library/Playlist): ");
@@ -1205,12 +1141,16 @@ public class Main {
 		String[] songList;
 		switch(response) {
 		case "library":
+			
+			// plays song from shuffled library
 			songString = userLibrary.playRandomSong();
 			songString = songString.strip().replace(".", ":").replace("-", ":").replace("(", ":");
 			songList = songString.split(":");
 			System.out.println("\nNow playing: " + songList[0].strip() + " - by: " + songList[2].strip() + "!\n");
 			break;
 		case "playlist":
+			
+			// plays song from selected shuffled playlist
 			String[] playlists = userLibrary.getPlaylists().split("\n");
 			
 			Scanner enterPlaylist = new Scanner(System.in);
@@ -1245,9 +1185,77 @@ public class Main {
 	}
 }
 
-
-
-
-
-
-
+//	public static void removeFromLibrary(UserLibrary userLibrary) {
+//		System.out.print("What would you like to remove? (Song/Album): ");
+//		while (true) {
+//			Scanner myScanner = new Scanner(System.in);
+//			String response = myScanner.nextLine();
+//			myScanner.close();
+//			if (response.toLowerCase().equals("song")) {
+//				String[] songs = userLibrary.getSongInfo().split("\n");
+//				if (songs.length - 1 == 0) {
+//					System.out.println("No songs in library found.\n");
+//					return;
+//				}
+//				
+//				System.out.println(userLibrary.getSongInfo());
+//				System.out.print("Enter the NUMBER of the song you would like to remove: ");
+//				Scanner songScanner = new Scanner(System.in);
+//				
+//				int songNum;
+//				try {
+//					songNum = Integer.valueOf(songScanner.nextLine());
+//					if (songNum < 1 || songNum > songs.length - 1) {
+//						System.out.println("Invalid selection. Please try again.\n");
+//						continue;
+//					}
+//					String songString = songs[songNum].strip().replace(".", ":").replace("-", ":").replace("(", ":");
+//					String[] songList = songString.split(":");
+//					userLibrary.removeSongFromLibrary(songList[1].strip(), songList[3].strip());
+//					System.out.println("\nSong: " + songList[1].strip() + " - by: " + songList[3].strip() + " successfully removed!\n");
+//					return;
+//				}	
+//				catch (NumberFormatException e) {
+//					System.out.println("Invalid selection. Please try again.\n");
+//					continue;
+//				}
+//			}
+//			else if (response.toLowerCase().equals("album")) {
+//				ArrayList<Album> albums = userLibrary.getAlbumList();
+//				if (albums.size() == 0) {
+//					System.out.println("No albums in library found.\n");
+//					return;
+//				}
+//				
+//				System.out.println(userLibrary.getAlbumTitles());
+//				System.out.print("Enter the NUMBER of the album you would like to remove: ");
+//				Scanner songScanner = new Scanner(System.in);
+//				
+//
+//				
+//				int songNum;
+//				try {
+//					songNum = Integer.valueOf(songScanner.nextLine());
+//					if (songNum < 1 || songNum > albums.size()) {
+//						System.out.println("Invalid selection. Please try again.\n");
+//						continue;
+//					}
+//					String albumTitle = albums.get(songNum - 1).getTitle();
+//					String albumArtist = albums.get(songNum - 1).getArtist();
+//					userLibrary.removeAlbumFromLibrary(albumTitle, albumArtist);
+//					System.out.println("\nAlbum: " + albumTitle + " - by: " + albumArtist + " successfully removed!\n");
+//					return;
+//				}	
+//				catch (NumberFormatException e) {
+//					System.out.println("Invalid selection. Please try again.\n");
+//					continue;
+//				}
+//			}
+//			else {
+//				System.out.println("Invalid selection. Please try again.\n");
+//				continue;
+//			}
+//		}
+//		
+//	}
+//	
