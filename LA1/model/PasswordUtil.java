@@ -1,5 +1,5 @@
 /*
- * This class defines an object that is used to securely store passwords
+ * This class defines utility that is used to securely store passwords
  * for a user database. It has methods to create a salt and hash a password.
  */
 package model;

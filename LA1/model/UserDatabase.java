@@ -1,3 +1,7 @@
+/*
+ * This class defines an object that stores all usernames and passwords as they are mapped together.
+ * The class stores them in a hashmap to ensure no duplicated usernames or passwords.
+ */
 package model;
 
 import java.util.HashMap;

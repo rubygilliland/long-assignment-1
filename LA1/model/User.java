@@ -8,7 +8,7 @@ package model;
 
 public class User {
 	private String username;
-	private String password; // this is temporary
+	private String password;
 	private UserLibrary userLibrary;
 
 

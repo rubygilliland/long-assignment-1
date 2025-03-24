@@ -1,6 +1,6 @@
 /*
- * This class defines methods and instance variables for a UserData
- * object. UserData contains all the data for a given user.
+ * This class defines utility to read and write to a users.txt file in order to 
+ * store and retrieve user information upon each rerun of the program.
  */
 package model;
 
@@ -17,7 +17,10 @@ public class UserData {
 	private final static String FILE_PATH = "LA1\\users.txt";
 
 	public static void createUser(User user) {
-
+		/*
+		 * This method writes to the text file after a user has been created to 
+		 * store a new user in the text file.
+		 */
 		try{
 			
 			// creates a new User and properly stores their username and password
@@ -44,9 +47,11 @@ public class UserData {
 		}
 	} 
 
-	// this method writes all the data for a given user to a text file so that it can be reloaded
 	public static void saveUser(User user) {
-
+		/*
+		 * This method rewrites all the data from all the users in the database to a text file so that
+		 * all users can be reloaded.
+		 */
 		try{
 			
 			// saves data for new user
@@ -90,8 +95,11 @@ public class UserData {
 
 
 
-	// this helper method gets all the file contents (stored data) for a given user
 	private static ArrayList<String> getFileContents() throws FileNotFoundException {
+		/*
+		 * This helper method gets all the content within the user.txt file that includes
+		 * the information of all the users, stored in an iterable arraylist.
+		 */
 		ArrayList<String> fileContents = new ArrayList<>();
 		File myFile = new File(FILE_PATH);
 		
@@ -105,8 +113,11 @@ public class UserData {
 		return fileContents;
 	}
 
-	// this method gets the data associated with a username
 	public static HashMap<String, String> getData(){
+		/*
+		 * This method gets the usernames and passwords of all the users within the text file
+		 * and returns that information as a hashmap that maps username to its specific password.
+		 */
 		try {
 			ArrayList<String>fileContents = getFileContents();
 			fileContents.remove(0);
@@ -136,6 +147,11 @@ public class UserData {
 	}
 
 	public static User getUser(String username, String password) {
+		/*
+		 * This method retrieves and recreates a user instance for a specified user
+		 * in the text file. It restores all playlists, all plays, all ratings, and everything
+		 * else stored initially in the user library.
+		 */
 		try {
 			ArrayList<String> fileContents = getFileContents();
 			fileContents.remove(0);
@@ -173,6 +189,10 @@ public class UserData {
 	}
 	
 	public static String getSaltString() {
+		/*
+		 * This method retrieves the salt string written in the text file
+		 * in order to encode and check the password when logging in.
+		 */
 		try {
 			File myFile = new File(FILE_PATH);
 			Scanner myScanner = new Scanner(myFile);
@@ -185,6 +205,10 @@ public class UserData {
 	}
 	
 	public static String writeSaltString() {
+		/*
+		 * This method writes the salt string to the text file so that
+		 * each password can be encoded when entered in.
+		 */
 		
 		try {
 			ArrayList<String> fileContents = getFileContents();
