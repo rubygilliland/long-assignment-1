@@ -1,4 +1,4 @@
-# long-assignment-1
+# music library
 Music library app for long assignment #1
 
 This program simulates a music streaming app from a user perspective using a string-based UI.
